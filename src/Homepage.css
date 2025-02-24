@@ -4,7 +4,28 @@
   background-image: url('restaurantcollage1.jpg'); /* Adjust the path as needed */
   background-size: cover;      /* Ensures the image covers the entire background */
   background-position: center; /* Centers the image */
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+  flex-direction: column; /* Keeps elements stacked */
+
+.login-button {
+  padding: 15px 90px;
+  font-size: 30px;
+  border: none;
+  background-color: #a52a2a;
+  color: black;
+  border-radius: 15px;
+  cursor: pointer;
+  margin-top: 200px; /* Pushes the button slightly lower */
+  user-select: none; /* Prevents text selection */
+
+}
+
+.login-button:hover {
+  background-color: #800020;
+  transform: scale(1.05); /* Slightly increase size on hover */
+}
+
 }
