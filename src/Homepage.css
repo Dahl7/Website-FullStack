@@ -6,16 +6,16 @@
   background-position: center; /* Centers the image */
 
   display: flex;
+  flex-direction: column; /* Keeps elements stacked */
   justify-content: center; /* Centers horizontally */
   align-items: center; /* Centers vertically */
-  flex-direction: column; /* Keeps elements stacked */
 
 .login-button {
-  padding: 15px 90px;
+  padding: 25px 140px;
   font-size: 30px;
   border: none;
   background-color: #a52a2a;
-  color: black;
+  color: white;
   border-radius: 15px;
   cursor: pointer;
   margin-top: 200px; /* Pushes the button slightly lower */
@@ -28,4 +28,27 @@
   transform: scale(1.05); /* Slightly increase size on hover */
 }
 
+.button-container {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  display: flex;
+  gap: 25px; /* Space between buttons */
+  user-select: none; /* Prevents text selection */
+}
+
+.other-buttons{
+      padding: 7px 18px;
+      font-size: 10px;
+      border: none;
+      background-color: #a52a2a;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+.other-buttons:hover {
+  background-color: #800020;
+  transform: scale(1.05); /* Slightly increase size on hover */
+}
 }
