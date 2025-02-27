@@ -1,19 +1,47 @@
 import React from 'react';
 import './Menupage.css';
 
+const menuItems = [
+  { id: 1, name: 'Cheeseburger' },
+  { id: 2, name: 'Carbonara' },
+  { id: 3, name: 'Bolognese' },
+  { id: 4, name: 'Sushi' }
+];
+
 const Menupage = () => {
+  const handleMenuClick = (item) => {
+    console.log(`Clicked on ${item.name}`);
+  };
+
+  const handleaddItem = (item) => {
+    console.log("Clicked on add");
+  };
+
   return (
     <div className="menu-page">
       <div className="menu-container">
         <h1>Menu</h1>
 
+        {/* Menu Items */}
+        <div className="menu-items">
+          {menuItems.map((item) => (
+            <div 
+              key={item.id} 
+              className="menu-item" 
+              onClick={() => handleMenuClick(item)}
+            >
+              {item.name}
+            </div>
+          ))}
+        </div>
+
         {/* Centered button inside menu-container */}
         <div className="button-container">
-          <button className="add-btn">+</button>
+        <button className="add-btn" onClick={() => handleaddItem()}>+</button>
         </div>
       </div>
 
-      <div className="back-arrow">&#8592; </div>
+      <div className="back-arrow">&#8592;</div>
 
       <div className="logo">
         <img src="./restaurantcollage1.jpg" alt="Logo" />
@@ -23,4 +51,3 @@ const Menupage = () => {
 };
 
 export default Menupage;
-
