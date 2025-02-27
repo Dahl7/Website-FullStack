@@ -1,9 +1,12 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 import './Homepage.css';
 
-function App() {
+const Homepage = () => {
+  const navigate = useNavigate(); // React Router hook for navigation
+
   const handleLogin = () => {
-    console.log("Login button clicked!");
+    navigate("/login"); // Redirect to the login page
   };
 
   const handleCustomerService = () => {
@@ -15,8 +18,8 @@ function App() {
   };
 
   const handleSignUp = () => {
-    console.log("Sign Up button clicked!")
-  }
+    console.log("Sign Up button clicked!");
+  };
 
   return (
     <div className="App">
@@ -34,4 +37,4 @@ function App() {
   );
 }
 
-export default App;
+export default Homepage;
