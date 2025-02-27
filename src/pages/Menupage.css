@@ -1,0 +1,82 @@
+.menu-page {
+  background-color: #b76b6b;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;  /* Prevents scrollbars from showing */
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Makes sure the image covers the whole container */
+  z-index: -1; /* Places it behind the login form */
+}
+
+.menu-container {
+  background-color: #e5e5e5;
+  padding: 40px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  z-index: 1; /* Places it above the background */
+}
+
+.menu-container h1 {
+  margin-bottom: 500px;
+  font-size: 24px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    width:100%;
+}
+
+.menu-btn, .add-btn {
+  background-color: grey;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 100px;
+  margin-top: 10px;
+  cursor: pointer;
+  width: 30%;
+  display: block;
+  text-align: center;
+    font-size: 60px;
+
+}
+
+.back-arrow {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.logo {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1;
+}
+
+.logo img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
