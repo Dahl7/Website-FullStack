@@ -17,6 +17,10 @@ const Menupage = () => {
     console.log("Clicked on add");
   };
 
+  const previewMenu = () => {
+    console.log("Preview menu");
+  };
+
   return (
     <div className="menu-page">
       <div className="menu-container">
@@ -34,14 +38,14 @@ const Menupage = () => {
             </div>
           ))}
         </div>
-
+        
         {/* Centered button inside menu-container */}
         <div className="button-container">
         <button className="add-btn" onClick={() => handleaddItem()}>+</button>
         </div>
       </div>
 
-      <div className="back-arrow">&#8592;</div>
+      <button className="preview-btn" onClick={previewMenu}>Preview Menu</button>
 
       <div className="logo">
         <img src="./restaurantcollage1.jpg" alt="Logo" />

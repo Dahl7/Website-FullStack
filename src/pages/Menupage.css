@@ -105,3 +105,28 @@
 .menu-item:hover {
   background-color: #d3d3d3;
 }
+
+.preview-btn {
+  background-color: #e5e5e5; /* Light gray background */
+  color: black;
+  padding: 30px 45px; /* Adjust padding for size */
+  border: none;
+  border-radius: 10px; /* Rounded edges */
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 170px; /* Adjust placement from the bottom */
+  right: 130px; /* Adjust placement from the right */
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.preview-btn:hover {
+  background-color: #d3d3d3; /* Slightly darker gray */
+  transform: scale(1.05); /* Small pop effect on hover */
+}
