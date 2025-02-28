@@ -19,6 +19,11 @@
   z-index: -1; /* Places it behind the login form */
 }
 
+.add-btn:hover {
+  background-color: #A8D5BA  ; /* Slightly darker gray */
+  transform: scale(1.05); /* Small pop effect on hover */
+}
+
 .menu-container {
   background-color: #e5e5e5;
   padding: 40px;
