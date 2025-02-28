@@ -140,3 +140,7 @@
   background-color: #d3d3d3; /* Slightly darker gray */
   transform: scale(1.05); /* Small pop effect on hover */
 }
+
+.logo {
+  user-select: none; /* Prevents text selection */
+}

@@ -46,10 +46,9 @@ const Menupage = () => {
       </div>
 
       <button className="preview-btn" onClick={previewMenu}>Preview Menu</button>
-
-      <div className="logo">
-        <img src="./restaurantcollage1.jpg" alt="Logo" />
-      </div>
+    <div className="logo">
+              <img src="/favicon.ico" alt="Logo" className="logo-image" />
+          </div>
     </div>
   );
 };

@@ -32,7 +32,7 @@ const navigate = useNavigate();
 
         {/* Logo */}
         <div className="logo">
-          <img src="/restaurantcollage1.jpg" alt="Logo" />
+            <img src="/favicon.ico" alt="Logo" className="logo-image" />
         </div>
       </div>
     );

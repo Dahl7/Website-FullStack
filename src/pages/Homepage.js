@@ -32,6 +32,9 @@ const Homepage = () => {
         <button onClick={handleAboutUs} className="other-buttons">About us</button>
         <button onClick={handleSignUp} className="other-buttons">Sign up</button>
     </div>
+    <div className="logo">
+                <img src="/favicon.ico" alt="Logo" className="logo-image" />
+            </div>
     </div>
 
   );
