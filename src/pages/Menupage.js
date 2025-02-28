@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Menupage.css';
 
 const menuItems = [
@@ -11,8 +12,10 @@ const menuItems = [
 ];
 
 const Menupage = () => {
+  const navigate = useNavigate();
   const handleMenuClick = (item) => {
     console.log(`Clicked on ${item.name}`);
+
   };
 
   const handleaddItem = (item) => {
@@ -24,7 +27,11 @@ const Menupage = () => {
   };
 
   return (
+
     <div className="menu-page">
+    <div className="back-arrow" onClick={() => navigate(-1)}>
+            &#8592;
+          </div>
       <div className="menu-container">
         <h1>Menu</h1>
 
@@ -47,7 +54,6 @@ const Menupage = () => {
         </div>
       </div>
 
-      <button className="preview-btn" onClick={previewMenu}>Preview Menu</button>
     <div className="logo">
               <img src="/favicon.ico" alt="Logo" className="logo-image" />
           </div>

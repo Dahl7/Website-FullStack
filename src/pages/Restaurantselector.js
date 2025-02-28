@@ -1,18 +1,18 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // ✅ Import useNavigate
 import './Restaurantselector.css';
 
 const RestaurantItems = [
   { id: 1, name: 'Taco Bell' },
-
-
 ];
 
-const Menupage = () => {
+const RestaurantSelector = () => {
+  const navigate = useNavigate(); // ✅ Initialize useNavigate
+
   const handleMenuClick = (item) => {
     console.log(`Clicked on ${item.name}`);
+    navigate("/menu"); // ✅ Navigates to the menu page
   };
-
-
 
   return (
     <div className="menu-page">
@@ -25,7 +25,7 @@ const Menupage = () => {
             <div
               key={item.id}
               className="menu-item"
-              onClick={() => handleMenuClick(item)}
+              onClick={() => handleMenuClick(item)} // ✅ Click handler fixed
             >
               {item.name}
             </div>
@@ -33,15 +33,14 @@ const Menupage = () => {
         </div>
 
         {/* Centered button inside menu-container */}
-        <div className="button-container">
-        </div>
+        <div className="button-container"></div>
       </div>
 
-    <div className="logo">
-              <img src="/favicon.ico" alt="Logo" className="logo-image" />
-          </div>
+      <div className="logo">
+        <img src="/favicon.ico" alt="Logo" className="logo-image" />
+      </div>
     </div>
   );
 };
 
-export default Menupage;
+export default RestaurantSelector;
