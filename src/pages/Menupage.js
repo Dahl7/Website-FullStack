@@ -2,10 +2,12 @@ import React from 'react';
 import './Menupage.css';
 
 const menuItems = [
-  { id: 1, name: 'Cheeseburger' },
-  { id: 2, name: 'Carbonara' },
-  { id: 3, name: 'Bolognese' },
-  { id: 4, name: 'Sushi' }
+  { id: 1, name: 'Breakfast' },
+  { id: 2, name: 'Lunch' },
+  { id: 3, name: 'Dinner' },
+  { id: 4, name: 'Deserts' },
+  { id: 5, name: 'Drinks' },
+
 ];
 
 const Menupage = () => {
