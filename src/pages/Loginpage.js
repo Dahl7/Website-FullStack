@@ -4,6 +4,11 @@ import './Loginpage.css';
 
 const LoginPage = () => {
 const navigate = useNavigate();
+  const handleLogin = (event) => {
+    event.preventDefault(); // Prevent form submission refresh
+    console.log("Login button clicked");
+    navigate("/menu"); // Redirect to the Menu Page
+  };
   return (
       <div className="login-page">
         {/* Back Button */}
@@ -13,17 +18,12 @@ const navigate = useNavigate();
 
         <div className="login-container">
           <h1>Login</h1>
-          <form className="login-form">
-            <label>Email</label>
-            <input type="email" placeholder="Enter your email" />
+          <form className="login-form" onSubmit={handleLogin}>
+                    <label>Email</label>
+                    <input type="email" placeholder="Enter your email" required />
 
-            <label>Password</label>
-            <input type="password" placeholder="Enter your password" />
-
-            <div className="forgot-password">
-              <a href="#">Forgot Password</a>
-            </div>
-
+                    <label>Password</label>
+                    <input type="password" placeholder="Enter your password" required />
             <button type="submit" className="login-btn">Login</button>
           </form>
 
