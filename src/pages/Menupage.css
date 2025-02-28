@@ -31,11 +31,14 @@
   justify-content: center;
   gap: 20px;
   z-index: 1; /* Places it above the background */
+  user-select: none; /* Prevents text selection */
+
 }
 
 .menu-container h1 {
   margin-bottom: 20px;
   font-size: 24px;
+  user-select: none; /* Prevents text selection */
 }
 
 .button-container {
@@ -58,6 +61,7 @@
   font-size: 60px;
   font-weight: bold;
   line-height: 1;
+  user-select: none; /* Prevents text selection */
 
 }
 
@@ -124,6 +128,7 @@
   right: 130px; /* Adjust placement from the right */
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   transition: background-color 0.3s ease, transform 0.2s ease;
+  user-select: none; /* Prevents text selection */
 }
 
 .preview-btn:hover {
