@@ -1,0 +1,152 @@
+.menu-page {
+  background-color: #b76b6b;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;  /* Prevents scrollbars from showing */
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Makes sure the image covers the whole container */
+  z-index: -1; /* Places it behind the login form */
+}
+
+.add-btn:hover {
+  background-color: #A8D5BA  ; /* Slightly darker gray */
+  transform: scale(1.05); /* Small pop effect on hover */
+}
+
+.menu-container {
+  background-color: #e5e5e5;
+  padding: 10px;
+  border-radius: 10px;
+  width: 400px;  /* Fixed width */
+  height: 500px; /* Fixed height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Moves content to the top */
+  user-select: none;
+  overflow-y: auto; /* Allows scrolling if content overflows */
+}
+
+
+
+.menu-container h1 {
+  margin-bottom: 10px;  /* Reduce space below the header */
+  margin-top: 0px;  /* Ensure no extra space on top */
+  font-size: 24px;
+  user-select: none;
+}
+
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    width:100%;
+}
+
+.menu-btn, .add-btn {
+  background-color: grey;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 100px;
+  margin-top: 10px;
+  cursor: pointer;
+  width: 30%;
+  display: block;
+  text-align: center;
+  font-size: 60px;
+  font-weight: bold;
+  line-height: 1;
+  user-select: none; /* Prevents text selection */
+
+}
+
+.back-arrow {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.logo {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1;
+}
+
+.logo img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.menu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  align-items: center;
+  flex-grow:1;
+  height: 300px; /* Fix the height */
+  overflow-y: auto; /* Allow scrolling if necessary */
+}
+
+
+.menu-item {
+  background-color: #fff;
+  padding: 15px;
+  width: 80%;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+
+.menu-item:hover {
+  background-color: #d3d3d3;
+}
+
+.preview-btn {
+  background-color: #e5e5e5; /* Light gray background */
+  color: black;
+  padding: 30px 45px; /* Adjust padding for size */
+  border: none;
+  border-radius: 10px; /* Rounded edges */
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 170px; /* Adjust placement from the bottom */
+  right: 130px; /* Adjust placement from the right */
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  user-select: none; /* Prevents text selection */
+}
+
+.preview-btn:hover {
+  background-color: #d3d3d3; /* Slightly darker gray */
+  transform: scale(1.05); /* Small pop effect on hover */
+}
+
+.logo {
+  user-select: none; /* Prevents text selection */
+}
