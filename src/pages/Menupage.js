@@ -7,7 +7,7 @@ const Menupage = () => {
 
   // State for storing menu items
   const [menuItems, setMenuItems] = useState([
-    { id: 1, name: 'Breakfast' },
+    { id: 1, name: 'Breakfast', path: "/menupages/breakfast"  },
     { id: 2, name: 'Lunch' },
     { id: 3, name: 'Dinner' },
     { id: 4, name: 'Desserts' },
