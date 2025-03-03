@@ -21,7 +21,7 @@
 }
 
 .add-btn:hover {
-  background-color: #A8D5BA  ; /* Slightly darker gray */
+  background-color: #A8D5BA  ;
   transform: scale(1.05); /* Small pop effect on hover */
 }
 
@@ -53,7 +53,7 @@
     width:100%;
 }
 
-.menu-btn, .add-btn {
+/*/.menu-btn, .add-btn {
   background-color: grey;
   color: white;
   padding: 10px;
@@ -67,9 +67,28 @@
   font-size: 60px;
   font-weight: bold;
   line-height: 1;
-  user-select: none; /* Prevents text selection */
+  user-select: none; /* Prevents text selection
 
+}*/
+
+.menu-btn {
+  background-color: grey;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  width: 100%; /* Ensures buttons are uniform */
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+  border: none;
+  font-size: 16px; /* Ensure proper text scaling */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
+
 
 .back-arrow {
   position: absolute;
@@ -144,4 +163,27 @@
 
 .logo {
   user-select: none; /* Prevents text selection */
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  color: red;
+}
+
+.menu-item-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Keeps button and trash icon aligned */
+  width: 80%;
+  max-width: 400px; /* Prevents oversized buttons */
+}
+
+.menu-btn:hover {
+  background-color: #A8D5BA;
 }

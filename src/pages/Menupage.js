@@ -1,62 +1,72 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Menupage.css';
 
-const menuItems = [
-  { id: 1, name: 'Breakfast' },
-  { id: 2, name: 'Lunch' },
-  { id: 3, name: 'Dinner' },
-  { id: 4, name: 'Deserts' },
-  { id: 5, name: 'Drinks' },
-
-];
-
 const Menupage = () => {
   const navigate = useNavigate();
+
+  // State for storing menu items
+  const [menuItems, setMenuItems] = useState([
+    { id: 1, name: 'Breakfast' },
+    { id: 2, name: 'Lunch' },
+    { id: 3, name: 'Dinner' },
+    { id: 4, name: 'Desserts' },
+    { id: 5, name: 'Drinks' }
+  ]);
+
+  // Function to navigate when a menu is clicked
   const handleMenuClick = (item) => {
-    console.log(`Clicked on ${item.name}`);
-
+    navigate(`/menu/${item.name.toLowerCase()}`);
   };
 
-  const handleaddItem = (item) => {
-    console.log("Clicked on add");
+  // Function to add a new menu category
+  const handleAddItem = () => {
+    const newMenu = prompt("Enter new menu name:");
+    if (newMenu) {
+      setMenuItems([...menuItems, { id: menuItems.length + 1, name: newMenu }]);
+    }
   };
 
+    const handleRemoveItem = (id) => {
+      setMenuItems(menuItems.filter(item => item.id !== id));
+    };
+
+  // Function for previewing menu (not implemented yet)
   const previewMenu = () => {
     console.log("Preview menu");
   };
 
   return (
-
     <div className="menu-page">
-    <div className="back-arrow" onClick={() => navigate(-1)}>
-            &#8592;
-          </div>
+      <div className="back-arrow" onClick={() => navigate(-1)}>&#8592;</div>
+
       <div className="menu-container">
         <h1>Menu</h1>
 
-        {/* Menu Items */}
-        <div className="menu-items">
-          {menuItems.map((item) => (
-            <div 
-              key={item.id} 
-              className="menu-item" 
-              onClick={() => handleMenuClick(item)}
-            >
-              {item.name}
-            </div>
-          ))}
-        </div>
-        
-        {/* Centered button inside menu-container */}
+<div className="menu-items">
+  {menuItems.map((menu) => (
+    <div key={menu.id} className="menu-item-container">
+      {/* Menu Button (Click anywhere on the button to navigate) */}
+      <button className="menu-btn" onClick={() => handleMenuClick(menu)}>
+        {menu.name}
+      </button>
+      {/* Trash Bin Icon (Click only this to delete) */}
+      <span className="remove-icon" onClick={() => handleRemoveItem(menu.id)}>
+        🗑️
+      </span>
+    </div>
+  ))}
+</div>
+        {/* Button to Add New Menu */}
         <div className="button-container">
-        <button className="add-btn" onClick={() => handleaddItem()}>+</button>
+          <button className="add-btn" onClick={handleAddItem}>+</button>
         </div>
       </div>
 
-    <div className="logo">
-              <img src="/favicon.ico" alt="Logo" className="logo-image" />
-          </div>
+      {/* Logo */}
+      <div className="logo">
+        <img src="/favicon.ico" alt="Logo" className="logo-image" />
+      </div>
     </div>
   );
 };
