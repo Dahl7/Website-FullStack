@@ -27,9 +27,11 @@ const Menupage = () => {
     }
   };
 
-    const handleRemoveItem = (id) => {
+  const handleRemoveItem = (id) => {
+    if (window.confirm("Are you sure you want to remove this menu?")) {
       setMenuItems(menuItems.filter(item => item.id !== id));
-    };
+    }
+  };
 
   // Function for previewing menu (not implemented yet)
   const previewMenu = () => {
