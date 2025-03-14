@@ -5,6 +5,7 @@ import LoginPage from "./pages/Loginpage";
 import RestaurantSelector from "./pages/Restaurantselector";
 import Menupage from "./pages/Menupage";
 import FetchTest from "./FetchTest";
+import PostTest from "./PostTest";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/restaurant" element={<RestaurantSelector />} />
         <Route path="/menu" element={<Menupage />} /> 
         <Route path="/FetchTest" element={<FetchTest />} /> 
+        <Route path="/PostTest" element={<PostTest />} /> 
 
       </Routes>
     </Router>
