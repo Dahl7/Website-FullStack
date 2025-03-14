@@ -1,4 +1,3 @@
-/* Full Page Styling */
 .menu-page {
   background-color: #b76b6b;
   height: 100vh;
@@ -9,30 +8,27 @@
   position: relative;
 }
 
-/* Menu Container */
 .menu-container {
   background-color: #e5e5e5;
   padding: 40px;
   border-radius: 10px;
-  width: 45%; /* Takes up half the width */
+  width: 45%;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
 }
 
-/* The item description/details panel (right side) */
 .item-details {
   background-color: #e5e5e5;
   padding: 40px;
   border-radius: 10px;
-  width: 45%; /* Same width as menu */
+  width: 45%;
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-/* List of Menu Items */
 .menu-items {
   display: flex;
   flex-direction: column;
@@ -40,33 +36,29 @@
   width: 100%;
 }
 
-/* Individual Menu Item */
 .menu-item-container {
   background-color: white;
   padding: 10px;
   border-radius: 8px;
   display: flex;
-  justify-content: space-between; /* Ensures text and buttons are aligned */
+  justify-content: space-between;
   align-items: center;
   width: 100%;
-  gap: 20px; /* Adds space between details and buttons */
+  gap: 20px;
 }
 
-/* Text Details for Each Item */
 .menu-item-details {
-  flex: 1; /* Takes up remaining space */
+  flex: 1;
   text-align: left;
 }
 
-/* Buttons Section */
 .menu-actions {
   display: flex;
-  flex-direction: row; /* Keeps buttons side by side */
+  flex-direction: row;
   align-items: center;
-  gap: 10px; /* Adds spacing between buttons */
+  gap: 10px;
 }
 
-/* Edit and Remove Buttons */
 .edit-btn, .remove-btn {
   background-color: grey;
   color: white;
@@ -77,7 +69,6 @@
   font-size: 14px;
 }
 
-/* Hover Effects */
 .edit-btn:hover {
   background-color: #4CAF50;
 }
@@ -86,7 +77,6 @@
   background-color: red;
 }
 
-/* Add Button */
 .add-btn {
   background-color: #4CAF50;
   color: white;
@@ -100,12 +90,10 @@
   justify-content: center;
 }
 
-/* Add Button Hover Effect */
 .add-btn:hover {
   background-color: #45a049;
 }
 
-/* Back Arrow */
 .back-arrow {
   position: absolute;
   top: 20px;
@@ -130,6 +118,6 @@
   display: flex;
   width: 80%;
   max-width: 1200px;
-  justify-content: space-between; /* Pushes menu left and details right */
+  justify-content: space-between;
   gap: 30px;
 }

@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import './Homepage.css';
 
 const Homepage = () => {
-  const navigate = useNavigate(); // React Router hook for navigation
+  const navigate = useNavigate();
 
   const handleLogin = () => {
-    navigate("/login"); // Redirect to the login page
+    navigate("/login");
   };
 
   const handleCustomerService = () => {
@@ -23,10 +23,7 @@ const Homepage = () => {
 
   return (
     <div className="App">
-    {/* Login */}
       <button onClick={handleLogin} className="login-button">Login</button>
-
-    {/* Other buttons Container*/}
     <div className="button-container">
         <button onClick={handleCustomerService} className="other-buttons">Customer service</button>
         <button onClick={handleAboutUs} className="other-buttons">About us</button>

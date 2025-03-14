@@ -1,14 +1,14 @@
 .App {
   text-align: center;
-  height: 100vh; /* Full viewport height */
-  background-image: url('../restaurantcollage1.jpg'); /* Adjust the path as needed */
-  background-size: cover;      /* Ensures the image covers the entire background */
-  background-position: center; /* Centers the image */
+  height: 100vh;
+  background-image: url('../restaurantcollage1.jpg');
+  background-size: cover;
+  background-position: center;
 
   display: flex;
-  flex-direction: column; /* Keeps elements stacked */
-  justify-content: center; /* Centers horizontally */
-  align-items: center; /* Centers vertically */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
 .login-button {
   padding: 25px 140px;
@@ -18,14 +18,14 @@
   color: white;
   border-radius: 15px;
   cursor: pointer;
-  margin-top: 200px; /* Pushes the button slightly lower */
-  user-select: none; /* Prevents text selection */
+  margin-top: 200px;
+  user-select: none;
 
 }
 
 .login-button:hover {
   background-color: #800020;
-  transform: scale(1.05); /* Slightly increase size on hover */
+  transform: scale(1.05);
 }
 
 .button-container {
@@ -50,6 +50,6 @@
 
 .other-buttons:hover {
   background-color: #800020;
-  transform: scale(1.05); /* Slightly increase size on hover */
+  transform: scale(1.05);
 }
 }
