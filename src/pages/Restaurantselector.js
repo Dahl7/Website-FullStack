@@ -1,17 +1,25 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom'; // ✅ Import useNavigate
-import './Restaurantselector.css';
-
-const RestaurantItems = [
-  { id: 1, name: 'Taco Bell' },
-];
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Restaurantselector.css";
 
 const RestaurantSelector = () => {
-  const navigate = useNavigate(); // ✅ Initialize useNavigate
+  const navigate = useNavigate();
+  const [restaurants, setRestaurants] = useState([]);
+
+
+  useEffect(() => {
+    fetch("http://130.225.170.52:10331/restaurants")
+      .then(response => response.json())
+      .then(data => {
+        console.log("Fetched restaurants:", data);
+        setRestaurants(data); 
+      })
+      .catch(err => console.error("Error fetching restaurants:", err));
+  }, []);
 
   const handleMenuClick = (item) => {
     console.log(`Clicked on ${item.name}`);
-    navigate("/menu"); // ✅ Navigates to the menu page
+    navigate("/menu", { state: { restaurantId: item.id } }); 
   };
 
   return (
@@ -21,15 +29,19 @@ const RestaurantSelector = () => {
 
         {/* Menu Items */}
         <div className="menu-items">
-          {RestaurantItems.map((item) => (
-            <div
-              key={item.id}
-              className="menu-item"
-              onClick={() => handleMenuClick(item)} // ✅ Click handler fixed
-            >
-              {item.name}
-            </div>
-          ))}
+          {restaurants.length > 0 ? (
+            restaurants.map((item) => (
+              <button
+                key={item.id}
+                className="menu-btn"
+                onClick={() => handleMenuClick(item)}
+              >
+                {item.name}
+              </button>
+            ))
+          ) : (
+            <p>Loading restaurants...</p>
+          )}
         </div>
 
         {/* Centered button inside menu-container */}
