@@ -17,6 +17,10 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/restaurant" element={<RestaurantSelector />} />
         <Route path="/menu" element={<Menupage />} /> 
+        <Route path ="/menu/breakfast" element ={<BreakfastPage/>}/>
+        <Route path="/FetchTest" element={<FetchTest />} /> 
+        <Route path="/PostTest" element={<PostTest />} /> 
+
       </Routes>
     </Router>
   );
