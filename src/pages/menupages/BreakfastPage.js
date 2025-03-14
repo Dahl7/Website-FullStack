@@ -15,43 +15,39 @@ const BreakfastPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
 
-  // Open the modal to add a new item
   const openAddItemModal = () => {
     setEditingItem(null);
     setModalOpen(true);
   };
 
-  // Open the modal to edit an existing item
   const openEditItemModal = (index) => {
     setEditingItem({ ...items[index], index });
     setModalOpen(true);
   };
 
-  // Save the new or edited item
   const saveItem = (item) => {
     if (item.index !== undefined) {
-      // Editing existing item
       const updatedItems = [...items];
       updatedItems[item.index] = { name: item.name, description: item.description, price: item.price, tags: item.tags.split(",") };
       setItems(updatedItems);
     } else {
-      // Adding a new item
       setItems([...items, { name: item.name, description: item.description, price: item.price, tags: item.tags.split(",") }]);
     }
   };
 
-  // Function to remove an item
   const removeItem = (index) => {
     setItems(items.filter((_, i) => i !== index));
   };
 
   return (
     <div className="menu-page">
-      <div className="back-arrow" onClick={() => navigate(-1)}>🔙</div>
+      {/* Back Button */}
+      <div className="back-arrow" onClick={() => navigate(-1)}>
+        &#8592;
+      </div>
 
-      <div className="menu-content"> {/* ✅ New wrapper for side-by-side layout */}
+      <div className="menu-content">
 
-        {/* Left Side: Menu List */}
         <div className="menu-container">
           <h1>Breakfast Menu</h1>
 
@@ -77,9 +73,7 @@ const BreakfastPage = () => {
           </div>
         </div>
 
-        {/* Right Side: Item Details/Editor */}
         <div className="item-details">
-          {/* Placeholder for selected item details OR modal */}
           <h2>Item Details</h2>
           {editingItem ? (
             <div>
@@ -95,7 +89,6 @@ const BreakfastPage = () => {
 
       </div>
 
-      {/* Add/Edit Item Modal */}
       <AddItemModal isOpen={modalOpen} onClose={() => setModalOpen(false)} onSave={saveItem} existingItem={editingItem} />
     </div>
 
