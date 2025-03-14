@@ -47,7 +47,10 @@ const BreakfastPage = () => {
 
   return (
     <div className="menu-page">
-      <div className="back-arrow" onClick={() => navigate(-1)}>🔙</div>
+      {/* Back Button */}
+      <div className="back-arrow" onClick={() => navigate(-1)}>
+        &#8592;
+      </div>
 
       <div className="menu-content"> {/* ✅ New wrapper for side-by-side layout */}
 
