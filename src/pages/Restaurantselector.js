@@ -17,17 +17,16 @@ const RestaurantSelector = () => {
       .catch(err => console.error("Error fetching restaurants:", err));
   }, []);
 
-  const handleMenuClick = (item) => {
-    console.log(`Clicked on ${item.name}`);
-    navigate("/menu", { state: { restaurantId: item.id } }); 
+  const handleMenuClick = (restaurant) => {
+    navigate("/menu", { state: { restaurant } }); 
   };
+  
 
   return (
     <div className="menu-page">
       <div className="menu-container">
         <h1>Restaurants</h1>
 
-        {/* Menu Items */}
         <div className="menu-items">
           {restaurants.length > 0 ? (
             restaurants.map((item) => (
@@ -40,11 +39,10 @@ const RestaurantSelector = () => {
               </button>
             ))
           ) : (
-            <p>Loading restaurants...</p>
+            <p></p>
           )}
         </div>
 
-        {/* Centered button inside menu-container */}
         <div className="button-container"></div>
       </div>
 
