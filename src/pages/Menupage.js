@@ -1,25 +1,50 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Menupage.css';
+import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import "./Menupage.css";
 
 const Menupage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const restaurant = location.state?.restaurant; 
 
-  // State for storing menu items
-  const [menuItems, setMenuItems] = useState([
-    { id: 1, name: 'Breakfast', path: "/menupages/breakfast"  },
-    { id: 2, name: 'Lunch' },
-    { id: 3, name: 'Dinner' },
-    { id: 4, name: 'Desserts' },
-    { id: 5, name: 'Drinks' }
-  ]);
+  const [menuItems, setMenuItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Function to navigate when a menu is clicked
+  useEffect(() => {
+    if (!restaurant) {
+      setError("No restaurant selected.");
+      setLoading(false);
+      return;
+    }
+
+    console.log(`Fetching menus for ${restaurant.name}`);
+
+    fetch(`http://130.225.170.52:10331/menus/restaurant/${restaurant.id}`)
+      .then((response) => {
+        console.log("✅ API Response:", response);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Menus fetched:", data);
+        if (!Array.isArray(data)) {
+          throw new Error("Invalid API response format.");
+        }
+        setMenuItems(data);
+      })
+      .catch((err) => {
+        setError("Failed to fetch menus.");
+      })
+      .finally(() => setLoading(false));
+  }, [restaurant]);
+
   const handleMenuClick = (item) => {
-    navigate(`/menu/${item.name.toLowerCase()}`);
+    navigate(`/menu/breakfast`);
   };
 
-  // Function to add a new menu category
   const handleAddItem = () => {
     const newMenu = prompt("Enter new menu name:");
     if (newMenu) {
@@ -33,10 +58,6 @@ const Menupage = () => {
     }
   };
 
-  // Function for previewing menu (not implemented yet)
-  const previewMenu = () => {
-    console.log("Preview menu");
-  };
 
   return (
     <div className="menu-page">
@@ -48,11 +69,11 @@ const Menupage = () => {
 <div className="menu-items">
   {menuItems.map((menu) => (
     <div key={menu.id} className="menu-item-container">
-      {/* Menu Button (Click anywhere on the button to navigate) */}
+
       <button className="menu-btn" onClick={() => handleMenuClick(menu)}>
-        {menu.name}
+      {menu.description}
       </button>
-      {/* Trash Bin Icon (Click only this to delete) */}
+
       <span className="remove-icon" onClick={() => handleRemoveItem(menu.id)}>
         🗑️
       </span>
@@ -65,7 +86,6 @@ const Menupage = () => {
         </div>
       </div>
 
-      {/* Logo */}
       <div className="logo">
         <img src="/favicon.ico" alt="Logo" className="logo-image" />
       </div>
