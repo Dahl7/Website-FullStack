@@ -1,0 +1,135 @@
+/* Full Page Styling */
+.menu-page {
+  background-color: #b76b6b;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* Menu Container */
+.menu-container {
+  background-color: #e5e5e5;
+  padding: 40px;
+  border-radius: 10px;
+  width: 45%; /* Takes up half the width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* The item description/details panel (right side) */
+.item-details {
+  background-color: #e5e5e5;
+  padding: 40px;
+  border-radius: 10px;
+  width: 45%; /* Same width as menu */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* List of Menu Items */
+.menu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+/* Individual Menu Item */
+.menu-item-container {
+  background-color: white;
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between; /* Ensures text and buttons are aligned */
+  align-items: center;
+  width: 100%;
+  gap: 20px; /* Adds space between details and buttons */
+}
+
+/* Text Details for Each Item */
+.menu-item-details {
+  flex: 1; /* Takes up remaining space */
+  text-align: left;
+}
+
+/* Buttons Section */
+.menu-actions {
+  display: flex;
+  flex-direction: row; /* Keeps buttons side by side */
+  align-items: center;
+  gap: 10px; /* Adds spacing between buttons */
+}
+
+/* Edit and Remove Buttons */
+.edit-btn, .remove-btn {
+  background-color: grey;
+  color: white;
+  padding: 5px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+}
+
+/* Hover Effects */
+.edit-btn:hover {
+  background-color: #4CAF50;
+}
+
+.remove-btn:hover {
+  background-color: red;
+}
+
+/* Add Button */
+.add-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Add Button Hover Effect */
+.add-btn:hover {
+  background-color: #45a049;
+}
+
+/* Back Arrow */
+.back-arrow {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Responsive Fix */
+@media (max-width: 480px) {
+  .menu-container {
+    width: 90%;
+  }
+
+  .edit-btn, .remove-btn {
+    font-size: 12px;
+    padding: 4px 6px;
+  }
+}
+
+.menu-content {
+  display: flex;
+  width: 80%;
+  max-width: 1200px;
+  justify-content: space-between; /* Pushes menu left and details right */
+  gap: 30px;
+}
