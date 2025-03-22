@@ -20,7 +20,7 @@ const Menupage = () => {
 
     console.log(`Fetching menus for ${restaurant.name}`);
 
-    fetch(`http://130.225.170.52:10331/menus/restaurant/${restaurant.id}`)
+    fetch(`http://130.225.170.52:10331/api/menus/restaurant/${restaurant.id}`)
       .then((response) => {
         console.log( response);
         if (!response.ok) {
@@ -57,7 +57,7 @@ const Menupage = () => {
     };
   
     try {
-      const response = await fetch("http://130.225.170.52:10331/menus/add", {
+      const response = await fetch("http://130.225.170.52:10331/api/menus/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newMenu),
@@ -67,7 +67,7 @@ const Menupage = () => {
   
       const addedMenu = await response.json();
       console.log("Menu added:", addedMenu);
-      fetch(`http://130.225.170.52:10331/menus/restaurant/${restaurant.id}`)
+      fetch(`http://130.225.170.52:10331/api/menus/restaurant/${restaurant.id}`)
       .then(response => response.json())
       .then(updatedMenus => {
 
@@ -83,7 +83,7 @@ const Menupage = () => {
   const handleRemoveItem = async (id) => {
     if (!window.confirm("Are you sure you want to remove this menu?")) return;
     try {
-      const response = await fetch(`http://130.225.170.52:10331/menus/${id}`, {
+      const response = await fetch(`http://130.225.170.52:10331/api/menus/${id}`, {
         method: "DELETE",
         mode: "cors",
         headers: {
@@ -97,7 +97,7 @@ const Menupage = () => {
       console.log(`✅ Menu with ID ${id} deleted successfully. Fetching updated menu list...`);
   
       // Fetch updated list of menus
-      fetch(`http://130.225.170.52:10331/menus/restaurant/${restaurant.id}`)
+      fetch(`http://130.225.170.52:10331/api/menus/restaurant/${restaurant.id}`)
         .then(response => response.json())
         .then(updatedMenus => {
           console.log(updatedMenus);

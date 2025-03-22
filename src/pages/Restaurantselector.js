@@ -8,7 +8,7 @@ const RestaurantSelector = () => {
 
 
   useEffect(() => {
-    fetch("http://130.225.170.52:10331/restaurants")
+    fetch("http://130.225.170.52:10331/api/restaurants")
       .then(response => response.json())
       .then(data => {
         console.log("Fetched restaurants:", data);
