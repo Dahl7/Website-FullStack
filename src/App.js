@@ -7,6 +7,7 @@ import Menupage from "./pages/Menupage";
 import BreakfastPage from "./pages/menupages/BreakfastPage"
 import FetchTest from "./FetchTest";
 import PostTest from "./PostTest";
+import Orderpage from "./pages/Orderpage";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path ="/menu/breakfast" element ={<BreakfastPage/>}/>
         <Route path="/FetchTest" element={<FetchTest />} /> 
         <Route path="/PostTest" element={<PostTest />} /> 
+        <Route path="/orders" element={<Orderpage />} />
 
       </Routes>
     </Router>

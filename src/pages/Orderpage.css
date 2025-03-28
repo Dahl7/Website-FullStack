@@ -1,0 +1,122 @@
+/* Whole page */
+.menu-page {
+    background-color: #b76b6b;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;  /* Prevents scrollbars from showing */
+  }
+  
+  /* Main container */
+  .menu-container {
+    background-color: #e5e5e5;
+    padding: 10px;
+    border-radius: 10px;
+    width: 600px;  /* Fixed width */
+    height: 650px; /* Fixed height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Moves content to the top */
+    user-select: none;
+    overflow-y: auto; /* Allows scrolling if content overflows */
+  }
+  
+  /* Page title */
+  .menu-container h1 {
+    margin: 0;
+    padding-top: 10px; /* Matches margin-bottom */
+    padding-bottom: 10px;
+    font-size: 24px;
+    user-select: none;
+  }
+  
+  
+  /* Each table section */
+  .table-box {
+    background-color: #d0d0d0;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    min-width: 300px;  /* Set the minimum width */
+    min-height: 120px; /* Set the minimum height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center content */
+}
+
+  
+  
+  /* Table title */
+  .table-box h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  /* Order list */
+  .order-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  /* Individual order */
+  .order-box {
+    background-color: #7c7c7c;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    word-break: break-word;
+  }
+  
+  /* Optional logo section */
+  .logo {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .logo-image {
+    height: 40px;
+  }
+  
+  .order-box {
+    background-color: #7c7c7c;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  
+  .order-text {
+    flex-grow: 1;
+    word-break: break-word;
+  }
+  
+  .check-btn {
+    background-color: #a8d5ba;
+    border: none;
+    color: #333;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .check-btn:hover {
+    background-color: #8fcfa8;
+  }
+  
