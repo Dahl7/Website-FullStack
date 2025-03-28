@@ -135,12 +135,12 @@
   background-color: #d3d3d3;
 }
 
-.preview-btn {
-  background-color: #e5e5e5; /* Light gray background */
+.orders-btn {
+  background-color: #e5e5e5;
   color: black;
-  padding: 30px 45px; /* Adjust padding for size */
+  padding: 30px 45px;
   border: none;
-  border-radius: 10px; /* Rounded edges */
+  border-radius: 10px;
   cursor: pointer;
   font-size: 18px;
   font-weight: bold;
@@ -149,17 +149,18 @@
   align-items: center;
   justify-content: center;
   position: absolute;
-  bottom: 170px; /* Adjust placement from the bottom */
-  right: 130px; /* Adjust placement from the right */
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  bottom: 170px;
+  right: 130px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease, transform 0.2s ease;
-  user-select: none; /* Prevents text selection */
+  user-select: none;
 }
 
-.preview-btn:hover {
-  background-color: #d3d3d3; /* Slightly darker gray */
-  transform: scale(1.05); /* Small pop effect on hover */
+.orders-btn:hover {
+  background-color: #a6e9d8;
+  transform: scale(1.05);
 }
+
 
 .logo {
   user-select: none; /* Prevents text selection */
