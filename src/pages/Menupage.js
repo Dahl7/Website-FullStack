@@ -150,6 +150,14 @@ const handleMenuClick = (menu) => {
       <div className="logo">
         <img src="/favicon.ico" alt="Logo" className="logo-image" />
       </div>
+      
+      <button
+  className="orders-btn"
+  onClick={() => navigate("/orders")} // Change route if needed
+>
+  Orders
+</button>
+
     </div>
   );
 };
