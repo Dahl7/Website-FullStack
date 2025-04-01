@@ -5,10 +5,35 @@ import './Loginpage.css';
 const LoginPage = () => {
   const navigate = useNavigate();
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
-    console.log("Login button clicked");
-    navigate("/restaurant");
+
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+
+    try {
+      const response = await fetch("http://130.225.170.52:10331/api/adminUsers/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Saves token to localstorage
+        localStorage.setItem("accessToken", data.access_token);
+
+        navigate("/restaurant");
+      } else {
+        alert(data.error || "Email/Password is incorrect. Please try again");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("An error occurred during login. Please try again.");
+    }
   };
 
   return (
@@ -22,10 +47,10 @@ const LoginPage = () => {
         <h1>Login</h1>
         <form className="login-form" onSubmit={handleLogin}>
           <label>Email</label>
-          <input type="email" placeholder="Enter your email" required />
+          <input type="email" name="email" placeholder="Enter your email" required />
 
           <label>Password</label>
-          <input type="password" placeholder="Enter your password" required />
+          <input type="password" name="password" placeholder="Enter your password" required />
 
           <button type="submit" className="login-btn">Login</button>
         </form>
