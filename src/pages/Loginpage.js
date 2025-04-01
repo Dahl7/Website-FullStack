@@ -23,7 +23,7 @@ const LoginPage = () => {
       const data = await response.json();
 
       if (response.ok) {
-        // Saves token to localstorage
+        // Temporary storage of login inforation
         localStorage.setItem("accessToken", data.access_token);
 
         navigate("/restaurant");
