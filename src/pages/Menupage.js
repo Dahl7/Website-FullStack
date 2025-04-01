@@ -153,7 +153,7 @@ const handleMenuClick = (menu) => {
       
       <button
   className="orders-btn"
-  onClick={() => navigate("/orders")} // Change route if needed
+  onClick={() => navigate("/orders")} 
 >
   Orders
 </button>

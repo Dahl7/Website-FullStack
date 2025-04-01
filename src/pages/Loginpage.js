@@ -31,8 +31,7 @@ const LoginPage = () => {
         alert(data.error || "Email/Password is incorrect. Please try again");
       }
     } catch (error) {
-      console.error("Login error:", error);
-      alert("An error occurred during login. Please try again.");
+      alert("Something went wrong. Please try again.");
     }
   };
 
