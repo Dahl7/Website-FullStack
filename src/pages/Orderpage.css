@@ -1,5 +1,5 @@
 /* Whole page */
-.menu-page {
+.order-page {
     background-color: #b76b6b;
     height: 100vh;
     width: 100vw;
@@ -10,8 +10,7 @@
     overflow: hidden;  /* Prevents scrollbars from showing */
   }
   
-  /* Main container */
-  .menu-container {
+  .order-container {
     background-color: #e5e5e5;
     padding: 10px;
     border-radius: 10px;
@@ -25,8 +24,7 @@
     overflow-y: auto; /* Allows scrolling if content overflows */
   }
   
-  /* Page title */
-  .menu-container h1 {
+  .order-container h1 {
     margin: 0;
     padding-top: 10px; /* Matches margin-bottom */
     padding-bottom: 10px;

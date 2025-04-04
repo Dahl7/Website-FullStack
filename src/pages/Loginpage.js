@@ -7,10 +7,10 @@ const LoginPage = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-
+  
     const email = event.target.email.value;
     const password = event.target.password.value;
-
+  
     try {
       const response = await fetch("http://130.225.170.52:10331/api/adminUsers/login", {
         method: "POST",
@@ -19,13 +19,12 @@ const LoginPage = () => {
         },
         body: JSON.stringify({ email, password })
       });
-
+  
       const data = await response.json();
-
+  
       if (response.ok) {
-        // Saves token to localstorage
         localStorage.setItem("accessToken", data.access_token);
-
+  
         navigate("/restaurant");
       } else {
         alert(data.error || "Email/Password is incorrect. Please try again");
@@ -35,6 +34,7 @@ const LoginPage = () => {
       alert("An error occurred during login. Please try again.");
     }
   };
+  
 
   return (
     <div className="login-page">

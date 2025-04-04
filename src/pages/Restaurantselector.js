@@ -17,9 +17,11 @@ const RestaurantSelector = () => {
       .catch(err => console.error("Error fetching restaurants:", err));
   }, []);
 
-  const handleMenuClick = (restaurant) => {
-    navigate("/menu", { state: { restaurant } }); 
-  };
+    const handleMenuClick = (restaurant) => {
+      localStorage.setItem("restaurantId", restaurant.id); 
+      navigate("/menu", { state: { restaurant } });        
+    };    
+
   
 
   return (
