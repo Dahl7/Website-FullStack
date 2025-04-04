@@ -40,6 +40,34 @@ const MenuSectionsPage = () => {
     navigate("/menu/sectionItems", { state: { section, menu, restaurant } });
   };
 
+  const handleAddSection = async () => {
+    const name = prompt("Enter new section name:");
+    if (!name) return;
+
+    const newSection = {
+      name,
+      menuID: menu.id,
+    };
+
+    try {
+      const response = await fetch("http://130.225.170.52:10331/api/menuSections/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newSection),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP Error! Status: ${response.status}`);
+      }
+
+      const added = await response.json();
+      setSections((prev) => [...prev, added]);
+    } catch (err) {
+      console.error("Failed to add section:", err);
+      alert("Could not add new section. Try again.");
+    }
+  };
+
   return (
     <div className="menu-page">
       <div className="back-arrow" onClick={() => navigate(-1)}>&#8592;</div>
@@ -64,7 +92,7 @@ const MenuSectionsPage = () => {
         )}
 
         <div className="button-container">
-          <button className="add-btn">+</button>
+          <button className="add-btn" onClick={handleAddSection}>+</button>
         </div>
       </div>
     </div>
