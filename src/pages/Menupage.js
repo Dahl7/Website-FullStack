@@ -43,9 +43,9 @@ const Menupage = () => {
       .finally(() => setLoading(false));
   }, [restaurant]);
 
-  const handleMenuClick = (item) => {
-    navigate(`/menu/breakfast`);
-  };
+const handleMenuClick = (menu) => {
+  navigate(`/menu/sections`, { state: { menu, restaurant } });
+};
 
   const handleAddItem = async () => {
     const newMenuName = prompt("Enter new menu name:");
@@ -153,7 +153,7 @@ const Menupage = () => {
       
       <button
   className="orders-btn"
-  onClick={() => navigate("/orders")} // Change route if needed
+  onClick={() => navigate("/orders")} 
 >
   Orders
 </button>
