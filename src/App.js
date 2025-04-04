@@ -10,6 +10,7 @@ import BreakfastPage from "./pages/menupages/BreakfastPage"
 import FetchTest from "./FetchTest";
 import PostTest from "./PostTest";
 import Orderpage from "./pages/Orderpage";
+import AboutUs from "./pages/AboutUs";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Homepage />} />
+        <Route path="/about-us" element={<AboutUs />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/restaurant" element={<RestaurantSelector />} />
         <Route path="/menu" element={<Menupage />} />

@@ -14,7 +14,7 @@ const Homepage = () => {
   };
 
   const handleAboutUs = () => {
-    console.log("About Us button clicked!");
+    navigate("/about-us");
   };
 
   const handleSignUp = () => {
