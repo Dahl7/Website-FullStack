@@ -1,47 +1,57 @@
 import { useEffect, useState } from "react";
 
 function FetchTest() {
-  const [users, setUsers] = useState([]);
+  const [restaurantID, setRestaurantID] = useState("");
+  const [apiKey, setApiKey] = useState(null);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    console.log("🚀 useEffect is running...");
+  const handleSubmit = async () => {
+    console.log("Creating key for restaurant:", restaurantID);
 
-    fetch('http://130.225.170.52:10331/users', {
-      method: 'GET',
-    })
-      .then(response => {
-        console.log("✅ Response received:", response);
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log("📦 Fetched data:", data);
-        setUsers(data);
-      })
-      .catch(err => {
-        console.error("❌ Fetch error:", err);
-        setError(err.message);
+    try {
+      const response = await fetch('http://130.225.170.52:10331/api/apikey/create/', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ restaurantID: parseInt(restaurantID) }) // Assuming it expects an integer
       });
 
-  }, []);
+      console.log("Response received:", response);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("API key created:", data);
+      setApiKey(data);
+      setError(null);
+    } catch (err) {
+      console.error("Error:", err);
+      setError(err.message);
+      setApiKey(null);
+    }
+  };
 
   return (
     <div>
-      <h2>User List</h2>
+      <h2>Create API Key</h2>
+
+      <input
+        type="number"
+        value={restaurantID}
+        onChange={e => setRestaurantID(e.target.value)}
+        placeholder="Enter Restaurant ID"
+      />
+      <button onClick={handleSubmit}>Get API Key</button>
+
       {error && <p style={{ color: 'red' }}>Error: {error}</p>}
-      {users.length > 0 ? (
-        <ul>
-          {users.map(user => (
-            <li key={user.id}>
-              <strong>{user.name}</strong> - {user.email}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p></p>
+
+      {apiKey && (
+        <div style={{}}>
+          <h3>API Key Created:</h3>
+          <pre>{JSON.stringify(apiKey, null, 2)}</pre>
+        </div>
       )}
     </div>
   );

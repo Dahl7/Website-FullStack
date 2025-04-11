@@ -6,7 +6,6 @@ const Orderpage = () => {
   const [tableOrders, setTableOrders] = useState([]);
   const navigate = useNavigate();
 
-
   useEffect(() => {
     const fetchOrders = async () => {
       const restaurantId = localStorage.getItem("restaurantId");
@@ -15,32 +14,32 @@ const Orderpage = () => {
         console.error("Missing restaurantId or accessToken");
         return;
       }
-  
+
       try {
         const response = await fetch(`http://130.225.170.52:10331/api/orders/byrestaurant/${restaurantId}/`, {
-          method: 'GET',
+          method: "GET",
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${accessToken}`
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${accessToken}`
           }
         });
-  
+
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-  
+
         const orders = await response.json();
-        console.log("Fetched orders from API:", orders); // 👈 This logs what is fetched
-        
+        console.log("Fetched orders from API:", orders); 
+
         const grouped = {};
         orders.forEach(order => {
-          const tableId = `Table ${order.tableid}`;
+          const tableId = `Table ${order.orderTable}`;
           if (!grouped[tableId]) {
             grouped[tableId] = [];
           }
-          grouped[tableId].push(`Order #${order.id} - ${order.ordertime}`);
+          grouped[tableId].push(`Order #${order.orderId}`);
         });
-  
+
         const formatted = Object.entries(grouped).map(([table, orders]) => ({
           table,
           orders
@@ -51,29 +50,58 @@ const Orderpage = () => {
         setTableOrders([]);
       }
     };
-  
+
     fetchOrders();
   }, []);
 
-  const handleCheck = (tableIndex, orderIndex) => {
-    setTableOrders(prevOrders => {
-      const updatedOrders = [...prevOrders];
-      const updatedTable = { 
-        ...updatedOrders[tableIndex], 
-        orders: updatedOrders[tableIndex].orders.filter((_, i) => i !== orderIndex) 
-      };
+  const handleCheck = async (tableIndex, orderIndex) => {
+    const orderText = tableOrders[tableIndex].orders[orderIndex];
+    const match = orderText.match(/Order #(\d+)/);
+    const orderId = match ? match[1] : null;
 
-      updatedOrders[tableIndex] = updatedTable;
-      return updatedOrders.filter(table => table.orders.length > 0);
-    });
+    if (!orderId) {
+      console.error("Order ID not found in text:", orderText);
+      return;
+    }
+
+    const accessToken = localStorage.getItem("accessToken");
+
+    try {
+      const response = await fetch(`http://130.225.170.52:10331/api/orders/markComplete/${orderId}/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${accessToken}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to mark order ${orderId} as complete. Status: ${response.status}`);
+      }
+
+      // Update UI only if API call was successful
+      setTableOrders(prevOrders => {
+        const updatedOrders = [...prevOrders];
+        const updatedTable = { 
+          ...updatedOrders[tableIndex], 
+          orders: updatedOrders[tableIndex].orders.filter((_, i) => i !== orderIndex) 
+        };
+
+        updatedOrders[tableIndex] = updatedTable;
+        return updatedOrders.filter(table => table.orders.length > 0);
+      });
+
+    } catch (error) {
+      console.error("Error marking order as complete:", error);
+    }
   };
 
   return (
     <div className="order-page">
-    {/* Back Arrow */}
-    <div className="back-arrow" onClick={() => navigate(-1)}>
-      &#8592;
-    </div>
+      {/* Back Arrow */}
+      <div className="back-arrow" onClick={() => navigate(-1)}>
+        &#8592;
+      </div>
       <div className="menu-container">
         <div className="tables-wrapper">
           {tableOrders
