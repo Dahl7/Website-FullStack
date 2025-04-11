@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function FetchTest() {
   const [restaurantID, setRestaurantID] = useState("");
@@ -6,15 +6,29 @@ function FetchTest() {
   const [error, setError] = useState(null);
 
   const handleSubmit = async () => {
-    console.log("Creating key for restaurant:", restaurantID);
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (!accessToken) {
+      setError("Access token not found. Please log in.");
+      return;
+    }
+
+    const parsedId = parseInt(restaurantID);
+    if (isNaN(parsedId)) {
+      setError("Restaurant ID must be a valid number.");
+      return;
+    }
+
+    console.log("Creating API key for restaurant:", parsedId);
 
     try {
-      const response = await fetch('http://130.225.170.52:10331/api/apikey/create/', {
-        method: 'POST',
+      const response = await fetch("http://130.225.170.52:10331/api/apiKeys/create", {
+        method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${accessToken}`
         },
-        body: JSON.stringify({ restaurantID: parseInt(restaurantID) }) // Assuming it expects an integer
+        body: JSON.stringify({ restaurantID: parsedId })
       });
 
       console.log("Response received:", response);
@@ -34,22 +48,23 @@ function FetchTest() {
   };
 
   return (
-    <div>
+    <div style={{ padding: "1rem" }}>
       <h2>Create API Key</h2>
 
       <input
         type="number"
         value={restaurantID}
-        onChange={e => setRestaurantID(e.target.value)}
+        onChange={(e) => setRestaurantID(e.target.value)}
         placeholder="Enter Restaurant ID"
+        style={{ marginRight: "1rem" }}
       />
       <button onClick={handleSubmit}>Get API Key</button>
 
-      {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+      {error && <p style={{ color: "red" }}>❌ Error: {error}</p>}
 
       {apiKey && (
-        <div style={{}}>
-          <h3>API Key Created:</h3>
+        <div style={{ marginTop: "1rem" }}>
+          <h3>✅ API Key Created:</h3>
           <pre>{JSON.stringify(apiKey, null, 2)}</pre>
         </div>
       )}

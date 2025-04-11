@@ -9,7 +9,7 @@ const Orderpage = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       const restaurantId = localStorage.getItem("restaurantId");
-      const accessToken = localStorage.getItem("accessToken");
+      const accessToken = "ldwXGJ35AVsY_2nbTLGufvNlB44yFwNf4FQDF18bokI";
       if (!restaurantId || !accessToken) {
         console.error("Missing restaurantId or accessToken");
         return;
@@ -33,12 +33,13 @@ const Orderpage = () => {
 
         const grouped = {};
         orders.forEach(order => {
-          const tableId = `Table ${order.orderTable}`;
+          const tableId = `Table ${order.tableid}`;
           if (!grouped[tableId]) {
             grouped[tableId] = [];
           }
-          grouped[tableId].push(`Order #${order.orderId}`);
+          grouped[tableId].push(`Order #${order.id}`);
         });
+        
 
         const formatted = Object.entries(grouped).map(([table, orders]) => ({
           table,
@@ -51,8 +52,11 @@ const Orderpage = () => {
       }
     };
 
-    fetchOrders();
-  }, []);
+  fetchOrders();
+
+  const intervalId = setInterval(fetchOrders, 2000);
+
+  return () => clearInterval(intervalId);  }, []);
 
   const handleCheck = async (tableIndex, orderIndex) => {
     const orderText = tableOrders[tableIndex].orders[orderIndex];
@@ -64,14 +68,14 @@ const Orderpage = () => {
       return;
     }
 
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = "ldwXGJ35AVsY_2nbTLGufvNlB44yFwNf4FQDF18bokI";
 
     try {
       const response = await fetch(`http://130.225.170.52:10331/api/orders/markComplete/${orderId}/`, {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${accessToken}`
+          "Authorization": `Bearer ldwXGJ35AVsY_2nbTLGufvNlB44yFwNf4FQDF18bokI`
         }
       });
 
