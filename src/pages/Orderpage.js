@@ -37,8 +37,11 @@ const Orderpage = () => {
           if (!grouped[tableId]) {
             grouped[tableId] = [];
           }
-          grouped[tableId].push(`Order #${order.id}`);
+        
+          const itemNames = order.menuitems.map(item => item.name).join(", ");
+          grouped[tableId].push(itemNames);  // 👈 show names instead of order ID
         });
+        
         
 
         const formatted = Object.entries(grouped).map(([table, orders]) => ({
@@ -106,30 +109,20 @@ const Orderpage = () => {
       <div className="back-arrow" onClick={() => navigate(-1)}>
         &#8592;
       </div>
-      <div className="menu-container">
-        <div className="tables-wrapper">
-          {tableOrders
-            .filter(table => table.orders && table.orders.length > 0)
-            .map((table, tableIndex) => (
-              <div key={tableIndex} className="table-box">
-                <h2>{table.table || `Table ${tableIndex + 1}`}</h2>
-                <div className="order-items">
-                  {table.orders.map((order, orderIndex) => (
-                    <div key={orderIndex} className="order-box">
-                      <span className="order-text">{order}</span>
-                      <button 
-                        className="check-btn" 
-                        onClick={() => handleCheck(tableIndex, orderIndex)}
-                      >
-                        ✓
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-        </div>
-      </div>
+  
+      {tableOrders.map((table, tableIndex) =>
+        table.orders.map((order, orderIndex) => (
+          <div key={`${tableIndex}-${orderIndex}`} className="order-box">
+            <span className="order-text">{order}</span>
+            <button
+              className="check-btn"
+              onClick={() => handleCheck(tableIndex, orderIndex)}
+            >
+              ✓
+            </button>
+          </div>
+        ))
+      )}
     </div>
   );
 };
