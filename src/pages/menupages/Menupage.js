@@ -125,14 +125,19 @@ const handleMenuClick = (menu) => {
   {Array.isArray(menuItems) ? (
     menuItems.length > 0 ? (
       menuItems.map((menu) => (
-        <div key={menu.id} className="menu-item-container">
-          <button className="menu-btn" onClick={() => handleMenuClick(menu)}>
-            {menu.description}
-          </button>
-          <span className="remove-icon" onClick={() => handleRemoveItem(menu.id)}>
-            🗑️
-          </span>
-        </div>
+<button className="menu-btn" onClick={() => handleMenuClick(menu)}>
+  <span className="menu-label">{menu.description}</span>
+  <span 
+    className="remove-icon"
+    onClick={(e) => {
+      e.stopPropagation();
+      handleRemoveItem(menu.id);
+    }}
+  >
+    🗑️
+  </span>
+</button>
+
       ))
     ) : (
       <p>No menus available.</p>

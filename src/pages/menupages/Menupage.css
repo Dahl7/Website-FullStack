@@ -77,8 +77,9 @@
   padding: 10px;
   cursor: pointer;
   width: 100%; /* Ensures buttons are uniform */
-  text-align: center;
-  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-weight: bold;
@@ -89,6 +90,10 @@
   text-overflow: ellipsis;
 }
 
+.remove-icon {
+  cursor: pointer;
+  margin-left: 10px;
+}
 
 .back-arrow {
   position: absolute;
@@ -178,12 +183,17 @@
 }
 
 .menu-item-container {
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Keeps button and trash icon aligned */
-  width: 80%;
-  max-width: 400px; /* Prevents oversized buttons */
+  justify-content: space-between;
+  gap: 8px;
 }
+
+.menu-btn {
+  flex-grow: 1; /* Make button fill space */
+}
+
 
 .menu-btn:hover {
   background-color: #A8D5BA;

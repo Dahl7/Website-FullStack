@@ -26,12 +26,11 @@ const RestaurantSelector = () => {
       if (!newRestaurantName) return; 
 
       const accessToken = localStorage.getItem("accessToken");
-
+      console.log("Access token:", accessToken); 
     
       const newRestaurant = {
-        chainID: 1,
-        latitude: 55.6761,          
-        longitude: 12.5683,
+        latitude: 52.6761,          
+        longitude: 11.5683,
         name: newRestaurantName
       };
     
