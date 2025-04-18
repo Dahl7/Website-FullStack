@@ -89,22 +89,22 @@ const SectionItemsPage = () => {
   };
 
   return (
-    <div className="menu-page">
+    <div className="section-page">
       <div className="back-arrow" onClick={() => navigate(-1)}>&#8592;</div>
-      <div className="menu-container">
+      <div className="section-container">
         <h1>{section?.name || "Items"}</h1>
 
-        <div className="menu-items">
+        <div className="section-items">
           {items.length > 0 ? (
             items.map((item) => (
-              <div key={item.id} className="menu-item-container">
-                <div className="menu-item-details">
+              <div key={item.id} className="section-item-container">
+                <div className="section-item-details">
                   <h3>{item.name}</h3>
                   <p>{item.description}</p>
                   <p><strong>Price:</strong> {typeof item.price === "number" ? `$${item.price.toFixed(2)}` : "N/A"}</p>
                   <p><strong>Type:</strong> {item.type}</p>
                 </div>
-                <div className="menu-actions">
+                <div className="section-actions">
                   <button className="edit-btn" onClick={() => handleEdit(item)}>Edit</button>
                   <button className="remove-btn" onClick={() => handleDelete(item.id)}>Delete</button>
                 </div>

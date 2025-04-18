@@ -9,7 +9,7 @@ const Orderpage = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       const restaurantId = localStorage.getItem("restaurantId");
-      const accessToken = "ldwXGJ35AVsY_2nbTLGufvNlB44yFwNf4FQDF18bokI";
+      const accessToken = "NQaPlVIJpGgu0s2cf7liG9VPXgPbT4OcJBZzXBS4lxw";
       if (!restaurantId || !accessToken) {
         console.error("Missing restaurantId or accessToken");
         return;
@@ -78,7 +78,7 @@ const Orderpage = () => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ldwXGJ35AVsY_2nbTLGufvNlB44yFwNf4FQDF18bokI`
+          "Authorization": `Bearer NQaPlVIJpGgu0s2cf7liG9VPXgPbT4OcJBZzXBS4lxw`
         }
       });
 

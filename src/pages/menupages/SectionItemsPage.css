@@ -1,4 +1,4 @@
-.menu-page {
+.section-page {
   padding: 2rem;
   background-color: #b66;
   min-height: 100vh;
@@ -10,7 +10,7 @@
   margin-bottom: 1rem;
 }
 
-.menu-container {
+.section-container {
   background-color: #eee;
   padding: 2rem;
   border-radius: 12px;
@@ -20,28 +20,28 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.menu-container h1 {
+.section-container h1 {
   text-align: center;
   margin-bottom: 2rem;
 }
 
-.menu-items {
+.section-items {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.menu-item-container {
+.section-item-container {
   background: #fff;
   padding: 1rem 1.5rem;
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.menu-item-details h3 {
+.section-item-details h3 {
   margin-bottom: 0.5rem;
 }
 
-.menu-item-details p {
+.section-item-details p {
   margin: 0.3rem 0;
 }
