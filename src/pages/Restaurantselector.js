@@ -82,10 +82,9 @@ const RestaurantSelector = () => {
                 <p></p>
               )}
             </div>
-          </div>
-    
-          <div className="button-container">
+            <div className="button-container">
             <button className="add-btn" onClick={handleAddRestaurant}>+</button>
+          </div>
           </div>
         </div>
     
