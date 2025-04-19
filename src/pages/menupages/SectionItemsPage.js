@@ -13,6 +13,7 @@ const SectionItemsPage = () => {
 
   useEffect(() => {
     if (!section) return;
+    
 
     fetch(`http://130.225.170.52:10331/api/menuItems/section/${section.id}`)
       .then((res) => res.json())
@@ -89,22 +90,22 @@ const SectionItemsPage = () => {
   };
 
   return (
-    <div className="item-page">
+    <div className="menu-page">
       <div className="back-arrow" onClick={() => navigate(-1)}>&#8592;</div>
-      <div className="item-container">
+      <div className="menu-container">
         <h1>{section?.name || "Items"}</h1>
 
-        <div className="item-items">
+        <div className="menu-items">
           {items.length > 0 ? (
             items.map((item) => (
-              <div key={item.id} className="item-item-container">
-                <div className="item-item-details">
+              <div key={item.id} className="menu-item-container">
+                <div className="menu-item-details">
                   <h3>{item.name}</h3>
                   <p>{item.description}</p>
                   <p><strong>Price:</strong> {typeof item.price === "number" ? `$${item.price.toFixed(2)}` : "N/A"}</p>
                   <p><strong>Type:</strong> {item.type}</p>
                 </div>
-                <div className="item-actions">
+                <div className="menu-actions">
                   <button className="edit-btn" onClick={() => handleEdit(item)}>Edit</button>
                   <button className="remove-btn" onClick={() => handleDelete(item.id)}>Delete</button>
                 </div>
