@@ -64,7 +64,6 @@ const SectionItemsPage = () => {
 
     try {
       if (item.id) {
-        // EDIT
         const res = await fetch(`http://130.225.170.52:10331/api/menuItems/${item.id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -73,7 +72,6 @@ const SectionItemsPage = () => {
         const updated = await res.json();
         setItems(items.map((i) => (i.id === item.id ? updated : i)));
       } else {
-        // ADD
         const res = await fetch(`http://130.225.170.52:10331/api/menuItems/add`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },

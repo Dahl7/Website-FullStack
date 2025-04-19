@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./AddItemsModal.css"; // We will create this file next
+import "./AddItemsModal.css";
 
 const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
   const [name, setName] = useState("");
@@ -30,7 +30,7 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
       name,
       description,
       price: parseFloat(price),
-      tags: tags.split(",").map((tag) => tag.trim()), // Convert string to array
+      tags: tags.split(",").map((tag) => tag.trim()),
     });
 
     onClose();

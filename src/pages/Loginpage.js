@@ -38,7 +38,6 @@ const LoginPage = () => {
 
   return (
     <div className="login-page">
-      {/* Back Button */}
       <div className="back-arrow" onClick={() => navigate(-1)}>
         &#8592;
       </div>
@@ -55,10 +54,9 @@ const LoginPage = () => {
           <button type="submit" className="login-btn">Login</button>
         </form>
 
-        <button className="signup-btn">Sign up</button>
+
       </div>
 
-      {/* Logo */}
       <div className="logo">
         <img src="/favicon.ico" alt="Logo" className="logo-image" />
       </div>
