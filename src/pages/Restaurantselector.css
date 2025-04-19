@@ -54,7 +54,7 @@
     width:100%;
 }
 
-.menu-btn, .add-btn {
+.add-btn {
   background-color: grey;
   color: white;
   padding: 10px;
@@ -101,8 +101,8 @@
   width: 100%;
   align-items: center;
   flex-grow:1;
-  height: 300px; /* Fix the height */
-  overflow-y: auto; /* Allow scrolling if necessary */
+  height: 300px;
+  overflow-y: auto; 
 }
 
 
@@ -115,6 +115,7 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-weight: bold;
+  height: 300px;
 }
 
 .menu-item:hover {
@@ -149,4 +150,31 @@
 
 .logo {
   user-select: none; /* Prevents text selection */
+}
+
+.menu-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px; /* space between the box and + button */
+}
+
+.menu-btn {
+  background-color: grey;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 100px;
+  margin-top: 10px;
+  cursor: pointer;
+  width: 80%;
+  display: block;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1;
+  user-select: none;
+  height: 50px;          
+  flex-shrink: 0;        
 }

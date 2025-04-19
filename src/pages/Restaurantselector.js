@@ -61,37 +61,39 @@ const RestaurantSelector = () => {
     };
   
 
-  return (
-    <div className="menu-page">
-      <div className="menu-container">
-        <h1>Restaurants</h1>
-
-        <div className="menu-items">
-          {restaurants.length > 0 ? (
-            restaurants.map((item) => (
-              <button
-                key={item.id}
-                className="menu-btn"
-                onClick={() => handleMenuClick(item)}
-              >
-                {item.name}
-              </button>
-            ))
-          ) : (
-            <p></p>
-          )}
+    return (
+      <div className="menu-page">
+        <div className="menu-wrapper"> 
+          <div className="menu-container">
+            <h1>Restaurants</h1>
+    
+            <div className="menu-items">
+              {restaurants.length > 0 ? (
+                restaurants.map((item) => (
+                  <button
+                    key={item.id}
+                    className="menu-btn"
+                    onClick={() => handleMenuClick(item)}
+                  >
+                    {item.name}
+                  </button>
+                ))
+              ) : (
+                <p></p>
+              )}
+            </div>
+          </div>
+    
+          <div className="button-container">
+            <button className="add-btn" onClick={handleAddRestaurant}>+</button>
+          </div>
         </div>
-
-        <div className="button-container"></div>
-      </div>
-      <div className="button-container">
-          <button className="add-btn" onClick={handleAddRestaurant}>+</button>
+    
+        <div className="logo">
+          <img src="/favicon.ico" alt="Logo" className="logo-image" />
         </div>
-      <div className="logo">
-        <img src="/favicon.ico" alt="Logo" className="logo-image" />
       </div>
-    </div>
-  );
-};
-
+    );
+  };
+    
 export default RestaurantSelector;
