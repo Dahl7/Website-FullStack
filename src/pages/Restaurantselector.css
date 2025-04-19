@@ -7,6 +7,11 @@
   align-items: center;
   position: relative;
   overflow: hidden;  /* Prevents scrollbars from showing */
+  display: flex;
+  justify-content: flex-start;   /* Align to top */
+  align-items: center;
+  padding-top: 20px;             /* Add small padding manually */
+  
 }
 
 .background-image {
