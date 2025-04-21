@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import AddItemsModal from "../../components/AddItemsModal";
 import "./SectionItemsPage.css";
@@ -10,6 +10,10 @@ const SectionItemsPage = () => {
   const [items, setItems] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
+
+  const [uploadingItem, setUploadingItem] = useState(null);
+  const fileInputRef = useRef(null);
+
 
   useEffect(() => {
     if (!section) return;
@@ -87,6 +91,55 @@ const SectionItemsPage = () => {
     }
   };
 
+  const handleUploadImage = async (event) => {
+    const file = event.target.files[0];
+    if (!file || !uploadingItem) return;
+  
+    try {
+      const token = localStorage.getItem("accessToken");
+      const res = await fetch("http://130.225.170.52:10331/api/SASURL", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({ 
+          "fileName": uploadingItem.name + uploadingItem.id, 
+          "itemID": uploadingItem.id 
+        }),
+      });
+  
+      const { sasUrl } = await res.json();
+  
+      const uploadRes = await fetch(sasUrl, {
+        method: "PUT",
+        headers: {
+          "x-ms-blob-type": "BlockBlob",
+          "Content-Type": file.type,
+        },
+        body: file,
+      });
+  
+      if (uploadRes.ok) {
+        alert("✅ Image uploaded successfully!");
+      } else {
+        alert("❌ Image upload failed.");
+      }
+    } catch (err) {
+      console.error("Image upload error:", err);
+      alert("❌ Upload error occurred.");
+    } finally {
+      setUploadingItem(null); // Reset
+      event.target.value = ""; // Clear file input so same file can be selected again
+    }
+  };
+
+  const handleImageUploadClick = (item) => {
+    setUploadingItem(item);
+    fileInputRef.current.click();
+  };
+
+
   return (
     <div className="menu-page">
       <div className="back-arrow" onClick={() => navigate(-1)}>&#8592;</div>
@@ -106,6 +159,7 @@ const SectionItemsPage = () => {
                 <div className="menu-actions">
                   <button className="edit-btn" onClick={() => handleEdit(item)}>Edit</button>
                   <button className="remove-btn" onClick={() => handleDelete(item.id)}>Delete</button>
+                  <button className="upload-btn" onClick={() => handleImageUploadClick(item)}>Upload Image</button>
                 </div>
               </div>
             ))
@@ -119,6 +173,14 @@ const SectionItemsPage = () => {
         </div>
       </div>
 
+      <input
+        type="file"
+        ref={fileInputRef}
+        style={{ display: "none" }}
+        accept="image/*"
+        onChange={handleUploadImage}
+      />
+
       <AddItemsModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
@@ -128,5 +190,6 @@ const SectionItemsPage = () => {
     </div>
   );
 };
+
 
 export default SectionItemsPage;
