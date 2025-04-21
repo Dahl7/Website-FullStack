@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
-import "./AddItemsModal.css";
+import "./AddItemsModal.css"; // We will create this file next
 
 const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
   const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
     const [tags, setTags] = useState("");
-
-    const [imageFile, setImageFile] = useState(null);
-    const [imageUrl, setImageUrl] = useState(null);
 
     useEffect(() => {
       if (existingItem) {
@@ -33,47 +30,10 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
       name,
       description,
       price: parseFloat(price),
-      tags: tags.split(",").map((tag) => tag.trim()),
+      tags: tags.split(",").map((tag) => tag.trim()), // Convert string to array
     });
 
     onClose();
-  };
-
-  const handleUploadImage = async () => {
-    if (!imageFile) return;
-
-    try {
-      const token = localStorage.getItem("jwt_token"); // Replace with your actual JWT token logic
-      const res = await fetch("http://130.225.170.52:10331/api/SASURL", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
-        },
-        body: JSON.stringify({ fileName: imageFile.name }),
-      });
-
-      const { sasUrl } = await res.json();
-
-      const uploadRes = await fetch(sasUrl, {
-        method: "PUT",
-        headers: {
-          "x-ms-blob-type": "BlockBlob",
-          "Content-Type": imageFile.type,
-        },
-        body: imageFile,
-      });
-
-      if (uploadRes.ok) {
-        setImageUrl(sasUrl.split('?')[0]);
-        alert("✅ Image uploaded successfully!");
-      } else {
-        alert("❌ Image upload failed.");
-      }
-    } catch (err) {
-      console.error("Image upload error:", err);
-      alert("❌ Upload error occurred.");
-    }
   };
 
   if (!isOpen) return null;
@@ -113,17 +73,6 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
             value={tags}
             onChange={(e) => setTags(e.target.value)}
           />
-
-          <label>Image</label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setImageFile(e.target.files[0])}
-          />
-          <button onClick={handleUploadImage} disabled={!imageFile}>
-            Upload Image
-          </button>
-          {imageUrl && <p className="image-preview">✅ Image ready to use</p>}
 
           <div className="modal-buttons">
             <button className="save-btn" onClick={handleSave}>Save</button>

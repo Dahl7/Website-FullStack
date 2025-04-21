@@ -11,6 +11,9 @@ const SectionItemsPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
 
+  const [imageFile, setImageFile] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
+
   useEffect(() => {
     if (!section) return;
 
@@ -86,6 +89,43 @@ const SectionItemsPage = () => {
     }
   };
 
+  const handleUploadImage = async (item) => {
+    if (!imageFile) return;
+
+    try {
+      const token = localStorage.getItem("accessToken");
+      const res = await fetch("http://130.225.170.52:10331/api/SASURL", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify({ fileName: item.name + item.id }),
+      });
+
+      const { sasUrl } = await res.json();
+
+      const uploadRes = await fetch(sasUrl, {
+        method: "PUT",
+        headers: {
+          "x-ms-blob-type": "BlockBlob",
+          "Content-Type": imageFile.type,
+        },
+        body: imageFile,
+      });
+
+      if (uploadRes.ok) {
+        alert("✅ Image uploaded successfully!");
+      } else {
+        alert("❌ Image upload failed.");
+      }
+    } catch (err) {
+      console.error("Image upload error:", err);
+      alert("❌ Upload error occurred.");
+    }
+  };
+
+
   return (
     <div className="menu-page">
       <div className="back-arrow" onClick={() => navigate(-1)}>&#8592;</div>
@@ -105,6 +145,7 @@ const SectionItemsPage = () => {
                 <div className="menu-actions">
                   <button className="edit-btn" onClick={() => handleEdit(item)}>Edit</button>
                   <button className="remove-btn" onClick={() => handleDelete(item.id)}>Delete</button>
+                  <button className="upload-btn" onClick={() => handleUploadImage(item)}>Upload Image</button>
                 </div>
               </div>
             ))
@@ -127,5 +168,6 @@ const SectionItemsPage = () => {
     </div>
   );
 };
+
 
 export default SectionItemsPage;
