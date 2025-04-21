@@ -17,7 +17,7 @@ const SectionItemsPage = () => {
 
   useEffect(() => {
     if (!section) return;
-    
+
 
     fetch(`http://130.225.170.52:10331/api/menuItems/section/${section.id}`)
       .then((res) => res.json())
@@ -94,7 +94,7 @@ const SectionItemsPage = () => {
   const handleUploadImage = async (event) => {
     const file = event.target.files[0];
     if (!file || !uploadingItem) return;
-  
+
     try {
       const token = localStorage.getItem("accessToken");
       const res = await fetch("http://130.225.170.52:10331/api/SASURL", {
@@ -103,14 +103,14 @@ const SectionItemsPage = () => {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify({ 
-          "fileName": uploadingItem.name + uploadingItem.id, 
-          "itemID": uploadingItem.id 
+        body: JSON.stringify({
+          "fileName": uploadingItem.name + uploadingItem.id,
+          "itemID": uploadingItem.id
         }),
       });
-  
+
       const { sasUrl } = await res.json();
-  
+
       const uploadRes = await fetch(sasUrl, {
         method: "PUT",
         headers: {
@@ -119,7 +119,7 @@ const SectionItemsPage = () => {
         },
         body: file,
       });
-  
+
       if (uploadRes.ok) {
         alert("✅ Image uploaded successfully!");
       } else {
@@ -141,7 +141,7 @@ const SectionItemsPage = () => {
 
 
   return (
-    <div className="menu-page">
+    <div className="section-items-page">
       <div className="back-arrow" onClick={() => navigate(-1)}>&#8592;</div>
       <div className="menu-container">
         <h1>{section?.name || "Items"}</h1>
@@ -150,6 +150,7 @@ const SectionItemsPage = () => {
           {items.length > 0 ? (
             items.map((item) => (
               <div key={item.id} className="menu-item-container">
+              <div className="menu-item-content">
                 <div className="menu-item-details">
                   <h3>{item.name}</h3>
                   <p>{item.description}</p>
@@ -160,6 +161,7 @@ const SectionItemsPage = () => {
                   <button className="edit-btn" onClick={() => handleEdit(item)}>Edit</button>
                   <button className="remove-btn" onClick={() => handleDelete(item.id)}>Delete</button>
                   <button className="upload-btn" onClick={() => handleImageUploadClick(item)}>Upload Image</button>
+                </div>
                 </div>
               </div>
             ))
