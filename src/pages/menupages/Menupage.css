@@ -1,5 +1,5 @@
 .menu-page {
-  background-color: #b76b6b;
+  background-color: #DAD7CD;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -27,7 +27,7 @@
 }
 
 .menu-container {
-  background-color: #e5e5e5;
+  background-color: #DAD7CD;
   padding: 40px;
   border-radius: 10px;
   width: 300px;
