@@ -43,6 +43,12 @@
 
 .menu-container h1 {
   margin-bottom: 20px;
+  font-size: 48px;
+  user-select: none; /* Prevents text selection */
+}
+
+.menu-container h2 {
+  margin-bottom: 20px;
   font-size: 24px;
   user-select: none; /* Prevents text selection */
 }

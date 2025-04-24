@@ -1,6 +1,6 @@
 /* Container holds all floating notes */
 .order-page {
-  background-color: #b76b6b;
+  background-color: #DAD7CD;
   height: 100vh;
   width: 100vw;
   position: relative;
@@ -10,6 +10,7 @@
   flex-wrap: wrap; /* Let notes wrap naturally */
   gap: 20px;
   align-content: flex-start;
+  user-select: none;
 }
 
 /* Post-it style order box */

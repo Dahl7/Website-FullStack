@@ -73,7 +73,7 @@ const MenuSectionsPage = () => {
       <div className="back-arrow" onClick={() => navigate(-1)}>&#8592;</div>
 
       <div className="menu-container">
-        <h1>{menu?.description} - {restaurant?.name} Sections</h1>
+        <h2>{menu?.description} - {restaurant?.name} Sections</h2>
 
         {error ? (
           <p>{error}</p>

@@ -34,7 +34,7 @@
 .menu-container h1 {
   margin-bottom: 10px;  /* Reduce space below the header */
   margin-top: 0px;  /* Ensure no extra space on top */
-  font-size: 24px;
+  font-size: 60px;
   user-select: none;
 }
 
