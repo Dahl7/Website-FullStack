@@ -78,12 +78,13 @@
   cursor: pointer;
   width: 100%; /* Ensures buttons are uniform */
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-weight: bold;
   border: none;
+  text-align: center;
   font-size: 16px; /* Ensure proper text scaling */
   overflow: hidden;
   white-space: nowrap;

@@ -9,7 +9,7 @@ const Orderpage = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       const restaurantId = localStorage.getItem("restaurantId");
-      const accessToken = "NQaPlVIJpGgu0s2cf7liG9VPXgPbT4OcJBZzXBS4lxw";
+      const accessToken = "PB-HLr4ii5IoZJmakI7aQ9rgErp2lFH4JRUqK-yRd2Q";
       if (!restaurantId || !accessToken) {
         console.error("Missing restaurantId or accessToken");
         return;
@@ -71,14 +71,14 @@ const Orderpage = () => {
       return;
     }
 
-    const accessToken = "ldwXGJ35AVsY_2nbTLGufvNlB44yFwNf4FQDF18bokI";
+    const accessToken = "PB-HLr4ii5IoZJmakI7aQ9rgErp2lFH4JRUqK-yRd2Q";
 
     try {
       const response = await fetch(`http://130.225.170.52:10331/api/orders/markComplete/${orderId}/`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer NQaPlVIJpGgu0s2cf7liG9VPXgPbT4OcJBZzXBS4lxw`
+          "Authorization": `Bearer PB-HLr4ii5IoZJmakI7aQ9rgErp2lFH4JRUqK-yRd2Q`
         }
       });
 
