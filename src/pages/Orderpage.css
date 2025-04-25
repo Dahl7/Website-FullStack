@@ -1,6 +1,6 @@
 /* Container holds all floating notes */
 .order-page {
-  background-color: #DAD7CD;
+  background-color: var(--main-color);
   height: 100vh;
   width: 100vw;
   position: relative;

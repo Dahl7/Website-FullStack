@@ -1,5 +1,5 @@
 .menu-page {
-  background-color: #b76b6b;
+  background-color: var(--main-color);
   height: 100vh;
   width: 100vw;
   display: flex;

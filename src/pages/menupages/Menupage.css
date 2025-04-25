@@ -1,5 +1,5 @@
 .menu-page {
-  background-color: #DAD7CD;
+  background-color: var(--main-color);
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -27,7 +27,7 @@
 }
 
 .menu-container {
-  background-color: #DAD7CD;
+  background-color: var(--main-color);
   padding: 40px;
   border-radius: 10px;
   width: 300px;
@@ -78,7 +78,7 @@
 }*/
 
 .menu-btn {
-  background-color: grey;
+  background-color: var(--button-color);
   color: white;
   padding: 6px 12px;;
   cursor: pointer;
