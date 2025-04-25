@@ -21,7 +21,7 @@
 }
 
 .login-container {
-  background-color: #A5CAA8;
+  background-color: var(--container-color);
   padding: 40px;
   border-radius: 10px;
   width: 350px;
@@ -60,7 +60,7 @@
 }
 
 .login-btn, .signup-btn {
-  background-color: #2C6E49;
+  background-color: #81C784;
   color: white;
   padding: 10px;
   border: none;

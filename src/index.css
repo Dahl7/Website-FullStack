@@ -1,7 +1,8 @@
 :root {
-  --main-color: #DFDFB8;
-  --button-color: #EAF4D3;
+  --main-color: #EFEEC9;
+  --button-color: #38302E;
   --accent-color: #f39c12;
+  --container-color: #F7EDE8;
 }
 
 body {
