@@ -5,6 +5,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  user-select: none; /* Prevents text selection */
+
 }
 
 .section-items-page .back-arrow {
