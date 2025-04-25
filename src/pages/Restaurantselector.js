@@ -59,6 +59,39 @@ const RestaurantSelector = () => {
         alert("Failed to add restaurant. Please try again.");
       }
     };
+
+            const handleRemoveItem = async (restaurantID) => {
+              if (!window.confirm("Are you sure you want to remove this restaurant?")) return;
+              try {
+                const response = await fetch(`http://130.225.170.52:10331/api/restaurants/${restaurantID}`, {
+                  method: "DELETE",
+                  mode: "cors",
+                  headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                  },
+                });
+
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+                console.log(`✅ Restaurant with ID ${restaurantID} deleted successfully. Fetching updated restaurant list...`);
+
+                // Fetch updated list of menus
+                fetch(`http://130.225.170.52:10331/api/restaurants`)
+                  .then(response => response.json())
+                  .then(updatedRestaurants => {
+                    console.log(updatedRestaurants);
+                    setRestaurants(updatedRestaurants); // Updates the state
+                  })
+                  .catch(err => {
+                    console.error("Restaurants cannot be fetched:", err);
+                    alert("Restaurant has not been deleted");
+                  });
+
+              } catch (error) {
+                alert("Restaurant has not been deleted, Please try again.");
+              }
+            };
   
 
     return (
@@ -76,6 +109,15 @@ const RestaurantSelector = () => {
                     onClick={() => handleMenuClick(item)}
                   >
                     {item.name}
+                    <span
+                        className="remove-icon"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleRemoveItem(item.id);
+                        }}
+                      >
+                        🗑️
+                      </span>
                   </button>
                 ))
               ) : (
