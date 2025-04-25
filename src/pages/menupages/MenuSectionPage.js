@@ -71,9 +71,10 @@ const MenuSectionsPage = () => {
   return (
     <div className="menu-page">
       <div className="back-arrow" onClick={() => navigate(-1)}>&#8592;</div>
+      <div className="menu-wrapper"> 
+      <h2>{menu?.description} - {restaurant?.name} Sections</h2>
 
       <div className="menu-container">
-        <h2>{menu?.description} - {restaurant?.name} Sections</h2>
 
         {error ? (
           <p>{error}</p>
@@ -95,6 +96,7 @@ const MenuSectionsPage = () => {
           <button className="add-btn" onClick={handleAddSection}>+</button>
         </div>
       </div>
+    </div>
     </div>
   );
 };

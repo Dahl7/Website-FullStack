@@ -102,8 +102,8 @@ const RestaurantSelector = () => {
     return (
       <div className="menu-page">
         <div className="menu-wrapper"> 
+        <h1>Restaurants</h1>
           <div className="menu-container">
-            <h1>Restaurants</h1>
     
             <div className="menu-items">
               {restaurants.length > 0 ? (
