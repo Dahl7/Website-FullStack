@@ -48,6 +48,9 @@ const handleMenuClick = (menu) => {
 };
 
   const handleAddItem = async () => {
+  const accessToken = localStorage.getItem("accessToken");
+
+
     const newMenuName = prompt("Enter new menu name:");
     if (!newMenuName) return; 
   
@@ -59,7 +62,8 @@ const handleMenuClick = (menu) => {
     try {
       const response = await fetch("http://130.225.170.52:10331/api/menus/add", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json","Authorization": `Bearer ${accessToken}`
+},
         body: JSON.stringify(newMenu),
       });
   
@@ -81,6 +85,10 @@ const handleMenuClick = (menu) => {
   
 
   const handleRemoveItem = async (id) => {
+
+  const accessToken = localStorage.getItem("accessToken");
+
+
     if (!window.confirm("Are you sure you want to remove this menu?")) return;
     try {
       const response = await fetch(`http://130.225.170.52:10331/api/menus/${id}`, {
@@ -89,6 +97,7 @@ const handleMenuClick = (menu) => {
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
+          "Authorization": `Bearer ${accessToken}`
         },
       });
   

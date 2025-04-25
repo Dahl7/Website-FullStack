@@ -26,7 +26,7 @@ const RestaurantSelector = () => {
       if (!newRestaurantName) return; 
 
       const accessToken = localStorage.getItem("accessToken");
-      console.log("Access token:", accessToken); 
+      console.log("Access token:", accessToken);
     
       const newRestaurant = {
         latitude: 52.6761,          
@@ -61,6 +61,9 @@ const RestaurantSelector = () => {
     };
 
             const handleRemoveItem = async (restaurantID) => {
+
+            const accessToken = localStorage.getItem("accessToken");
+
               if (!window.confirm("Are you sure you want to remove this restaurant?")) return;
               try {
                 const response = await fetch(`http://130.225.170.52:10331/api/restaurants/${restaurantID}`, {
@@ -69,6 +72,8 @@ const RestaurantSelector = () => {
                   headers: {
                     "Content-Type": "application/json",
                     "Accept": "application/json",
+                    "Authorization": `Bearer ${accessToken}`
+
                   },
                 });
 
