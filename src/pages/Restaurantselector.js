@@ -17,9 +17,28 @@ const RestaurantSelector = () => {
       .catch(err => console.error("Error fetching restaurants:", err));
   }, []);
 
-    const handleMenuClick = (restaurant) => {
-      localStorage.setItem("restaurantId", restaurant.id); 
-      navigate("/menu", { state: { restaurant } });        
+    const handleMenuClick = async (restaurant) => {
+      const accessToken = localStorage.getItem("accessToken");
+      localStorage.setItem("restaurantId", restaurant.id);
+      const response = await fetch("http://130.225.170.52:10331/api/apiKeys/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${accessToken}`
+      },
+      body: JSON.stringify({ restaurantID: restaurant.id })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to create API key. Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log("API Key created:", data);
+
+    localStorage.setItem("apiKey", data.message);
+
+    navigate("/menu", { state: { restaurant } });
     };    
     const handleAddRestaurant = async () => {
       const newRestaurantName = prompt("Enter new Restaurant name:");
