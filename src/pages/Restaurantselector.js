@@ -5,6 +5,8 @@ import "./Restaurantselector.css";
 const RestaurantSelector = () => {
   const navigate = useNavigate();
   const [restaurants, setRestaurants] = useState([]);
+  const [loadingRestaurantId, setLoadingRestaurantId] = useState(null);
+
 
 
   useEffect(() => {
@@ -17,10 +19,19 @@ const RestaurantSelector = () => {
       .catch(err => console.error("Error fetching restaurants:", err));
   }, []);
 
-    const handleMenuClick = async (restaurant) => {
-      const accessToken = localStorage.getItem("accessToken");
-      localStorage.setItem("restaurantId", restaurant.id);
-      const response = await fetch("http://130.225.170.52:10331/api/apiKeys/create", {
+const handleMenuClick = async (restaurant) => {
+  setLoadingRestaurantId(restaurant.id);
+
+  try {
+    const accessToken = localStorage.getItem("accessToken");
+    if (!accessToken) {
+      console.error("Access token not found");
+      return;
+    }
+
+    localStorage.setItem("restaurantId", restaurant.id);
+
+    const response = await fetch("http://130.225.170.52:10331/api/apiKeys/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -39,6 +50,15 @@ const RestaurantSelector = () => {
     localStorage.setItem("apiKey", data.message);
 
     navigate("/menu", { state: { restaurant } });
+
+  } catch (error) {
+    console.error("Error during restaurant selection:", error);
+    alert("Failed to select restaurant. Please try again.");
+
+  } finally {
+    setLoadingRestaurantId(null);
+  }
+
     };    
     const handleAddRestaurant = async () => {
       const newRestaurantName = prompt("Enter new Restaurant name:");
@@ -131,18 +151,28 @@ const RestaurantSelector = () => {
                     key={item.id}
                     className="menu-btn"
                     onClick={() => handleMenuClick(item)}
+                    disabled={loadingRestaurantId === item.id}
                   >
-                    {item.name}
+                    {loadingRestaurantId === item.id ? (
+                      <>
+                        <span className="spinner"></span> Loading...
+                      </>
+                    ) : (
+                      <>
+                        {item.name}
+                      </>
+                    )}
                     <span
-                        className="remove-icon"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleRemoveItem(item.id);
-                        }}
-                      >
-                        🗑️
-                      </span>
+                      className="remove-icon"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleRemoveItem(item.id);
+                      }}
+                    >
+                      🗑️
+                    </span>
                   </button>
+
                 ))
               ) : (
                 <p></p>
