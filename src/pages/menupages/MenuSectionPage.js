@@ -43,6 +43,8 @@ const MenuSectionsPage = () => {
   const handleAddSection = async () => {
     const name = prompt("Enter new section name:");
     if (!name) return;
+    const accessToken = localStorage.getItem("accessToken");
+
 
     const newSection = {
       name,
@@ -52,7 +54,9 @@ const MenuSectionsPage = () => {
     try {
       const response = await fetch("http://130.225.170.52:10331/api/menuSections/add", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",
+                   "Authorization": `Bearer ${accessToken}`
+        },
         body: JSON.stringify(newSection),
       });
 
@@ -67,6 +71,8 @@ const MenuSectionsPage = () => {
       alert("Could not add new section. Try again.");
     }
   };
+
+
 
   return (
     <div className="menu-page">

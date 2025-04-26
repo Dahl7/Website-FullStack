@@ -81,7 +81,7 @@ const RestaurantSelector = () => {
 
                 console.log(`✅ Restaurant with ID ${restaurantID} deleted successfully. Fetching updated restaurant list...`);
 
-                // Fetch updated list of menus
+                // Fetch updated list of restaurants
                 fetch(`http://130.225.170.52:10331/api/restaurants`)
                   .then(response => response.json())
                   .then(updatedRestaurants => {
