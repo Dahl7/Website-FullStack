@@ -73,3 +73,14 @@
 .cancel-btn:hover {
   background-color: darkred;
 }
+.tags-dropdown-header {
+  padding: 12px;
+  border: 1px solid #ccc;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
