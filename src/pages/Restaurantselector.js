@@ -140,6 +140,9 @@ const handleMenuClick = async (restaurant) => {
 
     return (
       <div className="menu-page">
+        <div className="settings-button" onClick={() => navigate("/settings")}>
+          ⚙️
+        </div>
         <div className="menu-wrapper"> 
         <h1>Restaurants</h1>
           <div className="menu-container">
