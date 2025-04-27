@@ -183,3 +183,38 @@
 .settings-button:hover {
   transform: scale(1.1);
 }
+
+.menu-btn.selected {
+  background-color: #4CAF50; 
+  color: white; 
+}
+
+.settings-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.settings-section {
+  width: 45%;
+  background-color: rgba(255, 255, 255, 0.1); /* Optional slight background */
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #333; 
+  background-color: transparent;
+  color: black; 
+  outline: none; 
+}
+
