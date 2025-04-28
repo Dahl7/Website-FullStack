@@ -126,10 +126,10 @@ const handleMenuClick = (menu) => {
   return (
     <div className="menu-page">
       <div className="back-arrow" onClick={() => navigate(-1)}>&#8592;</div>
+      <div className="menu-wrapper"> 
 
+      <h1>Menu</h1>
       <div className="menu-container">
-        <h1>Menu</h1>
-
         <div className="menu-items">
   {Array.isArray(menuItems) ? (
     menuItems.length > 0 ? (
@@ -171,7 +171,7 @@ const handleMenuClick = (menu) => {
 >
   Orders
 </button>
-
+</div>
     </div>
   );
 };

@@ -9,7 +9,7 @@ const Orderpage = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       const restaurantId = localStorage.getItem("restaurantId");
-      const accessToken = "PB-HLr4ii5IoZJmakI7aQ9rgErp2lFH4JRUqK-yRd2Q";
+      const accessToken = localStorage.getItem("apiKey");
       if (!restaurantId || !accessToken) {
         console.error("Missing restaurantId or accessToken");
         return;
@@ -71,14 +71,14 @@ const Orderpage = () => {
       return;
     }
 
-    const accessToken = "PB-HLr4ii5IoZJmakI7aQ9rgErp2lFH4JRUqK-yRd2Q";
+        const accessToken = localStorage.getItem("apiKey");
 
     try {
       const response = await fetch(`http://130.225.170.52:10331/api/orders/markComplete/${orderId}/`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer PB-HLr4ii5IoZJmakI7aQ9rgErp2lFH4JRUqK-yRd2Q`
+          "Authorization": `Bearer ${accessToken}`
         }
       });
 

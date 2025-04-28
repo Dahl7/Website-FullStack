@@ -9,6 +9,8 @@ import SectionItemsPage from "./pages/menupages/SectionItemsPage";
 import FetchTest from "./FetchTest";
 import PostTest from "./PostTest";
 import Orderpage from "./pages/Orderpage";
+import Settingspage from "./pages/Settingspage";
+
 
 
 function App() {
@@ -24,6 +26,7 @@ function App() {
         <Route path="/FetchTest" element={<FetchTest />} /> 
         <Route path="/PostTest" element={<PostTest />} /> 
         <Route path="/orders" element={<Orderpage />} />
+        <Route path="/settings" element={<Settingspage />} />
 
       </Routes>
     </Router>
