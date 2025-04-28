@@ -21,10 +21,24 @@ const Homepage = () => {
     console.log("Sign Up button clicked!");
   };
 
+  const handleOrders = () => {
+    const apiKey = window.prompt("Please enter your API key:");
+    if (apiKey) {
+      localStorage.setItem("apiKey", apiKey); // Save API key in localStorage
+      navigate("/orders"); // Navigate after saving
+    } else {
+      alert("API key is required to access Orders.");
+    }
+  };
+
+
   return (
     <div className="App">
-    {/* Login */}
+
       <button onClick={handleLogin} className="login-button">Login</button>
+      <button className="orders-btn" onClick={handleOrders}>
+        Orders
+      </button>
 
     {/* Other buttons Container*/}
     <div className="button-container">
@@ -32,6 +46,9 @@ const Homepage = () => {
         <button onClick={handleAboutUs} className="other-buttons">About us</button>
         <button onClick={handleSignUp} className="other-buttons">Sign up</button>
     </div>
+
+
+
     <div className="logo">
                 <img src="/favicon.ico" alt="Logo" className="logo-image" />
             </div>
