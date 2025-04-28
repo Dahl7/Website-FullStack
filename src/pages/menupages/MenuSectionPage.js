@@ -45,7 +45,6 @@ const MenuSectionsPage = () => {
     if (!name) return;
     const accessToken = localStorage.getItem("accessToken");
 
-
     const newSection = {
       name,
       menuID: menu.id,
@@ -56,7 +55,7 @@ const MenuSectionsPage = () => {
         method: "POST",
         headers: { "Content-Type": "application/json",
                    "Authorization": `Bearer ${accessToken}`
-        },
+                 },
         body: JSON.stringify(newSection),
       });
 
@@ -72,15 +71,44 @@ const MenuSectionsPage = () => {
     }
   };
 
+const handleRemoveItem = async (sectionID) => {
 
+            const accessToken = localStorage.getItem("accessToken");
+
+              if (!window.confirm("Are you sure you want to remove this section?")) return;
+              try {
+                const response = await fetch(`http://130.225.170.52:10331/api/menuSections/${sectionID}`, {
+                  method: "DELETE",
+                  mode: "cors",
+                  headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${accessToken}`
+
+                  },
+                });
+
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+                console.log(`Section with ID ${sectionID} deleted successfully. Fetching updated restaurant list...`);
+
+                fetch(`http://130.225.170.52:10331/api/menuSections/menu/${menu.id}`)
+                  .then(response => response.json())
+                  .then(updatedSections => {
+                    console.log(updatedSections);
+                    setSections(updatedSections);
+                  })
+              } catch (error) {
+                alert("Section has not been deleted, Please try again.");
+              }
+            };
 
   return (
     <div className="menu-page">
       <div className="back-arrow" onClick={() => navigate(-1)}>&#8592;</div>
-      <div className="menu-wrapper"> 
-      <h2>{menu?.description} - {restaurant?.name} Sections</h2>
 
       <div className="menu-container">
+        <h2>{menu?.description} - {restaurant?.name} Sections</h2>
 
         {error ? (
           <p>{error}</p>
@@ -92,7 +120,18 @@ const MenuSectionsPage = () => {
                 className="menu-item-container"
                 onClick={() => handleClick(section)}
               >
-                <button className="menu-btn">{section.name}</button>
+                <button className="menu-btn">{section.name}
+
+                        <span
+                          className="remove-icon"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleRemoveItem(section.id);
+                          }}
+                        >
+                        🗑️
+                    </span>
+                </button>
               </div>
             ))}
           </div>
@@ -102,7 +141,6 @@ const MenuSectionsPage = () => {
           <button className="add-btn" onClick={handleAddSection}>+</button>
         </div>
       </div>
-    </div>
     </div>
   );
 };
