@@ -1,18 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./AddItemsModal.css";
+
+const availableTags = ["Lactose-Free", "Vegan", "Gluten-Free", "Spicy", "Nut-Free"];
 
 const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
   const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
     const [tags, setTags] = useState("");
+    const [tagsDropdownOpen, setTagsDropdownOpen] = useState(false);
+
+    const dropdownRef = useRef(null);
 
     useEffect(() => {
       if (existingItem) {
         setName(existingItem.name || "");
         setDescription(existingItem.description || "");
         setPrice(existingItem.price || "");
-        setTags(existingItem.tags ? existingItem.tags.join(", ") : "");
+        setTags(existingItem.tags || []);
       } else {
         setName("");
         setDescription("");
@@ -20,6 +25,26 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
         setTags("");
       }
     }, [existingItem]);
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+          if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setTagsDropdownOpen(false);
+          }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+          document.removeEventListener("mousedown", handleClickOutside);
+        };
+      }, []);
+
+      const handleTagChange = (tag) => {
+        if (tags.includes(tag)) {
+          setTags((prevTags) => prevTags.filter((t) => t !== tag));
+        } else {
+          setTags((prevTags) => [...prevTags, tag]);
+        }
+      };
 
   const handleSave = () => {
     if (!name || !description || !price) {
@@ -30,7 +55,7 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
       name,
       description,
       price: parseFloat(price),
-      tags: tags.split(",").map((tag) => tag.trim()),
+      tags: tags,
     });
 
     onClose();
@@ -67,12 +92,30 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
           />
 
           <label>Tags</label>
-          <input
-            type="text"
-            placeholder="Comma-separated (e.g., Lactose, Vegan)"
-            value={tags}
-            onChange={(e) => setTags(e.target.value)}
-          />
+                  <div className="tags-dropdown" ref={dropdownRef}>
+                    <div
+                      className="tags-dropdown-header"
+                      onClick={() => setTagsDropdownOpen(!tagsDropdownOpen)}
+                    >
+                      {tags.length > 0 ? tags.join(", ") : "Select tags..."}
+                    </div>
+
+                    {tagsDropdownOpen && (
+                      <div className="tags-dropdown-list">
+                        {availableTags.map((tag) => (
+                          <label key={tag} className="tag-item">
+                            <input
+                              type="checkbox"
+                              value={tag}
+                              checked={tags.includes(tag)}
+                              onChange={() => handleTagChange(tag)}
+                            />
+                            {` ${tag}`}
+                          </label>
+                        ))}
+                      </div>
+                    )}
+                  </div>
 
           <div className="modal-buttons">
             <button className="save-btn" onClick={handleSave}>Save</button>
