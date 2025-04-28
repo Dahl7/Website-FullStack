@@ -22,42 +22,7 @@ const RestaurantSelector = () => {
 const handleMenuClick = async (restaurant) => {
   setLoadingRestaurantId(restaurant.id);
 
-  try {
-    const accessToken = localStorage.getItem("accessToken");
-    if (!accessToken) {
-      console.error("Access token not found");
-      return;
-    }
-
-    localStorage.setItem("restaurantId", restaurant.id);
-
-    const response = await fetch("http://130.225.170.52:10331/api/apiKeys/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${accessToken}`
-      },
-      body: JSON.stringify({ restaurantID: restaurant.id })
-    });
-
-    if (!response.ok) {
-      throw new Error(`Failed to create API key. Status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    console.log("API Key created:", data);
-
-    localStorage.setItem("apiKey", data.message);
-
     navigate("/menu", { state: { restaurant } });
-
-  } catch (error) {
-    console.error("Error during restaurant selection:", error);
-    alert("Failed to select restaurant. Please try again.");
-
-  } finally {
-    setLoadingRestaurantId(null);
-  }
 
     };    
     const handleAddRestaurant = async () => {
@@ -118,7 +83,7 @@ const handleMenuClick = async (restaurant) => {
 
                 if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
-                console.log(`✅ Restaurant with ID ${restaurantID} deleted successfully. Fetching updated restaurant list...`);
+                console.log(`Restaurant with ID ${restaurantID} deleted successfully. Fetching updated restaurant list...`);
 
                 // Fetch updated list of restaurants
                 fetch(`http://130.225.170.52:10331/api/restaurants`)

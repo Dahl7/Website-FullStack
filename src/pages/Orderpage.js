@@ -8,19 +8,19 @@ const Orderpage = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const restaurantId = localStorage.getItem("restaurantId");
       const accessToken = localStorage.getItem("apiKey");
-      if (!restaurantId || !accessToken) {
-        console.error("Missing restaurantId or accessToken");
+      if (!accessToken) {
+        console.error("Missing accessToken");
         return;
       }
 
       try {
-        const response = await fetch(`http://130.225.170.52:10331/api/orders/byrestaurant/${restaurantId}/`, {
+        const response = await fetch(`http://130.225.170.52:10331/api/orders/byrestaurant`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${accessToken}`
+            "Authorization": `Bearer ${accessToken}`,
+            "Connection": "keep-alive"
           }
         });
 
@@ -39,7 +39,7 @@ const Orderpage = () => {
           }
         
           const itemNames = order.menuitems.map(item => item.name).join(", ");
-          grouped[tableId].push(itemNames);  // 👈 show names instead of order ID
+          grouped[tableId].push(itemNames);
         });
         
         
@@ -57,7 +57,7 @@ const Orderpage = () => {
 
   fetchOrders();
 
-  const intervalId = setInterval(fetchOrders, 2000);
+  const intervalId = setInterval(fetchOrders, 200000);
 
   return () => clearInterval(intervalId);  }, []);
 

@@ -200,21 +200,36 @@
 
 .settings-section {
   width: 45%;
-  background-color: rgba(255, 255, 255, 0.1); /* Optional slight background */
+  background-color: rgba(255, 255, 255, 0.1);
   padding: 20px;
   border-radius: 10px;
 }
 
-.input-field {
-  width: 100%;
-  padding: 10px;
-  font-size: 18px;
-  border-radius: 5px;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #333; 
-  background-color: transparent;
-  color: black; 
-  outline: none; 
+.settings-section h2 {
+  text-align: center;
 }
 
+.settings-section p {
+  text-align: center;
+}
+
+.generate-key-btn {
+  background-color: #4CAF50; /* Nice green color */
+  color: white;
+  padding: 15px 40px;
+  border: none;
+  border-radius: 30px;
+  margin-top: 20px;
+  cursor: pointer;
+  width: 60%;
+  max-width: 300px;
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.generate-key-btn:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}

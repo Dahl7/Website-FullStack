@@ -60,13 +60,6 @@ const SettingsPage = () => {
     }
   };
 
-  const handleSaveStripeKey = () => {
-    if (!stripeKey.trim()) {
-      alert("Stripe key cannot be empty!");
-      return;
-    }
-    alert("Stripe Key saved successfully!");
-  };
 
   return (
     <div className="menu-page">
@@ -94,28 +87,8 @@ const SettingsPage = () => {
           </div>
 
           <div className="button-container">
-            <button className="add-btn" onClick={handleGenerateApiKey} disabled={loading}>
-              {loading ? "Generating..." : "Enter"}
-            </button>
-          </div>
-        </div>
-
-        {/* Right Side - Input Stripe Key */}
-        <div className="settings-section">
-          <h2>Stripe Key</h2>
-          <p>Enter your StripeKEY below:</p>
-
-          <input
-            type="text"
-            className="input-field"
-            value={stripeKey}
-            onChange={(e) => setStripeKey(e.target.value)}
-            placeholder="Please insert here"
-          />
-
-          <div className="button-container">
-            <button className="add-btn" onClick={handleSaveStripeKey}>
-              Save Stripe Key
+            <button className="generate-key-btn" onClick={handleGenerateApiKey} disabled={loading}>
+              {loading ? "Generating..." : "Generate"}
             </button>
           </div>
         </div>
