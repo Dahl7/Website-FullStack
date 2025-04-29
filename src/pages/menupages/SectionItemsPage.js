@@ -97,12 +97,12 @@ const SectionItemsPage = () => {
     if (!file || !uploadingItem) return;
 
     try {
-      const token = localStorage.getItem("accessToken");
+      const accessToken = localStorage.getItem("accessToken");
       const res = await fetch("http://130.225.170.52:10331/api/SASURL", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
+          "Authorization": `Bearer ${accessToken}`
         },
         body: JSON.stringify({
           "fileName": uploadingItem.name + uploadingItem.id,
