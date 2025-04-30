@@ -7,7 +7,7 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
   const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
-    const [tags, setTags] = useState("");
+    const [tags, setTags] = useState([]);
     const [tagsDropdownOpen, setTagsDropdownOpen] = useState(false);
 
     const dropdownRef = useRef(null);
@@ -22,7 +22,7 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
         setName("");
         setDescription("");
         setPrice("");
-        setTags("");
+        setTags([]);
       }
     }, [existingItem]);
 
@@ -97,21 +97,22 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
                       className="tags-dropdown-header"
                       onClick={() => setTagsDropdownOpen(!tagsDropdownOpen)}
                     >
-                      {tags.length > 0 ? tags.join(", ") : "Select tags..."}
+                      {tags.filter(Boolean).length > 0 ? tags.filter(Boolean).join(", ") : "Select tags..."}
                     </div>
 
                     {tagsDropdownOpen && (
                       <div className="tags-dropdown-list">
                         {availableTags.map((tag) => (
-                          <label key={tag} className="tag-item">
+                          <div key={tag} className="tag-item">
                             <input
                               type="checkbox"
+                              id={`tag-${tag}`}
                               value={tag}
                               checked={tags.includes(tag)}
                               onChange={() => handleTagChange(tag)}
                             />
-                            {` ${tag}`}
-                          </label>
+                            <label htmlFor={`tag-${tag}`}>{tag}</label>
+                          </div>
                         ))}
                       </div>
                     )}
