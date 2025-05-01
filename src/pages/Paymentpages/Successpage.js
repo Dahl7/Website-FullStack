@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import './PaymentSuccess.css'
 
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
@@ -30,14 +31,22 @@ const PaymentSuccess = () => {
   if (status === 'pending') return <p>Verifying your payment...</p>;
 
   return (
-    <div>
-      {status === 'paid' ? (
-        <h2>🎉 Thank you! Your payment was successful.</h2>
-      ) : (
-        <h2>❌ Payment failed or could not be verified.</h2>
-      )}
-    </div>
-  );
+    <div className="success-container">
+    {status === 'paid' ? (
+      <>
+        <div className="success-icon">✅</div>
+        <h2 className="success-message">Thank you! Your payment was successful.</h2>
+        <p className="success-subtext">You will receive a confirmation email shortly.</p>
+      </>
+    ) : (
+      <>
+        <div className="success-icon">❌</div>
+        <h2 className="error-message">Payment failed or could not be verified.</h2>
+        <p className="success-subtext">Please try again or contact support.</p>
+      </>
+    )}
+  </div>
+);
 };
 
 export default PaymentSuccess;
