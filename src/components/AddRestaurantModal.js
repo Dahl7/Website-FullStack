@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import "./AddItemsModal.css"; // reuse existing styles
+import "./AddItemsModal.css"; // Make sure this file contains the .large-select class
 
 const AddRestaurantModal = ({ isOpen, onClose, onSave }) => {
   const [name, setName] = useState("");
-  const [hours, setHours] = useState("");
+  const [hours, setHours] = useState({ open: "08:00", close: "22:00" });
   const [description, setDescription] = useState("");
   const [stripeKey, setStripeKey] = useState("");
 
   const handleSave = () => {
-    if (!name || !hours || !description || !stripeKey) {
+    if (!name || !hours.open || !hours.close || !description || !stripeKey) {
       alert("All fields are required!");
       return;
     }
@@ -21,7 +21,7 @@ const AddRestaurantModal = ({ isOpen, onClose, onSave }) => {
 
     onSave({
       name,
-      hours,
+      hours: `${hours.open}–${hours.close}`,
       description,
       stripeKey,
     });
@@ -29,6 +29,23 @@ const AddRestaurantModal = ({ isOpen, onClose, onSave }) => {
     onClose();
   };
 
+  const generateHourOptions = () => {
+    const options = [];
+    for (let h = 6; h < 24; h++) {
+      for (let m = 0; m < 60; m += 30) {
+        const hour = h.toString().padStart(2, '0');
+        const minute = m.toString().padStart(2, '0');
+        const time = `${hour}:${minute}`;
+        options.push(
+          <option key={time} value={time}>
+            {time}
+          </option>
+        );
+      }
+    }
+    return options;
+  };
+  
   if (!isOpen) return null;
 
   return (
@@ -45,12 +62,23 @@ const AddRestaurantModal = ({ isOpen, onClose, onSave }) => {
         />
 
         <label>Opening Hours</label>
-        <input
-          type="text"
-          value={hours}
-          onChange={(e) => setHours(e.target.value)}
-          placeholder="e.g. 08:00–22:00"
-        />
+        <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+          <select
+            value={hours.open}
+            onChange={(e) => setHours({ ...hours, open: e.target.value })}
+            className="large-select"
+          >
+            {generateHourOptions()}
+          </select>
+          <span style={{ fontSize: "16px" }}>to</span>
+          <select
+            value={hours.close}
+            onChange={(e) => setHours({ ...hours, close: e.target.value })}
+            className="large-select"
+          >
+            {generateHourOptions()}
+          </select>
+        </div>
 
         <label>Description</label>
         <textarea
@@ -68,8 +96,12 @@ const AddRestaurantModal = ({ isOpen, onClose, onSave }) => {
         />
 
         <div className="modal-buttons">
-          <button className="save-btn" onClick={handleSave}>Save</button>
-          <button className="cancel-btn" onClick={onClose}>Cancel</button>
+          <button className="save-btn" onClick={handleSave}>
+            Save
+          </button>
+          <button className="cancel-btn" onClick={onClose}>
+            Cancel
+          </button>
         </div>
       </div>
     </div>
