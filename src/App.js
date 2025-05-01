@@ -10,7 +10,7 @@ import FetchTest from "./FetchTest";
 import PostTest from "./PostTest";
 import Orderpage from "./pages/Orderpage";
 import Settingspage from "./pages/Settingspage";
-import PaymentSuccess from "./pages/Paymentpages/Successpage";
+import Successpage from "./pages/Paymentpages/Successpage";
 
 
 
