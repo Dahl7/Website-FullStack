@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AddRestaurantModal from "../components/AddRestaurantModal";
 import "./Restaurantselector.css";
 
 const RestaurantSelector = () => {
   const navigate = useNavigate();
   const [restaurants, setRestaurants] = useState([]);
+  const [restaurantModalOpen, setRestaurantModalOpen] = useState(false);
   const [loadingRestaurantId, setLoadingRestaurantId] = useState(null);
 
 
@@ -25,17 +27,23 @@ const handleMenuClick = async (restaurant) => {
     navigate("/menu", { state: { restaurant } });
 
     };    
-    const handleAddRestaurant = async () => {
-      const newRestaurantName = prompt("Enter new Restaurant name:");
-      if (!newRestaurantName) return; 
+    const handleAddRestaurant = () => {
+      setRestaurantModalOpen(true); 
+    };
+    
 
-      const accessToken = localStorage.getItem("accessToken");
-      console.log("Access token:", accessToken);
+    const saveRestaurant = async ({ name: restaurantName, hours, description, stripeKey }) => {
+    const accessToken = localStorage.getItem("accessToken");
+    const [openingTime, closingTime] = hours.split("–");
     
       const newRestaurant = {
-        latitude: 52.6761,          
+        name: restaurantName?.trim(),
+        latitude: 52.6761,
         longitude: 11.5683,
-        name: newRestaurantName
+        openingTime: openingTime?.trim(),
+        closingTime: closingTime?.trim(),
+        description,
+        stripeKey
       };
     
       try {
@@ -52,17 +60,17 @@ const handleMenuClick = async (restaurant) => {
     
         const addedRestaurant = await response.json();
         console.log("Restaurant added:", addedRestaurant);
-        fetch("http://130.225.170.52:10331/api/restaurants")
-        .then(response => response.json())
-        .then(updatedRestaurants => {
-          setRestaurants(updatedRestaurants);
-        });
-      
+    
+        const updated = await fetch("http://130.225.170.52:10331/api/restaurants");
+        const updatedRestaurants = await updated.json();
+        setRestaurants(updatedRestaurants);
+        setRestaurantModalOpen(false);
       } catch (error) {
         console.error("Error adding restaurant:", error);
         alert("Failed to add restaurant. Please try again.");
       }
     };
+    
 
             const handleRemoveItem = async (restaurantID) => {
 
@@ -155,6 +163,12 @@ const handleMenuClick = async (restaurant) => {
         <div className="logo">
           <img src="/favicon.ico" alt="Logo" className="logo-image" />
         </div>
+        <AddRestaurantModal
+  isOpen={restaurantModalOpen}
+  onClose={() => setRestaurantModalOpen(false)}
+  onSave={saveRestaurant}
+/>
+
       </div>
     );
   };
