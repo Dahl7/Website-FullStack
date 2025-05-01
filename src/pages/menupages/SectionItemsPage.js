@@ -166,8 +166,6 @@ const SectionItemsPage = () => {
         <div className="menu-items">
           {items.length > 0 ? (
             items.map((item) => {
-              const imageUrl = `https://<your-storage-account>.blob.core.windows.net/<your-container>/${item.name}${item.id}`;
-
               return (
                 <div key={item.id} className="menu-item-container">
                   <div className="menu-item-content">
@@ -179,7 +177,7 @@ const SectionItemsPage = () => {
 
 
                       <img
-                        src={imageUrl}
+                        src={item.photolink}
                         alt={item.name}
                         style={{ width: "100%", maxWidth: "200px", borderRadius: "8px", marginTop: "10px" }}
                         onError={(e) => e.target.style.display = "none"} // hide if not found
