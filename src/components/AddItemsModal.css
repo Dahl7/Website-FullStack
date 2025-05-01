@@ -73,6 +73,8 @@
 .cancel-btn:hover {
   background-color: darkred;
 }
+
+/* Tags Dropdown */
 .tags-dropdown {
   position: relative;
   width: 100%;
@@ -99,6 +101,7 @@
   color: #777;
 }
 
+/* Tag dropdown container */
 .tags-dropdown-list {
   position: absolute;
   top: calc(100% + 0.4rem);
@@ -112,34 +115,47 @@
   z-index: 1000;
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
   padding: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
 }
 
+/* Each tag row */
 .tag-item {
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 0.4rem 0.8rem;
-  font-size: 0.9rem;
-  color: #333;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem 0;
   transition: background 0.2s;
-  gap: 0.5rem;
+  cursor: pointer;
 }
 
 .tag-item:hover {
   background-color: #f5f5f5;
 }
 
-.tag-item input[type="checkbox"] {
-  margin: 0;
-  transform: scale(1.1);
-  accent-color: #007bff;
-}
-.tag-item {
-  flex-direction: column;
-  justify-content: center;
+/* Inner layout for checkbox + label */
+.tag-content {
+  display: flex;
   align-items: center;
-  padding: 0.5rem;
-  gap: 0.3rem;
+  gap: 0.6rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  color: #333;
 }
 
+/* Checkbox styling */
+.tag-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #007bff;
+  margin: 0;
+}
 
+/* Label styling */
+.tag-content label {
+  white-space: nowrap;
+  cursor: pointer;
+  font-weight: 500;
+}
