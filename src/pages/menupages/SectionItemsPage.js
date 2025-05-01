@@ -70,15 +70,16 @@ const SectionItemsPage = () => {
       if (item.id) {
         const res = await fetch(`http://130.225.170.52:10331/api/menuItems/${item.id}`, {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json"},
           body: JSON.stringify(payload),
         });
         const updated = await res.json();
         setItems(items.map((i) => (i.id === item.id ? updated : i)));
       } else {
+        const accessToken = localStorage.getItem("accessToken");
         const res = await fetch(`http://130.225.170.52:10331/api/menuItems/add`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${accessToken}`},
           body: JSON.stringify(payload),
         });
         const newItem = await res.json();
@@ -96,12 +97,12 @@ const SectionItemsPage = () => {
     if (!file || !uploadingItem) return;
 
     try {
-      const token = localStorage.getItem("accessToken");
+      const accessToken = localStorage.getItem("accessToken");
       const res = await fetch("http://130.225.170.52:10331/api/SASURL", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
+          "Authorization": `Bearer ${accessToken}`
         },
         body: JSON.stringify({
           "fileName": uploadingItem.name + uploadingItem.id,
