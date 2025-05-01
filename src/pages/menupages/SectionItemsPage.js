@@ -174,19 +174,20 @@ const SectionItemsPage = () => {
                       <p>{item.description}</p>
                       <p><strong>Price:</strong> {typeof item.price === "number" ? `$${item.price.toFixed(2)}` : "N/A"}</p>
                       <p><strong>Type:</strong> {item.type}</p>
-
-
-                      <img
-                        src={item.photolink}
-                        alt={item.name}
-                        style={{ width: "100%", maxWidth: "200px", borderRadius: "8px", marginTop: "10px" }}
-                        onError={(e) => e.target.style.display = "none"} // hide if not found
-                      />
                     </div>
+
                     <div className="menu-actions">
                       <button className="edit-btn" onClick={() => handleEdit(item)}>Edit</button>
                       <button className="remove-btn" onClick={() => handleDelete(item.id)}>Delete</button>
                       <button className="upload-btn" onClick={() => handleImageUploadClick(item)}>Upload Image</button>
+                    </div>
+
+                    <div className="menu-item-image">
+                      <img
+                        src={item.photolink}
+                        alt={item.name}
+                        onError={(e) => e.target.style.display = "none"}
+                      />
                     </div>
                   </div>
                 </div>
