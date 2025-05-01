@@ -10,6 +10,7 @@ import FetchTest from "./FetchTest";
 import PostTest from "./PostTest";
 import Orderpage from "./pages/Orderpage";
 import Settingspage from "./pages/Settingspage";
+import PaymentSuccess from "./pages/Paymentpages/Successpage";
 
 
 
@@ -27,7 +28,7 @@ function App() {
         <Route path="/PostTest" element={<PostTest />} /> 
         <Route path="/orders" element={<Orderpage />} />
         <Route path="/settings" element={<Settingspage />} />
-
+        <Route path="/payment-success" element={<Successpage />} />
       </Routes>
     </Router>
   );
