@@ -41,9 +41,18 @@ const SectionItemsPage = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this item?")) return;
     try {
-      await fetch(`http://130.225.170.52:10331/api/menuItems/${id}`, {
+      const token = localStorage.getItem("accessToken");
+      const res = await fetch(`http://130.225.170.52:10331/api/menuItems/${id}`, {
         method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        },
       });
+
+      if (!res.ok) {
+        throw new Error(`Failed to delete item: ${res.status}`);
+      }
+
       setItems(items.filter((item) => item.id !== id));
     } catch (err) {
       console.error(err);
@@ -57,6 +66,8 @@ const SectionItemsPage = () => {
       alert("Please enter a valid price.");
       return;
     }
+      const token = localStorage.getItem("accessToken"); // <-- Get the token
+
 
     const payload = {
       name: item.name,
@@ -70,7 +81,8 @@ const SectionItemsPage = () => {
       if (item.id) {
         const res = await fetch(`http://130.225.170.52:10331/api/menuItems/${item.id}`, {
           method: "PUT",
-          headers: { "Content-Type": "application/json"},
+
+          headers: { "Content-Type": "application/json","Authorization": `Bearer ${token}`},
           body: JSON.stringify(payload),
         });
         const updated = await res.json();
@@ -79,9 +91,14 @@ const SectionItemsPage = () => {
         const accessToken = localStorage.getItem("accessToken");
         const res = await fetch(`http://130.225.170.52:10331/api/menuItems/add`, {
           method: "POST",
-          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${accessToken}`},
+          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
           body: JSON.stringify(payload),
         });
+
+        if (!res.ok) {
+            throw new Error(`Failed to add item: ${res.status}`);
+            }
+
         const newItem = await res.json();
         setItems([...items, newItem]);
       }
@@ -149,26 +166,38 @@ const SectionItemsPage = () => {
 
         <div className="menu-items">
           {items.length > 0 ? (
-            items.map((item) => (
-              <div key={item.id} className="menu-item-container">
-              <div className="menu-item-content">
-                <div className="menu-item-details">
-                  <h3>{item.name}</h3>
-                  <p>{item.description}</p>
-                  <p><strong>Price:</strong> {typeof item.price === "number" ? `$${item.price.toFixed(2)}` : "N/A"}</p>
-                  <p><strong>Type:</strong> {item.type}</p>
+            items.map((item) => {
+              return (
+                <div key={item.id} className="menu-item-container">
+                  <div className="menu-item-content">
+                    <div className="menu-item-details">
+                      <h3>{item.name}</h3>
+                      <p>{item.description}</p>
+                      <p><strong>Price:</strong> {typeof item.price === "number" ? `$${item.price.toFixed(2)}` : "N/A"}</p>
+                      <p><strong>Type:</strong> {item.type}</p>
+                    </div>
+
+                    <div className="menu-actions">
+                      <button className="edit-btn" onClick={() => handleEdit(item)}>Edit</button>
+                      <button className="remove-btn" onClick={() => handleDelete(item.id)}>Delete</button>
+                      <button className="upload-btn" onClick={() => handleImageUploadClick(item)}>Upload Image</button>
+                    </div>
+
+                    <div className="menu-item-image">
+                      <img
+                        src={item.photolink}
+                        alt={item.name}
+                        onError={(e) => e.target.style.display = "none"}
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div className="menu-actions">
-                  <button className="edit-btn" onClick={() => handleEdit(item)}>Edit</button>
-                  <button className="remove-btn" onClick={() => handleDelete(item.id)}>Delete</button>
-                  <button className="upload-btn" onClick={() => handleImageUploadClick(item)}>Upload Image</button>
-                </div>
-                </div>
-              </div>
-            ))
+              );
+            })
           ) : (
             <p>No items in this section.</p>
           )}
+
         </div>
 
         <div className="button-container">
