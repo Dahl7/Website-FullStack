@@ -35,10 +35,12 @@ const Homepage = () => {
   return (
     <div className="App">
 
+    <div className="main-buttons">
       <button onClick={handleLogin} className="login-button">Login</button>
       <button className="orders-btn" onClick={handleOrders}>
         Orders
       </button>
+    </div>
 
     {/* Other buttons Container*/}
     <div className="button-container">

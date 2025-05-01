@@ -1,4 +1,3 @@
-/* Container holds all floating notes */
 .order-page {
   background-color: var(--main-color);
   height: 100vh;
@@ -8,14 +7,16 @@
   padding: 20px;
   display: flex;
   flex-wrap: wrap; /* Let notes wrap naturally */
-  gap: 20px;
-  align-content: flex-start;
   user-select: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem; 
+  padding: 2rem; 
+  padding-top: 3rem; 
 }
 
-/* Post-it style order box */
 .order-box {
-  background-color: #fdf78a; /* Post-it yellow */
+  background-color: #ffffff; /* Post-it yellow */
   color: #333;
   padding: 15px;
   border-radius: 6px;
@@ -56,4 +57,10 @@
 
 .check-btn:hover {
   background-color: #6bdc6b;
+}
+
+.order-header {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 0.3rem;
 }

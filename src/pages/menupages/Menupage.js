@@ -165,12 +165,6 @@ const handleMenuClick = (menu) => {
         <img src="/favicon.ico" alt="Logo" className="logo-image" />
       </div>
       
-      <button
-  className="orders-btn "
-  onClick={() => navigate("/orders")} 
->
-  Orders
-</button>
 </div>
     </div>
   );

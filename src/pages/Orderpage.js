@@ -38,17 +38,21 @@ const Orderpage = () => {
             grouped[tableId] = [];
           }
         
-          const itemNames = order.menuitems.map(item => item.name).join(", ");
-          grouped[tableId].push(itemNames);
+          const itemCounts = {};
+          order.menuitems.forEach(item => {
+            itemCounts[item.name] = (itemCounts[item.name] || 0) + 1;
+          });
+          const itemNames = Object.entries(itemCounts)
+            .map(([name, count]) => `${count}x ${name}`)
+            .join(", ");
+                    grouped[tableId].push({ id: order.id, text: itemNames });
         });
-        
-        
-
-        const formatted = Object.entries(grouped).map(([table, orders]) => ({
-          table,
-          orders
-        }));
-        setTableOrders(formatted);
+          const formatted = Object.entries(grouped).map(([table, orders]) => ({
+            table,
+            orders
+          }));
+          setTableOrders(formatted);
+          
       } catch (error) {
         console.error("Error fetching orders:", error);
         setTableOrders([]);
@@ -57,14 +61,13 @@ const Orderpage = () => {
 
   fetchOrders();
 
-  const intervalId = setInterval(fetchOrders, 200000);
+  const intervalId = setInterval(fetchOrders, 10000);
 
   return () => clearInterval(intervalId);  }, []);
 
   const handleCheck = async (tableIndex, orderIndex) => {
     const orderText = tableOrders[tableIndex].orders[orderIndex];
-    const match = orderText.match(/Order #(\d+)/);
-    const orderId = match ? match[1] : null;
+    const orderId = tableOrders[tableIndex].orders[orderIndex].id;
 
     if (!orderId) {
       console.error("Order ID not found in text:", orderText);
@@ -110,19 +113,24 @@ const Orderpage = () => {
         &#8592;
       </div>
   
-      {tableOrders.map((table, tableIndex) =>
-        table.orders.map((order, orderIndex) => (
-          <div key={`${tableIndex}-${orderIndex}`} className="order-box">
-            <span className="order-text">{order}</span>
-            <button
-              className="check-btn"
-              onClick={() => handleCheck(tableIndex, orderIndex)}
-            >
-              ✓
-            </button>
-          </div>
-        ))
-      )}
+{tableOrders.map((table, tableIndex) => (
+  <div key={tableIndex} className="table-section">
+    {table.orders.map((order, orderIndex) => (
+      <div key={`${tableIndex}-${orderIndex}`} className="order-box">
+  <div className="order-header"> {table.table}</div>
+  <span className="order-text">{order.text}</span>
+  <button
+    className="check-btn"
+    onClick={() => handleCheck(tableIndex, orderIndex)}
+  >
+    ✓
+  </button>
+</div>
+
+    ))}
+  </div>
+))}
+
     </div>
   );
 };
