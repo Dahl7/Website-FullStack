@@ -1,14 +1,27 @@
-// RestaurantEditor.js
 import React, { useState, useEffect } from "react";
+import Settingspage from "../pages/Settingspage";
 
 const RestaurantEditor = ({ restaurant, onSave }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [form, setForm] = useState({ ...restaurant });
 
   useEffect(() => {
-    setForm({ ...restaurant });
+    if (!restaurant) return;
+  
+    console.log("Loaded restaurant:", restaurant);
+  
+    setForm({
+      name: restaurant.name || "",
+      description: restaurant.description || "",
+      openingTime: restaurant.openingtime || "",
+      closingTime: restaurant.closingtime || "",
+      latitude: restaurant.latitude !== null && restaurant.latitude !== undefined ? restaurant.latitude : "",
+      longitude: restaurant.longitude !== null && restaurant.longitude !== undefined ? restaurant.longitude : "",
+    });
+  
     setIsEditing(false);
   }, [restaurant]);
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,33 +29,93 @@ const RestaurantEditor = ({ restaurant, onSave }) => {
   };
 
   const handleSave = () => {
-    onSave(form);
+    const completeData = {
+      ...form,
+      latitude: parseFloat(form.latitude),
+      longitude: parseFloat(form.longitude),
+    };
+
+    onSave(completeData);
     setIsEditing(false);
   };
 
   return (
-    <div className="restaurant-editor">
+    <div className="editor-section">
       <h3>Edit Restaurant</h3>
-      <label>Name:</label>
-      <input name="name" value={form.name} onChange={handleChange} readOnly={!isEditing} />
+      <form
+        className="restaurant-editor-form"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSave();
+        }}
+      >
+        <label htmlFor="name">Name:</label>
+        <input
+          id="name"
+          name="name"
+          value={form.name}
+          onChange={handleChange}
+          readOnly={!isEditing}
+        />
 
-      <label>Description:</label>
-      <textarea name="description" value={form.description} onChange={handleChange} readOnly={!isEditing} />
+        <label htmlFor="description">Description:</label>
+        <textarea
+          id="description"
+          name="description"
+          value={form.description}
+          onChange={handleChange}
+          readOnly={!isEditing}
+        />
 
-      <label>Opening Time:</label>
-      <input name="openingTime" value={form.openingTime} onChange={handleChange} readOnly={!isEditing} />
+        <label htmlFor="openingTime">Opening Time:</label>
+        <input
+          id="openingTime"
+          name="openingTime"
+          value={form.openingTime}
+          onChange={handleChange}
+          readOnly={!isEditing}
+        />
 
-      <label>Closing Time:</label>
-      <input name="closingTime" value={form.closingTime} onChange={handleChange} readOnly={!isEditing} />
+        <label htmlFor="closingTime">Closing Time:</label>
+        <input
+          id="closingTime"
+          name="closingTime"
+          value={form.closingTime}
+          onChange={handleChange}
+          readOnly={!isEditing}
+        />
 
-      <label>Stripe Key:</label>
-      <input name="stripeKey" value={form.stripeKey} onChange={handleChange} readOnly={!isEditing} />
 
-      {isEditing ? (
-        <button onClick={handleSave}>Save</button>
-      ) : (
-        <button onClick={() => setIsEditing(true)}>Edit</button>
-      )}
+        <label htmlFor="latitude">Latitude:</label>
+        <input
+          id="latitude"
+          name="latitude"
+          type="number"
+          step="any"
+          value={form.latitude}
+          onChange={handleChange}
+          readOnly={!isEditing}
+        />
+
+        <label htmlFor="longitude">Longitude:</label>
+        <input
+          id="longitude"
+          name="longitude"
+          type="number"
+          step="any"
+          value={form.longitude}
+          onChange={handleChange}
+          readOnly={!isEditing}
+        />
+
+        {isEditing ? (
+          <button type="submit">Save</button>
+        ) : (
+          <button type="button" onClick={() => setIsEditing(true)}>
+            Edit
+          </button>
+        )}
+      </form>
     </div>
   );
 };

@@ -21,10 +21,12 @@ const AddRestaurantModal = ({ isOpen, onClose, onSave }) => {
 
     onSave({
       name,
-      hours: `${hours.open}–${hours.close}`,
+      openingTime: hours.open,
+      closingTime: hours.close,
       description,
       stripeKey,
     });
+    
 
     onClose();
   };
