@@ -10,22 +10,25 @@ const SectionItemsPage = () => {
   const [items, setItems] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
-
   const [uploadingItem, setUploadingItem] = useState(null);
   const fileInputRef = useRef(null);
 
-
-  useEffect(() => {
+  // Ny funktion til at hente items
+  const fetchItems = async () => {
     if (!section) return;
 
+    try {
+      const res = await fetch(`http://130.225.170.52:10331/api/menuItems/section/${section.id}`);
+      const data = await res.json();
+      setItems(data);
+    } catch (err) {
+      console.error(err);
+      alert("Failed to load items.");
+    }
+  };
 
-    fetch(`http://130.225.170.52:10331/api/menuItems/section/${section.id}`)
-      .then((res) => res.json())
-      .then((data) => setItems(data))
-      .catch((err) => {
-        console.error(err);
-        alert("Failed to load items.");
-      });
+  useEffect(() => {
+    fetchItems();
   }, [section]);
 
   const handleAdd = () => {
@@ -66,9 +69,8 @@ const SectionItemsPage = () => {
       alert("Please enter a valid price.");
       return;
     }
-      const token = localStorage.getItem("accessToken"); // <-- Get the token
 
-
+    const token = localStorage.getItem("accessToken");
     const payload = {
       name: item.name,
       description: item.description,
@@ -81,27 +83,33 @@ const SectionItemsPage = () => {
       if (item.id) {
         const res = await fetch(`http://130.225.170.52:10331/api/menuItems/${item.id}`, {
           method: "PUT",
-
-          headers: { "Content-Type": "application/json","Authorization": `Bearer ${token}`},
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
           body: JSON.stringify(payload),
         });
+
         const updated = await res.json();
         setItems(items.map((i) => (i.id === item.id ? updated : i)));
       } else {
-        const accessToken = localStorage.getItem("accessToken");
         const res = await fetch(`http://130.225.170.52:10331/api/menuItems/add`, {
           method: "POST",
-          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
           body: JSON.stringify(payload),
         });
 
         if (!res.ok) {
-            throw new Error(`Failed to add item: ${res.status}`);
-            }
+          throw new Error(`Failed to add item: ${res.status}`);
+        }
 
-        const newItem = await res.json();
-        setItems([...items, newItem]);
+        // Hent opdateret liste for at få korrekt id, photolink, osv.
+        await fetchItems();
       }
+
       setModalOpen(false);
     } catch (err) {
       console.error(err);
@@ -140,6 +148,7 @@ const SectionItemsPage = () => {
 
       if (uploadRes.ok) {
         alert("✅ Image uploaded successfully!");
+        await fetchItems(); // Opdater billedlink
       } else {
         alert("❌ Image upload failed.");
       }
@@ -147,8 +156,8 @@ const SectionItemsPage = () => {
       console.error("Image upload error:", err);
       alert("❌ Upload error occurred.");
     } finally {
-      setUploadingItem(null); // Reset
-      event.target.value = ""; // Clear file input so same file can be selected again
+      setUploadingItem(null);
+      event.target.value = "";
     }
   };
 
@@ -156,7 +165,6 @@ const SectionItemsPage = () => {
     setUploadingItem(item);
     fileInputRef.current.click();
   };
-
 
   return (
     <div className="section-items-page">
@@ -197,7 +205,6 @@ const SectionItemsPage = () => {
           ) : (
             <p>No items in this section.</p>
           )}
-
         </div>
 
         <div className="button-container">
@@ -222,6 +229,5 @@ const SectionItemsPage = () => {
     </div>
   );
 };
-
 
 export default SectionItemsPage;

@@ -22,7 +22,7 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
         return res.json();
       })
       .then((data) => {
-        setAvailableTags(data); // expected to be an array of tag objects
+        setAvailableTags(data);
       })
       .catch((err) => console.error("Failed to load tags:", err));
   }, []);
