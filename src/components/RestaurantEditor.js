@@ -3,8 +3,17 @@ import Settingspage from "../pages/Settingspage";
 
 const RestaurantEditor = ({ restaurant, onSave }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [form, setForm] = useState({ ...restaurant });
 
+  const [form, setForm] = useState({
+    name: "",
+    description: "",
+    openingTime: "",
+    closingTime: "",
+    latitude: "",
+    longitude: "",
+    totaltables: "",
+  });
+  
   useEffect(() => {
     if (!restaurant) return;
   
@@ -41,16 +50,20 @@ const RestaurantEditor = ({ restaurant, onSave }) => {
     setIsEditing(false);
   };
 
+  console.log("isEditing:", isEditing);
   return (
     <div className="editor-section">
       <h3>Edit Restaurant</h3>
-      <form
+            <form
         className="restaurant-editor-form"
         onSubmit={(e) => {
           e.preventDefault();
-          handleSave();
+          if (isEditing) {
+            handleSave();
+          }
         }}
       >
+
         <label htmlFor="name">Name:</label>
         <input
           id="name"
@@ -121,13 +134,17 @@ const RestaurantEditor = ({ restaurant, onSave }) => {
         />
 
 
-        {isEditing ? (
-          <button type="submit">Save</button>
-        ) : (
-          <button type="button" onClick={() => setIsEditing(true)}>
-            Edit
-          </button>
-        )}
+{isEditing ? (
+  <>
+    <button type="submit">Save</button>
+    <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
+  </>
+) : (
+  <button type="button" onClick={() => setIsEditing(true)}>
+    Edit
+  </button>
+)}
+
       </form>
     </div>
   );
