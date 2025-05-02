@@ -28,18 +28,20 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
   }, []);
 
   useEffect(() => {
-    if (existingItem) {
-      setName(existingItem.name || "");
-      setDescription(existingItem.description || "");
-      setPrice(existingItem.price || "");
-      setTags((existingItem.tags || []).filter(Boolean)); // filter out nulls
-    } else {
-      setName("");
-      setDescription("");
-      setPrice("");
-      setTags([]);
+    if (isOpen) {
+      if (existingItem) {
+        setName(existingItem.name || "");
+        setDescription(existingItem.description || "");
+        setPrice(existingItem.price || "");
+        setTags((existingItem.tags || []).filter(Boolean));
+      } else {
+        setName("");
+        setDescription("");
+        setPrice("");
+        setTags([]);
+      }
     }
-  }, [existingItem]);
+  }, [isOpen, existingItem]);
 
   useEffect(() => {
     function handleClickOutside(event) {
