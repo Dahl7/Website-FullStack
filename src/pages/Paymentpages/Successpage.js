@@ -8,6 +8,9 @@ const PaymentSuccess = () => {
   const [status, setStatus] = useState("pending");
 
   useEffect(() => {
+    let intervalId;
+    let retryCount = 0;
+    const maxRetries = 10;
     const verifyPayment = async () => {
       try {
         const res = await fetch('http://130.225.170.52:10331/api/orders/paymentStatus', {
@@ -17,15 +20,26 @@ const PaymentSuccess = () => {
         });
 
         const data = await res.json();
-        setStatus(data.status);
+
+        if (data.status === 'paid' || data.status === 'unpaid') {
+          setStatus(data.status);
+          clearInterval(intervalId);
+        }
       } catch (error) {
+        console.error("Error verifying payment: ", error); // Logging error to the console
+      }
+      retryCount++;
+      if (retryCount >= maxRetries) {
+        clearInterval(intervalId);
         setStatus('error');
       }
     };
 
     if (sessionId) {
-      verifyPayment();
+        intervalId = setInterval(verifyPayment, 1000);
+        verifyPayment();
     }
+    return () => clearInterval(intervalId);
   }, [sessionId]);
 
   if (status === 'pending') return <p>Verifying your payment...</p>;
