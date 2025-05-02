@@ -24,9 +24,19 @@
   z-index: -1; /* Places it behind the login form */
 }
 
-.add-btn:hover {
-  background-color: #A8D5BA  ;
-  transform: scale(1.05); /* Small pop effect on hover */
+.add-btn{
+  background-color: #555;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 50%;
+  padding: 1.3rem 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .menu-container {

@@ -17,6 +17,7 @@ const RestaurantEditor = ({ restaurant, onSave }) => {
       closingTime: restaurant.closingtime || "",
       latitude: restaurant.latitude !== null && restaurant.latitude !== undefined ? restaurant.latitude : "",
       longitude: restaurant.longitude !== null && restaurant.longitude !== undefined ? restaurant.longitude : "",
+      totaltables: restaurant.totaltables ?? "",
     });
   
     setIsEditing(false);
@@ -33,6 +34,7 @@ const RestaurantEditor = ({ restaurant, onSave }) => {
       ...form,
       latitude: parseFloat(form.latitude),
       longitude: parseFloat(form.longitude),
+      totaltables: parseInt(form.totaltables, 10),
     };
 
     onSave(completeData);
@@ -107,6 +109,17 @@ const RestaurantEditor = ({ restaurant, onSave }) => {
           onChange={handleChange}
           readOnly={!isEditing}
         />
+
+        <label htmlFor="totaltables">Total Tables:</label>
+        <input
+        id="totaltables"
+        name="totaltables"
+        type="number"
+        value={form.totaltables}
+        onChange={handleChange}
+        readOnly={!isEditing}
+        />
+
 
         {isEditing ? (
           <button type="submit">Save</button>
