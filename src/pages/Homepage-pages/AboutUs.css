@@ -36,3 +36,22 @@
   color: #007BFF;
   text-decoration: none;
 }
+
+.back-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 5px;
+  color: black;
+  z-index: 1000;
+}
+
+.back-button:hover {
+  opacity: 0.7;
+}
+
+

@@ -1,30 +1,41 @@
-// src/AboutUs.js
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './AboutUs.css';
 
 const AboutUs = () => {
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1); // Go back to the previous page
+  };
+
   return (
     <div className="about-container">
+      <button className="back-button" onClick={handleBack}>←</button>
+
+
       <h1 className="about-title">About Us</h1>
 
       <section className="about-section">
-        <h2>Our Mission</h2>
+        <h2>Our Service</h2>
         <p>
-          At JAMNAW, we focus on making the restaurant service better and easier.
+          We provide a smart, seamless solution for restaurants to enhance their customer experience.
+          With our platform, diners can browse your menu, place orders, and pay — all from their mobile device.
         </p>
       </section>
 
       <section className="about-section">
-        <h2>Our Team</h2>
+        <h2>Why Choose Us?</h2>
         <p>
-          We are a team
+          Our mission is to help restaurants increase efficiency, reduce staff workload, and delight guests
+          with a smooth ordering experience.
         </p>
       </section>
 
       <section className="about-section">
-        <h2>Contact Us</h2>
+        <h2>Join the Future of Dining</h2>
         <p>
-          Have questions? We'd love to hear from you! Reach out at <a href="mailto:support@yourcompany.com">support@yourcompany.com</a>.
+          Thousands of restaurants are already using our platform to streamline their service and boost customer satisfaction.
         </p>
       </section>
     </div>
