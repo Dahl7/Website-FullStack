@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Restaurantselector.css";
+import "./Settingspage.css";
+import RestaurantEditor from "../components/RestaurantEditor"; 
+
 
 const SettingsPage = () => {
   const navigate = useNavigate();
   const [restaurants, setRestaurants] = useState([]);
   const [selectedRestaurantId, setSelectedRestaurantId] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [stripeKey, setStripeKey] = useState("");
 
   useEffect(() => {
     fetch("http://130.225.170.52:10331/api/restaurants")
@@ -78,7 +79,7 @@ const SettingsPage = () => {
             {restaurants.map((restaurant) => (
               <button
                 key={restaurant.id}
-                className={`menu-btn ${selectedRestaurantId === restaurant.id ? "selected" : ""}`}
+                className={`settings-restaurant-btn ${selectedRestaurantId === restaurant.id ? "selected" : ""}`}
                 onClick={() => handleRestaurantClick(restaurant.id)}
               >
                 {restaurant.name}
@@ -94,6 +95,31 @@ const SettingsPage = () => {
         </div>
 
       </div>
+
+      <div className="settings-section">
+  {selectedRestaurantId && (
+    <RestaurantEditor
+      restaurant={restaurants.find(r => r.id === selectedRestaurantId)}
+      onSave={async (updatedData) => {
+        const accessToken = localStorage.getItem("accessToken");
+        const response = await fetch(`http://130.225.170.52:10331/api/restaurants/${selectedRestaurantId}/update`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify(updatedData),
+        });
+
+        if (response.ok) {
+          alert("Restaurant updated successfully.");
+        } else {
+          alert("Failed to update restaurant.");
+        }
+      }}
+    />
+  )}
+</div>
 
       <div className="logo">
         <img src="/favicon.ico" alt="Logo" className="logo-image" />

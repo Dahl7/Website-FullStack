@@ -1,0 +1,75 @@
+
+.settings-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .settings-section {
+    width: 45%;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .settings-section h2 {
+    text-align: center;
+  }
+  
+  .settings-section p {
+    text-align: center;
+  }
+  
+  .generate-key-btn {
+    background-color: #4CAF50; /* Nice green color */
+    color: white;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 30px;
+    margin-top: 20px;
+    cursor: pointer;
+    width: 60%;
+    max-width: 300px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .generate-key-btn:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+  }
+  
+  .settings-restaurant-btn {
+    background-color: grey;
+    color: white;
+    padding: 0 10px; /* horizontal only */
+    border: none;
+    border-radius: 100px;
+    margin-top: 10px;
+    cursor: pointer;
+    width: 80%;
+    height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    user-select: none;
+    flex-shrink: 0;
+    justify-content: center;
+  }
+  
+  .settings-restaurant-btn:hover {
+    background-color: #3a3432;
+  }
+  
+  .settings-restaurant-btn.selected {
+    background-color: #4CAF50; /* highlight green */
+    color: white;
+    font-weight: bold;
+    transform: scale(1.02);
+    box-shadow: 0 0 10px rgba(0, 128, 0, 0.4);
+  }
+  

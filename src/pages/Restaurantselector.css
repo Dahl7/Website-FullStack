@@ -1,18 +1,4 @@
-.menu-page {
-  background-color: var(--main-color);
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  overflow: hidden;  /* Prevents scrollbars from showing */
-  display: flex;
-  justify-content: flex-start;   /* Align to top */
-  align-items: center;
-  padding-top: 20px;             /* Add small padding manually */
-  
-}
+
 
 .background-image {
   position: absolute;
@@ -185,7 +171,7 @@
 }
 
 .menu-btn.selected {
-  background-color: #4CAF50; 
+  transform: scale(1.1);
   color: white; 
 }
 

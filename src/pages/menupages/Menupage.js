@@ -103,7 +103,7 @@ const handleMenuClick = (menu) => {
   
       if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
   
-      console.log(`✅ Menu with ID ${id} deleted successfully. Fetching updated menu list...`);
+      console.log(`Menu with ID ${id} deleted successfully. Fetching updated menu list...`);
   
       // Fetch updated list of menus
       fetch(`http://130.225.170.52:10331/api/menus/restaurant/${restaurant.id}`)
