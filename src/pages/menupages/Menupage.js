@@ -60,7 +60,7 @@ const handleMenuClick = (menu) => {
     };
   
     try {
-      const response = await fetch("http://130.225.170.52:10331/api/menus/add", {
+      const response = await fetch("https://130.225.170.52:10332/api/menus/add", {
         method: "POST",
         headers: { "Content-Type": "application/json","Authorization": `Bearer ${accessToken}`
 },

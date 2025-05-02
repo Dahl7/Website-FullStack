@@ -115,7 +115,7 @@ const SectionItemsPage = () => {
 
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const res = await fetch("http://130.225.170.52:10331/api/SASURL", {
+      const res = await fetch("https://130.225.170.52:10332/api/SASURL", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -17,7 +17,7 @@ function PostTest() {
     setMessage(null);
 
     try {
-      const response = await fetch("http://130.225.170.52:10331/users/adduser", {
+      const response = await fetch("https://130.225.170.52:10332/users/adduser", {
         method: "POST",
         headers:{
           "Content-Type": "application/json", 
