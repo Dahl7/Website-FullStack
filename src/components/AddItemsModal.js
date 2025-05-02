@@ -22,18 +22,17 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
         return res.json();
       })
       .then((data) => {
-        setAvailableTags(data); // assuming data is an array of tag objects
+        setAvailableTags(data); // expected to be an array of tag objects
       })
       .catch((err) => console.error("Failed to load tags:", err));
   }, []);
 
-  // Populate form fields for edit
   useEffect(() => {
     if (existingItem) {
       setName(existingItem.name || "");
       setDescription(existingItem.description || "");
       setPrice(existingItem.price || "");
-      setTags(existingItem.tags || []);
+      setTags((existingItem.tags || []).filter(Boolean)); // filter out nulls
     } else {
       setName("");
       setDescription("");
@@ -55,8 +54,9 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
   }, []);
 
   const handleTagChange = (tag) => {
-    if (tags.some((t) => (t.id || t) === (tag.id || tag))) {
-      setTags((prev) => prev.filter((t) => (t.id || t) !== (tag.id || tag)));
+    const tagId = tag?.id || tag;
+    if (tags.some((t) => (t?.id || t) === tagId)) {
+      setTags((prev) => prev.filter((t) => (t?.id || t) !== tagId));
     } else {
       setTags((prev) => [...prev, tag]);
     }
@@ -71,7 +71,7 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
       name,
       description,
       price: parseFloat(price),
-      tags: tags.map((tag) => tag.id || tag), // pass IDs only
+      tags: tags.filter(Boolean).map((tag) => tag?.id || tag),
     });
     onClose();
   };
@@ -113,27 +113,32 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
             onClick={() => setTagsDropdownOpen(!tagsDropdownOpen)}
           >
             {tags.length > 0
-              ? tags.map(tag => tag.tagvalue || tag.name || "").join(", ")
+              ? tags
+                  .filter(Boolean)
+                  .map((tag) => tag?.tagvalue || tag?.name || "Unnamed")
+                  .join(", ")
               : "Select tags..."}
-
           </div>
 
           {tagsDropdownOpen && (
             <div className="tags-dropdown-list">
-              {availableTags.map((tag) => (
-                <div key={tag.id || tag} className="tag-item">
-                  <div className="tag-content">
-                    <input
-                      type="checkbox"
-                      id={`tag-${tag.id || tag}`}
-                      checked={tags.some((t) => (t.id || t) === (tag.id || tag))}
-                      onChange={() => handleTagChange(tag)}
-                    />
-                    <label htmlFor={`tag-${tag.id}`}>{tag.tagvalue || tag.name || "Unnamed"}</label>
-
+              {availableTags
+                .filter(Boolean)
+                .map((tag) => (
+                  <div key={tag?.id || tag} className="tag-item">
+                    <div className="tag-content">
+                      <input
+                        type="checkbox"
+                        id={`tag-${tag?.id || tag}`}
+                        checked={tags.some((t) => (t?.id || t) === (tag?.id || tag))}
+                        onChange={() => handleTagChange(tag)}
+                      />
+                      <label htmlFor={`tag-${tag?.id || tag}`}>
+                        {tag?.tagvalue || tag?.name || "Unnamed"}
+                      </label>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           )}
         </div>
@@ -145,13 +150,10 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
           <button className="cancel-btn" onClick={onClose}>
             Cancel
           </button>
-
         </div>
       </div>
     </div>
   );
 };
 
-
 export default AddItemModal;
-
