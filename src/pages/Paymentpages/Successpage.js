@@ -13,7 +13,7 @@ const PaymentSuccess = () => {
         const res = await fetch('http://130.225.170.52:10331/api/orders/paymentStatus', {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ session_id: sessionId })
+          body: JSON.stringify({ "sessionID": sessionId })
         });
 
         const data = await res.json();
