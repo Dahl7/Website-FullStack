@@ -32,9 +32,8 @@ const handleMenuClick = async (restaurant) => {
     };
     
 
-    const saveRestaurant = async ({ name: restaurantName, hours, description, stripeKey }) => {
+    const saveRestaurant = async ({ name: restaurantName, openingTime, closingTime, description, stripeKey, totaltables }) => {
     const accessToken = localStorage.getItem("accessToken");
-    const [openingTime, closingTime] = hours.split("–");
     
       const newRestaurant = {
         name: restaurantName?.trim(),
@@ -43,7 +42,8 @@ const handleMenuClick = async (restaurant) => {
         openingTime: openingTime?.trim(),
         closingTime: closingTime?.trim(),
         description,
-        stripeKey
+        stripeKey,
+        totaltables: parseInt(totaltables, 10), 
       };
     
       try {

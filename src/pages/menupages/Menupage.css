@@ -1,15 +1,18 @@
 .menu-page {
   background-color: var(--main-color);
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 100px;
+  flex-direction: column;          /* Ensure stacked layout */
+  align-items: center;
+  padding-top: 0px;                /* Temporarily remove to test */
   position: relative;
-  overflow: auto;  /* Prevents scrollbars from showing */
-  user-select: none; /* Prevents text selection */
+  overflow-x: hidden;
+  overflow-y: auto;
+  user-select: none;
 }
+
+
 
 .background-image {
   position: absolute;
@@ -21,9 +24,19 @@
   z-index: -1; /* Places it behind the login form */
 }
 
-.add-btn:hover {
-  background-color: #A8D5BA  ;
-  transform: scale(1.05); /* Small pop effect on hover */
+.add-btn{
+  background-color: #555;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 50%;
+  padding: 1.3rem 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .menu-container {
@@ -138,7 +151,6 @@
 }
 
 .orders-btn:hover {
-  background-color: #a6e9d8;
   transform: scale(1.05);
 }
 
@@ -172,7 +184,8 @@
 
 
 .menu-btn:hover {
-  background-color: #A8D5BA;
+  transform: scale(1.05);
+  border-radius: 100px;
 }
 
 

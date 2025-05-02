@@ -54,7 +54,6 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
     };
   }, []);
 
-  // Handle tag select/deselect
   const handleTagChange = (tag) => {
     if (tags.some((t) => (t.id || t) === (tag.id || tag))) {
       setTags((prev) => prev.filter((t) => (t.id || t) !== (tag.id || tag)));
@@ -116,6 +115,7 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
             {tags.length > 0
               ? tags.map(tag => tag.tagvalue || tag.name || "").join(", ")
               : "Select tags..."}
+
           </div>
 
           {tagsDropdownOpen && (
@@ -130,6 +130,7 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
                       onChange={() => handleTagChange(tag)}
                     />
                     <label htmlFor={`tag-${tag.id}`}>{tag.tagvalue || tag.name || "Unnamed"}</label>
+
                   </div>
                 </div>
               ))}
@@ -144,10 +145,13 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
           <button className="cancel-btn" onClick={onClose}>
             Cancel
           </button>
+
         </div>
       </div>
     </div>
   );
 };
 
+
 export default AddItemModal;
+

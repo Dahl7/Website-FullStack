@@ -6,9 +6,10 @@ const AddRestaurantModal = ({ isOpen, onClose, onSave }) => {
   const [hours, setHours] = useState({ open: "08:00", close: "22:00" });
   const [description, setDescription] = useState("");
   const [stripeKey, setStripeKey] = useState("");
+  const [totalTables, setTotalTables] = useState("");
 
   const handleSave = () => {
-    if (!name || !hours.open || !hours.close || !description || !stripeKey) {
+    if (!name || !hours.open || !hours.close || !description || !stripeKey || !totalTables) {
       alert("All fields are required!");
       return;
     }
@@ -21,10 +22,13 @@ const AddRestaurantModal = ({ isOpen, onClose, onSave }) => {
 
     onSave({
       name,
-      hours: `${hours.open}–${hours.close}`,
+      openingTime: hours.open,
+      closingTime: hours.close,
       description,
       stripeKey,
+      totaltables: Number(totalTables),
     });
+    
 
     onClose();
   };
@@ -94,6 +98,15 @@ const AddRestaurantModal = ({ isOpen, onClose, onSave }) => {
           onChange={(e) => setStripeKey(e.target.value)}
           placeholder="Enter Stripe key"
         />
+
+        <label>Total Tables</label>
+        <input
+          type="number"
+          value={totalTables}
+          onChange={(e) => setTotalTables(parseInt(e.target.value))}
+          placeholder="Enter number of tables"
+        />
+
 
         <div className="modal-buttons">
           <button className="save-btn" onClick={handleSave}>

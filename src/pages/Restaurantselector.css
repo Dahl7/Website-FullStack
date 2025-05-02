@@ -1,18 +1,4 @@
-.menu-page {
-  background-color: var(--main-color);
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  overflow: hidden;  /* Prevents scrollbars from showing */
-  display: flex;
-  justify-content: flex-start;   /* Align to top */
-  align-items: center;
-  padding-top: 20px;             /* Add small padding manually */
-  
-}
+
 
 .background-image {
   position: absolute;
@@ -24,10 +10,7 @@
   z-index: -1; /* Places it behind the login form */
 }
 
-.add-btn:hover {
-  background-color: #A8D5BA  ; /* Slightly darker gray */
-  transform: scale(1.05); /* Small pop effect on hover */
-}
+
 
 
 
@@ -43,24 +26,6 @@
     display: flex;
     justify-content: center;
     width:100%;
-}
-
-.add-btn {
-  background-color: grey;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 100px;
-  margin-top: 10px;
-  cursor: pointer;
-  width: 30%;
-  display: block;
-  text-align: center;
-  font-size: 60px;
-  font-weight: bold;
-  line-height: 1;
-  user-select: none; /* Prevents text selection */
-
 }
 
 .back-arrow {
@@ -185,7 +150,7 @@
 }
 
 .menu-btn.selected {
-  background-color: #4CAF50; 
+  transform: scale(1.1);
   color: white; 
 }
 
