@@ -1,17 +1,33 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./AddItemsModal.css";
 
-const availableTags = ["Lactose-Free", "Vegan", "Gluten-Free", "Spicy", "Nut-Free"];
-
 const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [tags, setTags] = useState([]);
+  const [availableTags, setAvailableTags] = useState([]);
   const [tagsDropdownOpen, setTagsDropdownOpen] = useState(false);
 
   const dropdownRef = useRef(null);
 
+  useEffect(() => {
+    fetch("http://130.225.170.52:10331/api/tags/", {
+      headers: { Accept: "application/json" },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setAvailableTags(data); // assuming data is an array of tag objects
+      })
+      .catch((err) => console.error("Failed to load tags:", err));
+  }, []);
+
+  // Populate form fields for edit
   useEffect(() => {
     if (existingItem) {
       setName(existingItem.name || "");
@@ -38,11 +54,12 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
     };
   }, []);
 
+  // Handle tag select/deselect
   const handleTagChange = (tag) => {
-    if (tags.includes(tag)) {
-      setTags((prevTags) => prevTags.filter((t) => t !== tag));
+    if (tags.some((t) => (t.id || t) === (tag.id || tag))) {
+      setTags((prev) => prev.filter((t) => (t.id || t) !== (tag.id || tag)));
     } else {
-      setTags((prevTags) => [...prevTags, tag]);
+      setTags((prev) => [...prev, tag]);
     }
   };
 
@@ -55,9 +72,8 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
       name,
       description,
       price: parseFloat(price),
-      tags: tags,
+      tags: tags.map((tag) => tag.id || tag), // pass IDs only
     });
-
     onClose();
   };
 
@@ -97,22 +113,23 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
             className="tags-dropdown-header"
             onClick={() => setTagsDropdownOpen(!tagsDropdownOpen)}
           >
-            {tags.filter(Boolean).length > 0 ? tags.filter(Boolean).join(", ") : "Select tags..."}
+            {tags.length > 0
+              ? tags.map(tag => tag.tagvalue || tag.name || "").join(", ")
+              : "Select tags..."}
           </div>
 
           {tagsDropdownOpen && (
             <div className="tags-dropdown-list">
               {availableTags.map((tag) => (
-                <div key={tag} className="tag-item">
+                <div key={tag.id || tag} className="tag-item">
                   <div className="tag-content">
                     <input
                       type="checkbox"
-                      id={`tag-${tag}`}
-                      value={tag}
-                      checked={tags.includes(tag)}
+                      id={`tag-${tag.id || tag}`}
+                      checked={tags.some((t) => (t.id || t) === (tag.id || tag))}
                       onChange={() => handleTagChange(tag)}
                     />
-                    <label htmlFor={`tag-${tag}`}>{tag}</label>
+                    <label htmlFor={`tag-${tag.id}`}>{tag.tagvalue || tag.name || "Unnamed"}</label>
                   </div>
                 </div>
               ))}
@@ -121,8 +138,12 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
         </div>
 
         <div className="modal-buttons">
-          <button className="save-btn" onClick={handleSave}>Save</button>
-          <button className="cancel-btn" onClick={onClose}>Cancel</button>
+          <button className="save-btn" onClick={handleSave}>
+            Save
+          </button>
+          <button className="cancel-btn" onClick={onClose}>
+            Cancel
+          </button>
         </div>
       </div>
     </div>

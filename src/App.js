@@ -11,6 +11,8 @@ import PostTest from "./PostTest";
 import Orderpage from "./pages/Orderpage";
 import Settingspage from "./pages/Settingspage";
 import Successpage from "./pages/Paymentpages/Successpage";
+import AboutUs from './pages/Homepage-pages/AboutUs';
+
 
 
 
@@ -19,6 +21,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Homepage />} />
+        <Route path="/about-us" element={<AboutUs />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/restaurant" element={<RestaurantSelector />} />
         <Route path="/menu" element={<Menupage />} />
