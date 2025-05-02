@@ -12,6 +12,7 @@ import Orderpage from "./pages/Orderpage";
 import Settingspage from "./pages/Settingspage";
 import Successpage from "./pages/Paymentpages/Successpage";
 import AboutUs from './pages/Homepage-pages/AboutUs';
+import CustomerService from './pages/Homepage-pages/CustomerService';
 
 
 
@@ -22,6 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/customer-service" element={<CustomerService />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/restaurant" element={<RestaurantSelector />} />
         <Route path="/menu" element={<Menupage />} />

@@ -10,7 +10,7 @@ const Homepage = () => {
   };
 
   const handleCustomerService = () => {
-    console.log("Customer Service button clicked!");
+    navigate("/customer-service");
   };
 
   const handleAboutUs = () => {

@@ -1,0 +1,66 @@
+.customer-service-page {
+  position: relative;
+  min-height: 100vh;
+  background-color: #fefefe;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.customer-service-container {
+  background: #fff4f4;
+  padding: 40px;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.customer-service-container h1 {
+  margin-bottom: 10px;
+}
+
+.customer-service-container p {
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.support-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.support-form input,
+.support-form textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.submit-btn {
+  background-color: #81C784;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.back-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.back-button svg:hover {
+  opacity: 0.6;
+}
