@@ -12,7 +12,7 @@ const RestaurantSelector = () => {
 
 
   useEffect(() => {
-    fetch("https://130.225.170.52:10332/api/restaurants")
+    fetch("http://130.225.170.52:10331/api/restaurants")
       .then(response => response.json())
       .then(data => {
         console.log("Fetched restaurants:", data);
@@ -47,7 +47,7 @@ const handleMenuClick = async (restaurant) => {
       };
     
       try {
-        const response = await fetch("https://130.225.170.52:10332/api/restaurant/add", {
+        const response = await fetch("http://130.225.170.52:10331/api/restaurant/add", {
           method: "POST",
           headers: { 
             "Content-Type": "application/json",
@@ -61,7 +61,7 @@ const handleMenuClick = async (restaurant) => {
         const addedRestaurant = await response.json();
         console.log("Restaurant added:", addedRestaurant);
     
-        const updated = await fetch("https://130.225.170.52:10332/api/restaurants");
+        const updated = await fetch("http1://130.225.170.52:10331/api/restaurants");
         const updatedRestaurants = await updated.json();
         setRestaurants(updatedRestaurants);
         setRestaurantModalOpen(false);

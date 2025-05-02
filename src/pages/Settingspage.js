@@ -11,7 +11,7 @@ const SettingsPage = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetch("https://130.225.170.52:10332/api/restaurants")
+    fetch("http://130.225.170.52:10331/api/restaurants")
       .then(response => response.json())
       .then(data => setRestaurants(data))
       .catch(err => console.error("Error fetching restaurants:", err));
@@ -37,7 +37,7 @@ const SettingsPage = () => {
         return;
       }
 
-      const response = await fetch("https://130.225.170.52:10332/api/apiKeys/create", {
+      const response = await fetch("http://130.225.170.52:10331/api/apiKeys/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

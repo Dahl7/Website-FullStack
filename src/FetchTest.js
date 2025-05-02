@@ -22,7 +22,7 @@ function FetchTest() {
     console.log("Creating API key for restaurant:", parsedId);
 
     try {
-      const response = await fetch("https://130.225.170.52:10332/api/apiKeys/create", {
+      const response = await fetch("http://130.225.170.52:10331/api/apiKeys/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
