@@ -47,6 +47,7 @@ const RestaurantEditor = ({ restaurant, onSave }) => {
       latitude: parseFloat(form.latitude),
       longitude: parseFloat(form.longitude),
       totaltables: parseInt(form.totaltables, 10),
+      stripeKey: form.stripeKey
     };
 
     onSave(completeData);
