@@ -12,6 +12,8 @@ const RestaurantEditor = ({ restaurant, onSave }) => {
     latitude: "",
     longitude: "",
     totaltables: "",
+    stripeKey: "",
+
   });
   
   useEffect(() => {
@@ -27,6 +29,7 @@ const RestaurantEditor = ({ restaurant, onSave }) => {
       latitude: restaurant.latitude !== null && restaurant.latitude !== undefined ? restaurant.latitude : "",
       longitude: restaurant.longitude !== null && restaurant.longitude !== undefined ? restaurant.longitude : "",
       totaltables: restaurant.totaltables ?? "",
+      stripeKey: "",
     });
   
     setIsEditing(false);
@@ -132,6 +135,17 @@ const RestaurantEditor = ({ restaurant, onSave }) => {
         onChange={handleChange}
         readOnly={!isEditing}
         />
+
+        <label htmlFor="stripeKey">Stripe Key:</label>
+        <input
+          id="stripeKey"
+          name="stripeKey"
+          type="text"
+          value={form.stripeKey}
+          onChange={handleChange}
+          readOnly={!isEditing}
+        />
+
 
 
 {isEditing ? (
