@@ -43,8 +43,8 @@ const Orderpage = () => {
             itemCounts[item.name] = (itemCounts[item.name] || 0) + 1;
           });
           const itemNames = Object.entries(itemCounts)
-            .map(([name, count]) => `${count}x ${name}`)
-            .join(", ");
+          .map(([name, count]) => `${count}x ${name}`)
+          .join("\n");
                     grouped[tableId].push({ id: order.id, text: itemNames });
         });
           const formatted = Object.entries(grouped).map(([table, orders]) => ({
@@ -118,7 +118,11 @@ const Orderpage = () => {
     {table.orders.map((order, orderIndex) => (
       <div key={`${tableIndex}-${orderIndex}`} className="order-box">
   <div className="order-header"> {table.table}</div>
-  <span className="order-text">{order.text}</span>
+  <div className="order-text">
+  {order.text.split("\n").map((line, index) => (
+    <div key={index}>{line}</div>
+  ))}
+</div>
   <button
     className="check-btn"
     onClick={() => handleCheck(tableIndex, orderIndex)}
