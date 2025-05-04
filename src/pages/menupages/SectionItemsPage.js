@@ -6,14 +6,13 @@ import "./SectionItemsPage.css";
 const SectionItemsPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { section, menu, restaurant } = location.state || {};
+  const { section } = location.state || {};
   const [items, setItems] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
   const [uploadingItem, setUploadingItem] = useState(null);
   const fileInputRef = useRef(null);
 
-  // Ny funktion til at hente items
   const fetchItems = async () => {
     if (!section) return;
 
@@ -52,10 +51,7 @@ const SectionItemsPage = () => {
         },
       });
 
-      if (!res.ok) {
-        throw new Error(`Failed to delete item: ${res.status}`);
-      }
-
+      if (!res.ok) throw new Error(`Failed to delete item: ${res.status}`);
       setItems(items.filter((item) => item.id !== id));
     } catch (err) {
       console.error(err);
@@ -71,45 +67,42 @@ const SectionItemsPage = () => {
     }
 
     const token = localStorage.getItem("accessToken");
+
     const payload = {
       name: item.name,
       description: item.description,
       price: parsedPrice,
-      type: item.type,
+      type: item.type, // required for API
       sectionID: section.id,
+      tags: item.tags || [],
     };
 
+    const isEdit = !!item.id;
+    const url = isEdit
+      ? `http://130.225.170.52:10331/api/menuItems/${item.id}/update`
+      : `http://130.225.170.52:10331/api/menuItems/add`;
+
     try {
-      if (item.id) {
-        const res = await fetch(`http://130.225.170.52:10331/api/menuItems/${item.id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          },
-          body: JSON.stringify(payload),
-        });
+      const res = await fetch(url, {
+        method: isEdit ? "PUT" : "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify(payload),
+      });
 
-        const updated = await res.json();
-        setItems(items.map((i) => (i.id === item.id ? updated : i)));
-      } else {
-        const res = await fetch(`http://130.225.170.52:10331/api/menuItems/add`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          },
-          body: JSON.stringify(payload),
-        });
-
-        if (!res.ok) {
-          throw new Error(`Failed to add item: ${res.status}`);
-        }
-
-        // Hent opdateret liste for at få korrekt id, photolink, osv.
-        await fetchItems();
+      const contentType = res.headers.get("content-type");
+      if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(`Save failed: ${res.status} - ${errorText}`);
       }
 
+      const updatedItem = contentType?.includes("application/json")
+        ? await res.json()
+        : null;
+
+      await fetchItems(); // refresh list
       setModalOpen(false);
     } catch (err) {
       console.error(err);
@@ -130,8 +123,8 @@ const SectionItemsPage = () => {
           "Authorization": `Bearer ${accessToken}`
         },
         body: JSON.stringify({
-          "fileName": uploadingItem.name + uploadingItem.id,
-          "itemID": uploadingItem.id
+          fileName: uploadingItem.name + uploadingItem.id,
+          itemID: uploadingItem.id
         }),
       });
 
@@ -148,7 +141,7 @@ const SectionItemsPage = () => {
 
       if (uploadRes.ok) {
         alert("✅ Image uploaded successfully!");
-        await fetchItems(); // Opdater billedlink
+        await fetchItems();
       } else {
         alert("❌ Image upload failed.");
       }
@@ -174,34 +167,32 @@ const SectionItemsPage = () => {
 
         <div className="menu-items">
           {items.length > 0 ? (
-            items.map((item) => {
-              return (
-                <div key={item.id} className="menu-item-container">
-                  <div className="menu-item-content">
-                    <div className="menu-item-details">
-                      <h3>{item.name}</h3>
-                      <p>{item.description}</p>
-                      <p><strong>Price:</strong> {typeof item.price === "number" ? `$${item.price.toFixed(2)}` : "N/A"}</p>
-                      <p><strong>Type:</strong> {item.type}</p>
-                    </div>
+            items.map((item) => (
+              <div key={item.id} className="menu-item-container">
+                <div className="menu-item-content">
+                  <div className="menu-item-details">
+                    <h3>{item.name}</h3>
+                    <p>{item.description}</p>
+                    <p><strong>Price:</strong> ${item.price?.toFixed(2)}</p>
+                    {/* Type is intentionally hidden */}
+                  </div>
 
-                    <div className="menu-actions">
-                      <button className="edit-btn" onClick={() => handleEdit(item)}>Edit</button>
-                      <button className="remove-btn" onClick={() => handleDelete(item.id)}>Delete</button>
-                      <button className="upload-btn" onClick={() => handleImageUploadClick(item)}>Upload Image</button>
-                    </div>
+                  <div className="menu-actions">
+                    <button className="edit-btn" onClick={() => handleEdit(item)}>Edit</button>
+                    <button className="remove-btn" onClick={() => handleDelete(item.id)}>Delete</button>
+                    <button className="upload-btn" onClick={() => handleImageUploadClick(item)}>Upload Image</button>
+                  </div>
 
-                    <div className="menu-item-image">
-                      <img
-                        src={item.photolink}
-                        alt={item.name}
-                        onError={(e) => e.target.style.display = "none"}
-                      />
-                    </div>
+                  <div className="menu-item-image">
+                    <img
+                      src={item.photolink}
+                      alt={item.name}
+                      onError={(e) => e.target.style.display = "none"}
+                    />
                   </div>
                 </div>
-              );
-            })
+              </div>
+            ))
           ) : (
             <p>No items in this section.</p>
           )}
