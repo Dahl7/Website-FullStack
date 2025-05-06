@@ -36,7 +36,7 @@ const PaymentSuccess = () => {
     };
 
     if (sessionId) {
-        intervalId = setInterval(verifyPayment, 1000);
+        intervalId = setInterval(verifyPayment, 1500);
         verifyPayment();
     }
     return () => clearInterval(intervalId);
