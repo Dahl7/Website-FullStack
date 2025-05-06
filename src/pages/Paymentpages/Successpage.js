@@ -10,7 +10,7 @@ const PaymentSuccess = () => {
   useEffect(() => {
     let intervalId;
     let retryCount = 0;
-    const maxRetries = 10;
+    const maxRetries = 20;
     const verifyPayment = async () => {
       try {
         const res = await fetch('http://130.225.170.52:10331/api/orders/paymentStatus', {
