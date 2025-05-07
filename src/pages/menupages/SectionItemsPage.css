@@ -16,11 +16,12 @@
 }
 
 .section-items-page .back-arrow {
-  font-size: 1.8rem;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 24px;
   cursor: pointer;
-  align-self: flex-start;
-  margin-left: 2rem;
-  color: #000;
+  z-index: 1;
 }
 
 .section-items-page .menu-container {

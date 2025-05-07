@@ -11,7 +11,7 @@ const AboutUs = () => {
 
   return (
     <div className="about-container">
-      <button className="back-button" onClick={handleBack}>←</button>
+      <div className="back-arrow" onClick={() => navigate(-1)}>&#8592;</div>
 
 
       <h1 className="about-title">About Us</h1>

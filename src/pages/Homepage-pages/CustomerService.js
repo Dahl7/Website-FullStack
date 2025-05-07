@@ -16,11 +16,7 @@ const CustomerService = () => {
 
   return (
     <div className="customer-service-page">
-      <button className="back-button" onClick={handleBack}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="black" strokeWidth="2" viewBox="0 0 24 24">
-          <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </button>
+      <div className="back-arrow" onClick={() => navigate(-1)}>&#8592;</div>
 
       <div className="customer-service-container">
         <h1>Customer Service</h1>
