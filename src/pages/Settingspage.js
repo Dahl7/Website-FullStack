@@ -99,6 +99,7 @@ const SettingsPage = () => {
           restaurant={restaurants.find(r => r.id === selectedRestaurantId)}
           onSave={async (updatedData) => {
             const accessToken = localStorage.getItem("accessToken");
+            console.log("Sending data:", updatedData);
             const response = await fetch(`http://130.225.170.52:10331/api/${selectedRestaurantId}/update`, {
               method: "PUT",
               headers: {

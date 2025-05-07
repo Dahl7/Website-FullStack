@@ -65,7 +65,6 @@
     color: white;
     padding: 0 10px; /* horizontal only */
     border: none;
-    border-radius: 100px;
     margin-top: 10px;
     cursor: pointer;
     height: 50px;
@@ -77,7 +76,6 @@
   
   .settings-restaurant-btn:hover {
     transform: scale(1.05);
-    border-radius: 100px;  
 }
   
   .settings-restaurant-btn.selected {

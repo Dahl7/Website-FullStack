@@ -14,21 +14,14 @@ const AddRestaurantModal = ({ isOpen, onClose, onSave }) => {
       return;
     }
 
-    const validKey = "sk_test_51RGbAQQXilibX8f86EKIiZAPWD31kXJvmYDonVoDkxX1kwByVQlcei0jeD1dEFxs85UBUZA67oMXzHkzqf3bxFMn00kR4nDMXZ";
-    if (stripeKey !== validKey) {
-      alert("Invalid Stripe key.");
-      return;
-    }
-
-    onSave({
-      name,
-      openingTime: hours.open,
-      closingTime: hours.close,
-      description,
-      stripeKey,
-      totaltables: Number(totalTables),
-    });
-    
+ onSave({
+     name,
+     openingTime: hours.open,
+     closingTime: hours.close,
+     description,
+     stripeKey,
+     totaltables: Number(totalTables),
+   });
 
     onClose();
   };
