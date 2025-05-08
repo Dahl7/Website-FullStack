@@ -173,8 +173,7 @@ const SectionItemsPage = () => {
                   <div className="menu-item-details">
                     <h3>{item.name}</h3>
                     <p>{item.description}</p>
-                    <p><strong>Price:</strong> ${item.price?.toFixed(2)}</p>
-                    {/* Type is intentionally hidden */}
+                    <p><strong>Price:</strong> {item.price?.toFixed(2)} DKK</p>
                   </div>
 
                   <div className="menu-actions">
