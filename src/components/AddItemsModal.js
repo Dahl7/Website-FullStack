@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./AddItemsModal.css";
+import { BASE_URL } from "../config";
+
 
 const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
   const [name, setName] = useState("");
@@ -12,7 +14,7 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
   const dropdownRef = useRef(null);
 
   useEffect(() => {
-    fetch("${BASE_URL}/api/tags/", {
+    fetch(`${BASE_URL}/api/tags/`, {
       headers: { Accept: "application/json" },
     })
       .then((res) => (res.ok ? res.json() : []))
