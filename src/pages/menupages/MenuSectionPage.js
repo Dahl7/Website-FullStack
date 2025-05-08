@@ -70,7 +70,7 @@ const MenuSectionsPage = () => {
       setSections((prev) => [...prev, added]); // Update state directly
 
       // Fetch updated sections
-      await fetch(`${BASE_URL}api/menuSections/menu/${menu.id}`)
+      await fetch(`${BASE_URL}/api/menuSections/menu/${menu.id}`)
         .then((res) => res.json())
         .then((updatedSections) => setSections(updatedSections))
         .catch((err) => console.error("Error fetching updated sections:", err));
