@@ -15,72 +15,61 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
     fetch("http://130.225.170.52:10331/api/tags/", {
       headers: { Accept: "application/json" },
     })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setAvailableTags(data);
-      })
+      .then((res) => (res.ok ? res.json() : []))
+      .then((data) =>
+        setAvailableTags(data.filter((tag) => tag?.tagvalue || tag?.name))
+      )
       .catch((err) => console.error("Failed to load tags:", err));
   }, []);
 
   useEffect(() => {
-    if (isOpen) {
-      if (existingItem) {
-        setName(existingItem.name || "");
-        setDescription(existingItem.description || "");
-        setPrice(existingItem.price || "");
-        setTags((existingItem.tags || []).filter(Boolean));
-      } else {
-        setName("");
-        setDescription("");
-        setPrice("");
-        setTags([]);
-      }
+    if (!isOpen) return;
+
+    if (existingItem) {
+      setName(existingItem.name || "");
+      setDescription(existingItem.description || "");
+      setPrice(existingItem.price || "");
+      setTags(
+        (existingItem.tags || []).filter((tag) => tag?.tagvalue || tag?.name)
+      );
+    } else {
+      setName("");
+      setDescription("");
+      setPrice("");
+      setTags([]);
     }
   }, [isOpen, existingItem]);
 
   useEffect(() => {
-    function handleClickOutside(event) {
+    const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setTagsDropdownOpen(false);
       }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
     };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () =>
+      document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  const handleTagChange = (tag) => {
-    const tagId = tag?.id || tag;
-    if (tags.some((t) => (t?.id || t) === tagId)) {
-      setTags((prev) => prev.filter((t) => (t?.id || t) !== tagId));
-    } else {
-      setTags((prev) => [...prev, tag]);
-    }
-  };
 
   const handleSave = () => {
     if (!name || !description || !price) {
       alert("All fields are required!");
       return;
     }
+
     onSave({
+      id: existingItem?.id,
       name,
       description,
       price: parseFloat(price),
-      tags: tags.filter(Boolean).map((tag) => tag?.id || tag),
+      type: "food", // ✅ hardcoded since type input is removed
+      tags: tags.map((tag) => tag?.id || tag),
     });
+
     onClose();
   };
 
-  if (!isOpen) return null;
-
-  return (
+  return !isOpen ? null : (
     <div className="modal-overlay">
       <div className="modal-container">
         <h2>{existingItem ? "Edit Item" : "Add New Item"}</h2>
@@ -116,31 +105,44 @@ const AddItemModal = ({ isOpen, onClose, onSave, existingItem }) => {
           >
             {tags.length > 0
               ? tags
-                  .filter(Boolean)
-                  .map((tag) => tag?.tagvalue || tag?.name || "Unnamed")
+                  .filter((tag) => tag?.tagvalue || tag?.name)
+                  .map((tag) => tag.tagvalue || tag.name)
                   .join(", ")
               : "Select tags..."}
           </div>
 
           {tagsDropdownOpen && (
             <div className="tags-dropdown-list">
-              {availableTags
-                .filter(Boolean)
-                .map((tag) => (
-                  <div key={tag?.id || tag} className="tag-item">
+              {availableTags.map((tag) => {
+                const tagId = tag?.id || tag;
+                const isSelected = tags.some(
+                  (t) => (t?.id || t) === tagId
+                );
+
+                const handleTagToggle = () => {
+                  const newTags = isSelected
+                    ? tags.filter((t) => (t?.id || t) !== tagId)
+                    : [...tags, tag];
+                  setTags(newTags);
+                  setTagsDropdownOpen(false); // ✅ close after selection
+                };
+
+                return (
+                  <div key={tagId} className="tag-item">
                     <div className="tag-content">
                       <input
                         type="checkbox"
-                        id={`tag-${tag?.id || tag}`}
-                        checked={tags.some((t) => (t?.id || t) === (tag?.id || tag))}
-                        onChange={() => handleTagChange(tag)}
+                        id={`tag-${tagId}`}
+                        checked={isSelected}
+                        onChange={handleTagToggle}
                       />
-                      <label htmlFor={`tag-${tag?.id || tag}`}>
-                        {tag?.tagvalue || tag?.name || "Unnamed"}
+                      <label htmlFor={`tag-${tagId}`}>
+                        {tag.tagvalue || tag.name}
                       </label>
                     </div>
                   </div>
-                ))}
+                );
+              })}
             </div>
           )}
         </div>

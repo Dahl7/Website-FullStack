@@ -37,17 +37,13 @@
   text-decoration: none;
 }
 
-.back-button {
-  position: fixed;
+.back-arrow {
+  position: absolute;
   top: 20px;
   left: 20px;
-  background: none;
-  border: none;
   font-size: 24px;
   cursor: pointer;
-  padding: 5px;
-  color: black;
-  z-index: 1000;
+  z-index: 1;
 }
 
 .back-button:hover {

@@ -51,14 +51,13 @@
   font-size: 16px;
 }
 
-.back-button {
-  position: fixed;
+.back-arrow {
+  position: absolute;
   top: 20px;
   left: 20px;
-  background: none;
-  border: none;
+  font-size: 24px;
   cursor: pointer;
-  z-index: 1000;
+  z-index: 1;
 }
 
 .back-button svg:hover {
