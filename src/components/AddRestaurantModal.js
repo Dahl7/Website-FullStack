@@ -28,7 +28,7 @@ const AddRestaurantModal = ({ isOpen, onClose, onSave }) => {
 
   const generateHourOptions = () => {
     const options = [];
-    for (let h = 6; h < 24; h++) {
+    for (let h = 1; h < 24; h++) {
       for (let m = 0; m < 60; m += 30) {
         const hour = h.toString().padStart(2, '0');
         const minute = m.toString().padStart(2, '0');
