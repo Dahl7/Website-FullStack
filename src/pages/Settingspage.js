@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Settingspage.css";
-import RestaurantEditor from "../components/RestaurantEditor"; 
+import RestaurantEditor from "../components/RestaurantEditor";
+import { BASE_URL } from "../config";
+
 
 
 const SettingsPage = () => {
@@ -11,7 +13,7 @@ const SettingsPage = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetch("http://130.225.170.52:10331/api/restaurants")
+    fetch("${BASE_URL}/api/restaurants")
       .then(response => response.json())
       .then(data => setRestaurants(data))
       .catch(err => console.error("Error fetching restaurants:", err));
@@ -37,7 +39,7 @@ const SettingsPage = () => {
         return;
       }
 
-      const response = await fetch("http://130.225.170.52:10331/api/apiKeys/create", {
+      const response = await fetch("${BASE_URL}/api/apiKeys/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -100,7 +102,7 @@ const SettingsPage = () => {
           onSave={async (updatedData) => {
             const accessToken = localStorage.getItem("accessToken");
             console.log("Sending data:", updatedData);
-            const response = await fetch(`http://130.225.170.52:10331/api/${selectedRestaurantId}/update`, {
+            const response = await fetch(`${BASE_URL}/api/${selectedRestaurantId}/update`, {
               method: "PUT",
               headers: {
                 "Content-Type": "application/json",

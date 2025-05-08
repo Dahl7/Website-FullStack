@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Orderpage.css"; 
+import "./Orderpage.css";
+import { BASE_URL } from "../config";
+
 
 const Orderpage = () => {
   const [tableOrders, setTableOrders] = useState([]);
@@ -15,7 +17,7 @@ const Orderpage = () => {
       }
 
       try {
-        const response = await fetch(`http://130.225.170.52:10331/api/orders/byrestaurant`, {
+        const response = await fetch(`${BASE_URL}/api/orders/byrestaurant`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -77,7 +79,7 @@ const Orderpage = () => {
         const accessToken = localStorage.getItem("apiKey");
 
     try {
-      const response = await fetch(`http://130.225.170.52:10331/api/orders/markComplete/${orderId}/`, {
+      const response = await fetch(`${BASE_URL}/api/orders/markComplete/${orderId}/`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

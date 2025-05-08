@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Loginpage.css';
+import { BASE_URL } from "../config";
+
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -12,7 +14,7 @@ const LoginPage = () => {
     const password = event.target.password.value;
   
     try {
-      const response = await fetch("http://130.225.170.52:10332/api/adminUsers/login", {
+        const response = await fetch(`${BASE_URL}/api/adminUsers/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
