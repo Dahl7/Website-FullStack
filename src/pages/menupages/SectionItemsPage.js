@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import AddItemsModal from "../../components/AddItemsModal";
 import "./SectionItemsPage.css";
+import { BASE_URL } from "../../config";
+
 
 const SectionItemsPage = () => {
   const navigate = useNavigate();
@@ -17,7 +19,7 @@ const SectionItemsPage = () => {
     if (!section) return;
 
     try {
-      const res = await fetch(`http://130.225.170.52:10331/api/menuItems/section/${section.id}`);
+      const res = await fetch(`${BASE_URL}/api/menuItems/section/${section.id}`);
       const data = await res.json();
       setItems(data);
     } catch (err) {

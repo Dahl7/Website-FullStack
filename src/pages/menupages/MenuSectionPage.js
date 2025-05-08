@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./MenuSectionPage.css";
+import { BASE_URL } from "../../config";
+
 
 const MenuSectionsPage = () => {
   const navigate = useNavigate();
@@ -19,7 +21,7 @@ const MenuSectionsPage = () => {
     console.log("Menu object:", menu);
     console.log("Fetching sections for menu ID:", menu.id);
 
-    fetch(`http://130.225.170.52:10331/api/menuSections/menu/${menu.id}`)
+    fetch(`${BASE_URL}/api/menuSections/menu/${menu.id}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error(`Failed to fetch. Status: ${res.status}`);
@@ -77,7 +79,7 @@ const handleRemoveItem = async (sectionID) => {
 
               if (!window.confirm("Are you sure you want to remove this section?")) return;
               try {
-                const response = await fetch(`http://130.225.170.52:10331/api/menuSections/${sectionID}`, {
+                const response = await fetch(`${BASE_URL}/api/menuSections/${sectionID}`, {
                   method: "DELETE",
                   mode: "cors",
                   headers: {
@@ -92,7 +94,7 @@ const handleRemoveItem = async (sectionID) => {
 
                 console.log(`Section with ID ${sectionID} deleted successfully. Fetching updated restaurant list...`);
 
-                fetch(`http://130.225.170.52:10331/api/menuSections/menu/${menu.id}`)
+                fetch(`${BASE_URL}/api/menuSections/menu/${menu.id}`)
                   .then(response => response.json())
                   .then(updatedSections => {
                     console.log(updatedSections);
