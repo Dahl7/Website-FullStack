@@ -53,9 +53,10 @@ const MenuSectionsPage = () => {
     try {
       const response = await fetch("http://130.225.170.52:10331/api/menuSections/add", {
         method: "POST",
-        headers: { "Content-Type": "application/json",
-                   "Authorization": `Bearer ${accessToken}`
-                 },
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${accessToken}`
+        },
         body: JSON.stringify(newSection),
       });
 
@@ -64,12 +65,20 @@ const MenuSectionsPage = () => {
       }
 
       const added = await response.json();
-      setSections((prev) => [...prev, added]);
+      setSections((prev) => [...prev, added]); // Update state directly
+
+      // Fetch updated sections
+      await fetch(`http://130.225.170.52:10331/api/menuSections/menu/${menu.id}`)
+        .then((res) => res.json())
+        .then((updatedSections) => setSections(updatedSections))
+        .catch((err) => console.error("Error fetching updated sections:", err));
+
     } catch (err) {
       console.error("Failed to add section:", err);
       alert("Could not add new section. Try again.");
     }
   };
+
 
 const handleRemoveItem = async (sectionID) => {
 
