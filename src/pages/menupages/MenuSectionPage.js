@@ -53,7 +53,7 @@ const MenuSectionsPage = () => {
     };
 
     try {
-      const response = await fetch("http://130.225.170.52:10331/api/menuSections/add", {
+      const response = await fetch(`${BASE_URL}/api/menuSections/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -70,7 +70,7 @@ const MenuSectionsPage = () => {
       setSections((prev) => [...prev, added]); // Update state directly
 
       // Fetch updated sections
-      await fetch(`http://130.225.170.52:10331/api/menuSections/menu/${menu.id}`)
+      await fetch(`${BASE_URL}api/menuSections/menu/${menu.id}`)
         .then((res) => res.json())
         .then((updatedSections) => setSections(updatedSections))
         .catch((err) => console.error("Error fetching updated sections:", err));
