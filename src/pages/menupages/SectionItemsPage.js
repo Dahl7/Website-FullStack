@@ -200,7 +200,7 @@ const SectionItemsPage = () => {
         </div>
 
         <div className="button-container">
-          <button className="add-btn" onClick={handleAdd}>➕ Add Item</button>
+          <button className="add-btn" onClick={handleAdd}>+ Add Item</button>
         </div>
       </div>
 

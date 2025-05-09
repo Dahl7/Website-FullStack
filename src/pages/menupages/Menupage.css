@@ -25,7 +25,7 @@
 }
 
 .add-btn{
-  background-color: #555;
+  background-color: #594E36;
   color: #fff;
   font-size: 1.2rem;
   font-weight: bold;
@@ -37,6 +37,12 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+.add-btn:hover {
+  transform: scale(1.1);
+  background-color: #6C6951;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
 .menu-container {
