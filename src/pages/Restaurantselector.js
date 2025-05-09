@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AddRestaurantModal from "../components/AddRestaurantModal";
 import "./Restaurantselector.css";
+import "./Homepage.css";
 import { BASE_URL } from "../config";
 
 
@@ -95,7 +96,6 @@ const handleMenuClick = async (restaurant) => {
 
                 console.log(`Restaurant with ID ${restaurantID} deleted successfully. Fetching updated restaurant list...`);
 
-                // Fetch updated list of restaurants
                 fetch(`${BASE_URL}/api/restaurants`)
                   .then(response => response.json())
                   .then(updatedRestaurants => {
@@ -111,12 +111,25 @@ const handleMenuClick = async (restaurant) => {
                 alert("Restaurant has not been deleted, Please try again.");
               }
             };
+
+            const handleLogout = () => {
+              const confirmLogout = window.confirm("Are you sure you want to log out?");
+              if (confirmLogout) {
+              localStorage.removeItem("accessToken");
+              navigate("/login");
+              }
+            };
   
 
     return (
       <div className="menu-page">
         <div className="settings-button" onClick={() => navigate("/settings")}>
           ⚙️
+        </div>
+        <div className="logout-button-wrapper">
+        <div className="logout-btn">
+             <button onClick={handleLogout} className="logout-button">Log out</button>
+        </div>
         </div>
         <div className="menu-wrapper"> 
         <h1>Restaurants</h1>
