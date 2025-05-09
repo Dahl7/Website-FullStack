@@ -17,9 +17,6 @@ const Homepage = () => {
     navigate("/about-us");
   };
 
-  const handleSignUp = () => {
-    console.log("Sign Up button clicked!");
-  };
 
   const handleOrders = () => {
     const apiKey = window.prompt("Please enter your API key:");
@@ -46,7 +43,6 @@ const Homepage = () => {
     <div className="button-container">
         <button onClick={handleCustomerService} className="other-buttons">Customer service</button>
         <button onClick={handleAboutUs} className="other-buttons">About us</button>
-        <button onClick={handleSignUp} className="other-buttons">Sign up</button>
     </div>
 
 

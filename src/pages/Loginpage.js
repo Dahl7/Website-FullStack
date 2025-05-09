@@ -12,7 +12,7 @@ const LoginPage = () => {
     const password = event.target.password.value;
   
     try {
-      const response = await fetch("http://130.225.170.52:10332/api/adminUsers/login", {
+      const response = await fetch("http://130.225.170.52:10331/api/adminUsers/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

@@ -15,12 +15,12 @@ const RestaurantEditor = ({ restaurant, onSave }) => {
     stripeKey: "",
 
   });
-  
+
   useEffect(() => {
     if (!restaurant) return;
-  
+
     console.log("Loaded restaurant:", restaurant);
-  
+
     setForm({
       name: restaurant.name || "",
       description: restaurant.description || "",
@@ -31,10 +31,10 @@ const RestaurantEditor = ({ restaurant, onSave }) => {
       totaltables: restaurant.totaltables ?? "",
       stripeKey: "",
     });
-  
+
     setIsEditing(false);
   }, [restaurant]);
-  
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;

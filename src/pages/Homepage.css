@@ -14,8 +14,8 @@
   padding: 25px 140px;
   font-size: 30px;
   border: none;
-  background-color: #a52a2a;
-  color: white;
+  background-color: #D0DDD7;
+  color: black;
   border-radius: 15px;
   cursor: pointer;
   margin-top: 200px; /* Pushes the button slightly lower */
@@ -24,7 +24,7 @@
 }
 
 .login-button:hover {
-  background-color: #800020;
+  background-color: #BBC6BB;
   transform: scale(1.05); /* Slightly increase size on hover */
 }
 
@@ -42,14 +42,14 @@
       padding: 7px 18px;
       font-size: 10px;
       border: none;
-      background-color: #a52a2a;
-      color: white;
+      background-color: #D0DDD7;
+      color: black;
       border-radius: 5px;
       cursor: pointer;
     }
 
 .other-buttons:hover {
-  background-color: #800020;
+  background-color: #BBC6BB;
   transform: scale(1.05); /* Slightly increase size on hover */
 }
 }
