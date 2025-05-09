@@ -79,11 +79,11 @@
 }
   
   .settings-restaurant-btn.selected {
-    background-color: #6C6951; /* highlight green */
+    background-color: #A5AE9E;
     color: white;
+    border: 2px #6C6951;
     font-weight: bold;
     transform: scale(1.02);
-    box-shadow: 0 0 10px rgba(0, 128, 0, 0.4);
   }
   
   .editor-section {
@@ -149,7 +149,6 @@
     gap: 2rem;
   }
   
-  /* Child columns */
   .settings-left,
   .settings-right {
     flex: 1;
