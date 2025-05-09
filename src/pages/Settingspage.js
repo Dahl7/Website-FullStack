@@ -94,7 +94,6 @@ const SettingsPage = () => {
       </div>
     </div>
 
-    {/* RIGHT SIDE */}
     <div className="settings-right">
       {selectedRestaurantId && (
         <RestaurantEditor
