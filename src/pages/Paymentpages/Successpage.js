@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import './Successpage.css'
+import { BASE_URL } from "../../config";
+
 
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
@@ -13,7 +15,7 @@ const PaymentSuccess = () => {
     const maxRetries = 20;
     const verifyPayment = async () => {
       try {
-        const res = await fetch('http://130.225.170.52:10331/api/orders/paymentStatus', {
+        const res = await fetch(`${BASE_URL}/api/orders/paymentStatus`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ "sessionID": sessionId })

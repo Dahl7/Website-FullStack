@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./Menupage.css";
+import { BASE_URL } from "../../config";
+
 
 const Menupage = () => {
   const navigate = useNavigate();
@@ -20,7 +22,7 @@ const Menupage = () => {
 
     console.log(`Fetching menus for ${restaurant.name}`);
 
-    fetch(`http://130.225.170.52:10331/api/menus/restaurant/${restaurant.id}`)
+    fetch(`${BASE_URL}/api/menus/restaurant/${restaurant.id}`)
       .then((response) => {
         console.log( response);
         if (!response.ok) {
@@ -60,7 +62,7 @@ const handleMenuClick = (menu) => {
     };
   
     try {
-      const response = await fetch("http://130.225.170.52:10331/api/menus/add", {
+      const response = await fetch(`${BASE_URL}/api/menus/add`, {
         method: "POST",
         headers: { "Content-Type": "application/json","Authorization": `Bearer ${accessToken}`
 },
@@ -71,7 +73,7 @@ const handleMenuClick = (menu) => {
   
       const addedMenu = await response.json();
       console.log("Menu added:", addedMenu);
-      fetch(`http://130.225.170.52:10331/api/menus/restaurant/${restaurant.id}`)
+      fetch(`${BASE_URL}/api/menus/restaurant/${restaurant.id}`)
       .then(response => response.json())
       .then(updatedMenus => {
 
@@ -91,7 +93,7 @@ const handleMenuClick = (menu) => {
 
     if (!window.confirm("Are you sure you want to remove this menu?")) return;
     try {
-      const response = await fetch(`http://130.225.170.52:10331/api/menus/${id}`, {
+      const response = await fetch(`${BASE_URL}/api/menus/${id}`, {
         method: "DELETE",
         mode: "cors",
         headers: {
@@ -106,7 +108,7 @@ const handleMenuClick = (menu) => {
       console.log(`Menu with ID ${id} deleted successfully. Fetching updated menu list...`);
   
       // Fetch updated list of menus
-      fetch(`http://130.225.170.52:10331/api/menus/restaurant/${restaurant.id}`)
+      fetch(`${BASE_URL}/api/menus/restaurant/${restaurant.id}`)
         .then(response => response.json())
         .then(updatedMenus => {
           console.log(updatedMenus);

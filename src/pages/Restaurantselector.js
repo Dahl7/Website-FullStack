@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AddRestaurantModal from "../components/AddRestaurantModal";
 import "./Restaurantselector.css";
+import { BASE_URL } from "../config";
+
 
 const RestaurantSelector = () => {
   const navigate = useNavigate();
@@ -12,7 +14,7 @@ const RestaurantSelector = () => {
 
 
   useEffect(() => {
-    fetch("http://130.225.170.52:10331/api/restaurants")
+    fetch(`${BASE_URL}/api/restaurants`)
       .then(response => response.json())
       .then(data => {
         console.log("Fetched restaurants:", data);
@@ -47,7 +49,7 @@ const handleMenuClick = async (restaurant) => {
       };
     
       try {
-        const response = await fetch("http://130.225.170.52:10331/api/restaurant/add", {
+        const response = await fetch(`${BASE_URL}/api/restaurant/add`, {
           method: "POST",
           headers: { 
             "Content-Type": "application/json",
@@ -61,7 +63,7 @@ const handleMenuClick = async (restaurant) => {
         const addedRestaurant = await response.json();
         console.log("Restaurant added:", addedRestaurant);
     
-        const updated = await fetch("http://130.225.170.52:10331/api/restaurants");
+        const updated = await fetch(`${BASE_URL}/api/restaurants`);
         const updatedRestaurants = await updated.json();
         setRestaurants(updatedRestaurants);
         setRestaurantModalOpen(false);
@@ -78,7 +80,7 @@ const handleMenuClick = async (restaurant) => {
 
               if (!window.confirm("Are you sure you want to remove this restaurant?")) return;
               try {
-                const response = await fetch(`http://130.225.170.52:10331/api/restaurants/${restaurantID}`, {
+                const response = await fetch(`${BASE_URL}/api/restaurants/${restaurantID}`, {
                   method: "DELETE",
                   mode: "cors",
                   headers: {
@@ -94,7 +96,7 @@ const handleMenuClick = async (restaurant) => {
                 console.log(`Restaurant with ID ${restaurantID} deleted successfully. Fetching updated restaurant list...`);
 
                 // Fetch updated list of restaurants
-                fetch(`http://130.225.170.52:10331/api/restaurants`)
+                fetch(`${BASE_URL}/api/restaurants`)
                   .then(response => response.json())
                   .then(updatedRestaurants => {
                     console.log(updatedRestaurants);

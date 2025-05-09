@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import AddItemsModal from "../../components/AddItemsModal";
 import "./SectionItemsPage.css";
+import { BASE_URL } from "../../config";
+
 
 const SectionItemsPage = () => {
   const navigate = useNavigate();
@@ -17,7 +19,7 @@ const SectionItemsPage = () => {
     if (!section) return;
 
     try {
-      const res = await fetch(`http://130.225.170.52:10331/api/menuItems/section/${section.id}`);
+      const res = await fetch(`${BASE_URL}/api/menuItems/section/${section.id}`);
       const data = await res.json();
       setItems(data);
     } catch (err) {
@@ -44,7 +46,7 @@ const SectionItemsPage = () => {
     if (!window.confirm("Delete this item?")) return;
     try {
       const token = localStorage.getItem("accessToken");
-      const res = await fetch(`http://130.225.170.52:10331/api/menuItems/${id}`, {
+      const res = await fetch(`${BASE_URL}/api/menuItems/${id}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`
@@ -79,8 +81,8 @@ const SectionItemsPage = () => {
 
     const isEdit = !!item.id;
     const url = isEdit
-      ? `http://130.225.170.52:10331/api/menuItems/${item.id}/update`
-      : `http://130.225.170.52:10331/api/menuItems/add`;
+      ? `${BASE_URL}/api/menuItems/${item.id}/update`
+      : `${BASE_URL}/api/menuItems/add`;
 
     try {
       const res = await fetch(url, {
@@ -116,7 +118,7 @@ const SectionItemsPage = () => {
 
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const res = await fetch("http://130.225.170.52:10331/api/SASURL", {
+      const res = await fetch(`${BASE_URL}/api/SASURL`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
