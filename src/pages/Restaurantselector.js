@@ -116,7 +116,7 @@ const handleMenuClick = async (restaurant) => {
               const confirmLogout = window.confirm("Are you sure you want to log out?");
               if (confirmLogout) {
               localStorage.removeItem("accessToken");
-              navigate("/login");
+              navigate("/");
               }
             };
   
